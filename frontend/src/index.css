@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --primary-color: #d4af37;
+  --secondary-color: #b8972e;
+  --dark-bg: #030b14;
+  --light-bg: #0a1824;
+  --text-main: #ffffff;
+  --text-muted: #a0aab2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-main);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.cinzel-font {
+  font-family: 'Cinzel', serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-padding {
+  padding: 100px 0;
+}
+
+.text-gold {
+  color: var(--primary-color);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #000;
+  border: 1px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-color);
+  color: #000;
+}
+
+.glass-panel {
+  background: rgba(10, 24, 36, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 8px;
+}
+
+/* Navigation Styles */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 94%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.desktop-menu-link {
+  position: relative;
+}
+
+/* Elegant gold underline animation on hover for desktop links */
+.desktop-menu-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.desktop-menu-link:hover::after {
+  width: 100%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  cursor: pointer;
+  z-index: 100;
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.mobile-menu-btn:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background-color: rgba(3, 11, 20, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(212, 175, 55, 0.15);
+  z-index: 90;
+  padding: 8rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+}
+
+.mobile-drawer-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-main);
+  padding: 12px 0;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.mobile-drawer-link:hover, 
+.mobile-drawer-link.active {
+  color: var(--primary-color);
+  padding-left: 8px;
+  border-bottom-color: var(--primary-color);
+}
+
+/* Media Queries for Navbar Responsiveness */
+@media (max-width: 1350px) {
+  .desktop-menu {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .desktop-menu {
+    gap: 1rem;
+  }
+  .desktop-menu-link {
+    font-size: 0.65rem !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .desktop-menu {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text h1 {
+    font-size: 1.2rem !important;
+  }
+  .logo-text span {
+    font-size: 0.65rem !important;
+    letter-spacing: 1px !important;
+  }
+  .logo-img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .mobile-drawer {
+    width: 100vw;
+  }
+}
