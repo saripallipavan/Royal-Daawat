@@ -47,7 +47,12 @@ app.use('/notifications', notificationRoutes);
 app.get('/health', (req, res) => {
   res.json({ message: 'Royal Daawat API is running successfully.' });
 });
-
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Royal Daawat Backend Running Successfully 🚀"
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
