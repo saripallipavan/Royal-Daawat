@@ -122,7 +122,7 @@ const Contact = () => {
             </div>
 
             <div style={{ display: 'flex', gap: '20px' }}>
-              <Link to="/reservation" className="btn btn-primary" style={{ flex: 1, textAlign: 'center' }}>Book Now</Link>
+              <Link to="/book-table" className="btn btn-primary" style={{ flex: 1, textAlign: 'center' }}>Book Now</Link>
               <Link to="/menu" className="btn btn-secondary" style={{ flex: 1, textAlign: 'center' }}>View Menu</Link>
             </div>
           </div>
