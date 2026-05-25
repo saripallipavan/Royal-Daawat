@@ -16,6 +16,8 @@ import settingsRoutes from './routes/settingsRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import connectDB from './config/db.js';
 import { rateLimiter, mongoSanitize, xssProtection } from './middleware/security.js';
+import User from './models/User.js';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -25,7 +27,29 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-connectDB();
+const seedAdminUser = async () => {
+  try {
+    const adminCount = await User.countDocuments({ role: 'Admin' });
+    if (adminCount === 0) {
+      console.log('No admin accounts found in database. Auto-seeding default admin...');
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash('admin123', salt);
+      await User.create({
+        name: 'Admin Owner',
+        email: 'admin@royaldaawat.com',
+        password: hashedPassword,
+        role: 'Admin'
+      });
+      console.log('Default admin account seeded successfully: admin@royaldaawat.com / admin123');
+    }
+  } catch (err) {
+    console.error('Failed to auto-seed default admin user:', err);
+  }
+};
+
+connectDB().then(() => {
+  seedAdminUser();
+});
 
 app.use(cors());
 app.use(rateLimiter);
