@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { postContact, getSettings } from '../services/api';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import MapWrapper from '../components/MapWrapper';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +65,7 @@ const Contact = () => {
     <motion.div 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
-      style={{ backgroundColor: '#020508', minHeight: '100vh', paddingTop: '120px', paddingBottom: '80px' }}
+      style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh', paddingTop: '150px', paddingBottom: '80px' }}
     >
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
@@ -73,7 +74,7 @@ const Contact = () => {
           <p style={{ color: 'var(--text-muted)' }}>WE WOULD LOVE TO HEAR FROM YOU</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px' }}>
+        <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px' }}>
           {/* Contact Info */}
           <div>
             <div style={{ marginBottom: '3rem' }}>
@@ -188,14 +189,7 @@ const Contact = () => {
 
         {/* Map */}
         <div style={{ marginTop: '5rem', height: '450px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
-          <iframe 
-            src={settings.googleMapsUrl} 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            loading="lazy" 
-          ></iframe>
+          <MapWrapper googleMapsUrl={settings.googleMapsUrl} height="100%" />
         </div>
       </div>
     </motion.div>

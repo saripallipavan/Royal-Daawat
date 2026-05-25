@@ -15,6 +15,7 @@ import bookingRoutes from './routes/bookingRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import connectDB from './config/db.js';
+import { rateLimiter, mongoSanitize, xssProtection } from './middleware/security.js';
 
 dotenv.config();
 
@@ -27,6 +28,9 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(cors());
+app.use(rateLimiter);
+app.use(mongoSanitize);
+app.use(xssProtection);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu as MenuIcon, X, ChevronRight, Phone, Clock, MapPin } from 'lucide-react';
 import { useContext } from 'react';
 
@@ -10,6 +10,7 @@ import dish1 from './assets/dish1.jpg';
 import dish2 from './assets/dish2.jpg';
 import dish3 from './assets/dish3.jpg';
 import { getMenu, getSettings } from './services/api';
+import MapWrapper from './components/MapWrapper';
 
 // Shared Animations
 const fadeInUp = {
@@ -99,7 +100,6 @@ const Navigation = () => {
             { name: 'DINE-IN MENU', path: '/menu' },
             { name: 'BOOK A TABLE', path: '/book-table' },
             { name: 'GIFT CARD', path: '/gift-card' },
-            { name: 'GALLERY', path: '/gallery' },
             { name: 'MEDIA', path: '/media' },
             { name: 'TERMS & CONDITIONS', path: '/terms' },
             { name: 'CONTACT US', path: '/contact' }
@@ -146,7 +146,6 @@ const Navigation = () => {
               { name: 'DINE-IN MENU', path: '/menu' },
               { name: 'BOOK A TABLE', path: '/book-table' },
               { name: 'GIFT CARD', path: '/gift-card' },
-              { name: 'GALLERY', path: '/gallery' },
               { name: 'MEDIA', path: '/media' },
               { name: 'TERMS & CONDITIONS', path: '/terms' },
               { name: 'CONTACT US', path: '/contact' }
@@ -215,45 +214,35 @@ const Footer = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         
         {/* Column 1: Opening Hours */}
-        <div style={{ flex: '1 1 300px', backgroundColor: '#081c15', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center' }}>
-          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: '#eaddcf' }}>Opening Hours</h3>
+        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--dark-bg)', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center', borderRight: '1px solid rgba(212, 175, 55, 0.05)' }}>
+          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings.openingHours}</p>
-          <Link to="/contact" className="btn" style={{ backgroundColor: '#eaddcf', color: '#081c15', border: '1px solid #eaddcf' }}>Book Now</Link>
+          <Link to="/contact" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
         </div>
 
         {/* Column 2: Contact Us */}
-        <div style={{ flex: '1 1 300px', backgroundColor: '#eaddcf', color: '#1b1b1b', padding: '5rem 2rem', textAlign: 'center' }}>
-          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem' }}>Contact Us</h3>
+        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--light-bg)', color: '#ffffff', padding: '5rem 2rem', textAlign: 'center', borderRight: '1px solid rgba(212, 175, 55, 0.05)' }}>
+          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Contact Us</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 600 }}>Phone: {settings.phoneNumber}</p>
           <a href="mailto:info@royaldaawat.co.uk" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '3rem', textDecoration: 'underline', color: 'inherit' }}>info@royaldaawat.co.uk</a>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6 }}>{settings.address}</p>
-          <Link to="/menu" className="btn" style={{ backgroundColor: '#081c15', color: '#eaddcf', border: '1px solid #081c15' }}>Dine-in Menu</Link>
+          <Link to="/menu" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Dine-in Menu</Link>
         </div>
 
         {/* Column 3: Social Links */}
-        <div style={{ flex: '1 1 300px', backgroundColor: '#081c15', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center' }}>
-          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: '#eaddcf' }}>Follow Us</h3>
+        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--dark-bg)', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center' }}>
+          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Follow Us</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6, padding: '0 1rem' }}>
             Stay updated with our latest offers and news by following us on social media.
           </p>
-          <Link to="/gallery" className="btn" style={{ backgroundColor: '#eaddcf', color: '#081c15', border: '1px solid #eaddcf' }}>View Gallery</Link>
+          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book A Table</Link>
         </div>
 
       </div>
 
       {/* Map Area */}
       {settings.googleMapsUrl && (
-        <div style={{ width: '100%', height: '350px', backgroundColor: '#e5e3df', position: 'relative' }}>
-          <iframe 
-            src={settings.googleMapsUrl} 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+        <MapWrapper googleMapsUrl={settings.googleMapsUrl} height="350px" />
       )}
       
       <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#04100c', color: '#fff', fontSize: '0.9rem' }}>
@@ -324,22 +313,82 @@ import {
   ContactPreview 
 } from './components/HomeSections';
 
-const HomePage = () => {
+// About Us Section (specifically for Homepage on mobile)
+const AboutUsSection = () => {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section style={{
+    <section className="about-us-homepage-section" style={{
+      backgroundColor: 'var(--light-bg)',
+      padding: '80px 0',
+      borderBottom: '1px solid rgba(212, 175, 55, 0.1)'
+    }}>
+      <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
+        <h2 className="cinzel-font text-gold" style={{ fontSize: '2.2rem', marginBottom: '1.5rem' }}>About Us</h2>
+        <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '0 auto 1.5rem' }}></div>
+        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '2.5rem' }}>
+          At Royal Daawat, we bring you an authentic taste of India, blending the rich culinary heritage of the subcontinent with a royal dining experience. Our mission is to take your taste buds on a flavorful journey through the diverse regions of India, offering a vibrant menu that showcases traditional recipes, bold spices, and time-honored cooking techniques.
+        </p>
+        <Link to="/about" className="btn btn-secondary" style={{ fontSize: '0.8rem', padding: '10px 25px' }}>Read Our Story</Link>
+      </div>
+    </section>
+  );
+};
+
+// Home Page
+const HomePage = () => {
+  const { scrollY } = useScroll();
+  const yBg = useTransform(scrollY, [0, 800], [0, 200]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
+      exit={{ opacity: 0 }} 
+      className="homepage-sections-container"
+    >
+      <section className="hero-section" style={{
         height: '100vh', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center',
         textAlign: 'center', overflow: 'hidden', isolation: 'isolate'
       }}>
+        {/* Parallax Background Container */}
         <motion.div 
-          animate={{ scale: [1, 1.15, 1] }}
-          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-          style={{
-            position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%',
-            backgroundImage: `url(${heroBg})`, backgroundColor: '#111', backgroundSize: 'cover', backgroundPosition: 'center',
-            filter: 'brightness(0.6)', zIndex: -1
-          }} 
-        />
+          style={{ 
+            y: yBg,
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '120%', zIndex: -1
+          }}
+        >
+          {/* Luxury Royal Background */}
+          <div className="hero-luxury-bg">
+            <div className="hero-glow-light-1" />
+            <div className="hero-glow-light-2" />
+            <div className="hero-shimmer" />
+            <div className="hero-gold-line hero-gold-line-1" />
+            <div className="hero-gold-line hero-gold-line-2" />
+            
+            <div className="particles-container">
+              {[...Array(15)].map((_, i) => {
+                const size = (i % 3) * 1.5 + 2;
+                const left = (i * 7) % 100;
+                const delay = (i * 1.3) % 10;
+                const duration = ((i * 2.7) % 8) + 12;
+                const xDistance = (((i * 31) % 160) - 80) + 'px';
+                return (
+                  <div
+                    key={i}
+                    className="gold-particle"
+                    style={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                      left: `${left}%`,
+                      animationDelay: `${delay}s`,
+                      animationDuration: `${duration}s`,
+                      '--x-distance': xDistance
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
         
         <motion.div className="container" variants={staggerContainer} initial="hidden" animate="visible" style={{ zIndex: 10 }}>
           <motion.h1 variants={fadeInUp} className="cinzel-font text-gold" style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
@@ -348,18 +397,28 @@ const HomePage = () => {
           <motion.p variants={fadeInUp} style={{ fontSize: '1.2rem', letterSpacing: '4px', margin: '1.5rem 0 3.5rem', color: '#fff' }}>
             AUTHENTIC INDIAN CUISINE IN WALTON
           </motion.p>
-          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-            <Link to="/menu" className="btn btn-primary">View Menu</Link>
+          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
+            <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
           </motion.div>
         </motion.div>
       </section>
+
+      {/* RENDERED ON MOBILE IN POSITION 3, HIDDEN ON DESKTOP */}
+      <AboutUsSection />
 
       {/* NEW SECTIONS */}
       <SignatureDishes />
       <WhyChooseUs />
       <ChefRecommendations />
-      <SpecialOffers />
-      <GalleryPreview images={[dish1, dish2, dish3, "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=800", dish2]} />
+      <GalleryPreview images={[
+        "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800"
+      ]} />
       <Testimonials />
       <Experience />
       <ContactPreview />
@@ -372,7 +431,7 @@ const AboutPage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section style={{ backgroundColor: '#020508', minHeight: '100vh' }}>
+      <section style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh' }}>
         <div style={{ width: '100%', height: '400px', backgroundImage: `url(${dish1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}></div>
         
         <div className="container section-padding" style={{ maxWidth: '900px', textAlign: 'center' }}>
@@ -394,9 +453,42 @@ const AboutPage = () => {
 
 
 
+// NotFound Page Component
+const NotFoundPage = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0 }}
+      style={{
+        backgroundColor: 'var(--dark-bg)',
+        minHeight: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '100px 20px',
+        color: '#fff'
+      }}
+    >
+      <div style={{ maxWidth: '600px' }}>
+        <h1 className="cinzel-font text-gold" style={{ fontSize: '6rem', margin: 0, lineHeight: 1 }}>404</h1>
+        <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '20px auto' }}></div>
+        <h2 className="cinzel-font" style={{ fontSize: '2rem', marginBottom: '20px' }}>Feast Not Found</h2>
+        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.1rem', marginBottom: '40px' }}>
+          The page you are looking for has vanished like tandoor smoke. Let us guide you back to our main table.
+        </p>
+        <Link to="/" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', borderRadius: '30px', padding: '12px 35px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block' }}>
+          Return to Home
+        </Link>
+      </div>
+    </motion.div>
+  );
+};
+
 // --- PAGES ---
 import Menu from './pages/Menu';
-import Gallery from './pages/Gallery';
 import Media from './pages/Media';
 import Terms from './pages/Terms';
 import Contact from './pages/Contact';
@@ -407,37 +499,45 @@ import AdminDashboard from './pages/AdminDashboard';
 
 import OfferPopup from './components/OfferPopup';
 
-// Main App Router
-function App() {
-  return (
-    <Router>
-      <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Navigation />
-        
-        <main style={{ flex: 1 }}>
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/media" element={<Media />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/gift-card" element={<GiftCard />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/book-table" element={<BookTable />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-          </AnimatePresence>
-        </main>
+// Main App Router Content
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login');
 
-        <Footer />
-        <OfferPopup />
-      </div>
-    </Router>
+  return (
+    <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {!isAdminRoute && <Navigation />}
+      
+      <main style={{ flex: 1 }}>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/media" element={<Media />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/gift-card" element={<GiftCard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/book-table" element={<BookTable />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </AnimatePresence>
+      </main>
+
+      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <OfferPopup />}
+    </div>
   );
 }
 
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
 
 export default App;

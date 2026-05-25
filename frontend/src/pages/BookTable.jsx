@@ -101,7 +101,7 @@ const BookTable = () => {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section className="section-padding" style={{ backgroundColor: '#020508', minHeight: '100vh', paddingTop: '150px' }}>
+      <section className="section-padding" style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh', paddingTop: '150px' }}>
         <div className="container" style={{ maxWidth: '800px', display: 'flex', justifyContent: 'center' }}>
           
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', width: '100%', maxWidth: '700px', borderRadius: '15px', border: '1px solid rgba(212, 175, 55, 0.1)', overflow: 'hidden' }}>
@@ -123,16 +123,16 @@ const BookTable = () => {
               {success && <div style={{ backgroundColor: 'rgba(46, 204, 113, 0.1)', borderLeft: '4px solid #2ecc71', color: '#2ecc71', padding: '15px', borderRadius: '4px', marginBottom: '25px', fontSize: '0.95rem' }}>Your reservation has been created successfully! We will contact you shortly to confirm.</div>}
 
               <form onSubmit={handleSubmit}>
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Site<span style={asteriskStyle}>*</span></label>
-                  <select name="site" value={formData.site} onChange={handleChange} style={inputStyle}>
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Site<span style={asteriskStyle}>*</span></label>
+                  <select className="reservation-input" name="site" value={formData.site} onChange={handleChange} style={inputStyle}>
                     <option value="Royal Daawat" style={{ backgroundColor: '#050a0f' }}>Royal Daawat</option>
                   </select>
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Guests<span style={asteriskStyle}>*</span></label>
-                  <select name="guestCount" value={formData.guestCount} onChange={handleChange} required style={inputStyle}>
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Guests<span style={asteriskStyle}>*</span></label>
+                  <select className="reservation-input" name="guestCount" value={formData.guestCount} onChange={handleChange} required style={inputStyle}>
                     <option value="" style={{ backgroundColor: '#050a0f' }}>Please Select...</option>
                     {[...Array(20).keys()].map(i => (
                       <option key={i+1} value={i+1} style={{ backgroundColor: '#050a0f' }}>{i+1}</option>
@@ -140,14 +140,14 @@ const BookTable = () => {
                   </select>
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Date<span style={asteriskStyle}>*</span></label>
-                  <input type="date" name="bookingDate" value={formData.bookingDate} onChange={handleChange} min={today} required style={{...inputStyle, colorScheme: 'dark'}} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Date<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="date" name="bookingDate" value={formData.bookingDate} onChange={handleChange} min={today} required style={{...inputStyle, colorScheme: 'dark'}} />
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Duration<span style={asteriskStyle}>*</span></label>
-                  <select name="duration" value={formData.duration} onChange={handleChange} required style={inputStyle}>
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Duration<span style={asteriskStyle}>*</span></label>
+                  <select className="reservation-input" name="duration" value={formData.duration} onChange={handleChange} required style={inputStyle}>
                     <option value="01:00" style={{ backgroundColor: '#050a0f' }}>01:00</option>
                     <option value="01:30" style={{ backgroundColor: '#050a0f' }}>01:30</option>
                     <option value="02:00" style={{ backgroundColor: '#050a0f' }}>02:00</option>
@@ -156,14 +156,14 @@ const BookTable = () => {
                   </select>
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Time<span style={asteriskStyle}>*</span></label>
-                  <input type="time" name="bookingTime" value={formData.bookingTime} onChange={handleChange} required style={{...inputStyle, colorScheme: 'dark'}} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Time<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="time" name="bookingTime" value={formData.bookingTime} onChange={handleChange} required style={{...inputStyle, colorScheme: 'dark'}} />
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Title<span style={asteriskStyle}>*</span></label>
-                  <select name="title" value={formData.title} onChange={handleChange} required style={{ ...inputStyle, flex: 'none', width: '150px' }}>
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Title<span style={asteriskStyle}>*</span></label>
+                  <select className="reservation-input" name="title" value={formData.title} onChange={handleChange} required style={{ ...inputStyle, flex: 'none', width: '150px' }}>
                     <option value="Mr." style={{ backgroundColor: '#050a0f' }}>Mr.</option>
                     <option value="Mrs." style={{ backgroundColor: '#050a0f' }}>Mrs.</option>
                     <option value="Miss" style={{ backgroundColor: '#050a0f' }}>Miss</option>
@@ -172,29 +172,29 @@ const BookTable = () => {
                   </select>
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>First name<span style={asteriskStyle}>*</span></label>
-                  <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required style={inputStyle} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>First name<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="text" name="firstName" value={formData.firstName} onChange={handleChange} required style={inputStyle} />
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Surname<span style={asteriskStyle}>*</span></label>
-                  <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required style={inputStyle} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Surname<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="text" name="lastName" value={formData.lastName} onChange={handleChange} required style={inputStyle} />
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Email<span style={asteriskStyle}>*</span></label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} required style={inputStyle} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Email<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="email" name="email" value={formData.email} onChange={handleChange} required style={inputStyle} />
                 </div>
 
-                <div style={rowStyle}>
-                  <label style={labelStyle}>Telephone<span style={asteriskStyle}>*</span></label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required style={inputStyle} />
+                <div className="reservation-row" style={rowStyle}>
+                  <label className="reservation-label" style={labelStyle}>Telephone<span style={asteriskStyle}>*</span></label>
+                  <input className="reservation-input" type="tel" name="phone" value={formData.phone} onChange={handleChange} required style={inputStyle} />
                 </div>
 
-                <div style={{ ...rowStyle, alignItems: 'flex-start' }}>
-                  <label style={{ ...labelStyle, marginTop: '12px' }}>Notes</label>
-                  <textarea name="specialRequest" value={formData.specialRequest} onChange={handleChange} rows="3" style={inputStyle}></textarea>
+                <div className="reservation-row" style={{ ...rowStyle, alignItems: 'flex-start' }}>
+                  <label className="reservation-label" style={{ ...labelStyle, marginTop: '12px' }}>Notes</label>
+                  <textarea className="reservation-input" name="specialRequest" value={formData.specialRequest} onChange={handleChange} rows="3" style={inputStyle}></textarea>
                 </div>
 
                 <div style={{ textAlign: 'center', marginTop: '40px' }}>

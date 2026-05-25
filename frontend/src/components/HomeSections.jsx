@@ -18,15 +18,15 @@ const staggerContainer = {
 export const SignatureDishes = () => {
   const dishes = [
     { name: "Butter Chicken", price: "£14.95", desc: "Tender chicken in a rich, creamy tomato gravy.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800" },
-    { name: "Hyderabadi Biryani", price: "£16.95", desc: "Fragrant basmati rice layered with spiced meat.", img: "https://images.unsplash.com/photo-1563379091339-03b21bc4a4f8?auto=format&fit=crop&q=80&w=800" },
-    { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1567184109411-47a7a3928500?auto=format&fit=crop&q=80&w=800" },
+    { name: "Hyderabadi Biryani", price: "£16.95", desc: "Fragrant basmati rice layered with spiced meat.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=800" },
+    { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800" },
     { name: "Tandoori Chicken", price: "£13.95", desc: "Classic roasted chicken with smoky tandoor flavor.", img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&q=80&w=800" },
     { name: "Assorted Kebabs", price: "£15.95", desc: "A selection of our finest minced meat kebabs.", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&q=80&w=800" },
     { name: "Royal Dessert", price: "£7.95", desc: "Traditional sweet dumplings in sugar syrup.", img: "https://images.unsplash.com/photo-1589119908995-c6837fa14848?auto=format&fit=crop&q=80&w=800" }
   ];
 
   return (
-    <section style={{ backgroundColor: '#020508', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <motion.h2 initial="hidden" whileInView="visible" variants={fadeInUp} viewport={{ once: true }} className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Signature Dishes</motion.h2>
@@ -42,6 +42,7 @@ export const SignatureDishes = () => {
               variants={fadeInUp}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
+              className="signature-dish-card"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderRadius: '15px',
@@ -50,7 +51,7 @@ export const SignatureDishes = () => {
                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }}
             >
-              <div style={{ height: '250px', overflow: 'hidden' }}>
+              <div className="signature-dish-img-container" style={{ height: '250px', overflow: 'hidden' }}>
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
@@ -64,7 +65,7 @@ export const SignatureDishes = () => {
                   />
                 </motion.div>
               </div>
-              <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <div className="signature-dish-content" style={{ padding: '1.5rem', textAlign: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginBottom: '0.5rem', color: 'var(--primary-color)' }}>
                   {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="var(--primary-color)" />)}
                 </div>
@@ -83,18 +84,12 @@ export const SignatureDishes = () => {
 // 2) GALLERY PREVIEW SECTION
 export const GalleryPreview = ({ images }) => {
   return (
-    <section style={{ backgroundColor: '#050a0f', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-bg)', padding: '60px 0' }}>
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Our Gallery</h2>
-          <p style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>A VISUAL JOURNEY OF TASTE</p>
-        </div>
-
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '15px',
-          marginBottom: '3rem'
+          gap: '15px'
         }}>
           {images.map((img, i) => (
             <motion.div
@@ -116,10 +111,6 @@ export const GalleryPreview = ({ images }) => {
             </motion.div>
           ))}
         </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <Link to="/gallery" className="btn btn-secondary">VIEW ALL IMAGES</Link>
-        </div>
       </div>
     </section>
   );
@@ -128,22 +119,21 @@ export const GalleryPreview = ({ images }) => {
 // 3) WHY CHOOSE US SECTION
 export const WhyChooseUs = () => {
   const reasons = [
-    { icon: <ShieldCheck size={40} />, title: "Fresh Ingredients", desc: "Sourced daily for maximum flavor." },
     { icon: <Gem size={40} />, title: "Premium Quality", desc: "Authentic spices and top-tier meats." },
     { icon: <ChefHat size={40} />, title: "Master Chefs", desc: "Expertise in traditional Indian cuisine." },
     { icon: <Zap size={40} />, title: "Fast Service", desc: "Hot food delivered right to your table." },
-    { icon: <Gem size={40} />, title: "Luxury Dining", desc: "Elegant ambiance for special moments." },
-    { icon: <Heart size={40} />, title: "Best Experience", desc: "Hospitality that makes you feel like royalty." }
+    { icon: <Gem size={40} />, title: "Luxury Dining", desc: "Elegant ambiance for special moments." }
   ];
 
   return (
-    <section style={{ backgroundColor: '#020508', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
+        <div className="why-choose-us-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
           {reasons.map((item, i) => (
             <motion.div
               key={i}
               whileHover={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--primary-color)' }}
+              className="why-choose-us-card"
               style={{
                 padding: '3rem 2rem',
                 backgroundColor: 'rgba(255,255,255,0.02)',
@@ -199,7 +189,7 @@ export const SpecialOffers = () => {
   }, []);
 
   return (
-    <section style={{ backgroundColor: '#050a0f', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Today's Special Offers</h2>
@@ -208,7 +198,7 @@ export const SpecialOffers = () => {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}>
           {offers.map((offer, i) => (
-            <div key={i} style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', height: '450px' }}>
+            <div key={i} className="special-offer-card" style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', height: '450px' }}>
               <ImageWithFallback src={offer.img} alt={offer.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.6)' }}></div>
               <div style={{ position: 'absolute', top: '20px', right: '20px', backgroundColor: 'var(--primary-color)', color: '#000', padding: '5px 15px', borderRadius: '5px', fontWeight: 'bold' }}>{offer.badge}</div>
@@ -233,7 +223,7 @@ export const ChefRecommendations = () => {
   ];
 
   return (
-    <section style={{ backgroundColor: '#020508', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Chef's Recommendations</h2>
@@ -245,12 +235,13 @@ export const ChefRecommendations = () => {
             <motion.div 
               key={i} 
               whileHover={{ scale: 1.02 }}
+              className="chef-rec-card"
               style={{ flex: '1 1 500px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '25px', overflow: 'hidden', display: 'flex', flexDirection: i % 2 === 0 ? 'row' : 'row-reverse', flexWrap: 'wrap' }}
             >
-              <div style={{ flex: '1 1 300px', height: '400px' }}>
+              <div className="chef-rec-img-container" style={{ flex: '1 1 300px', height: '400px' }}>
                 <ImageWithFallback src={rec.img} alt={rec.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
               </div>
-              <div style={{ flex: '1 1 300px', padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="chef-rec-content" style={{ flex: '1 1 300px', padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>{rec.name}</h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2rem' }}>{rec.desc}</p>
                 <Link to="/menu" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 'bold', letterSpacing: '2px' }}>DISCOVER MORE →</Link>
@@ -272,7 +263,7 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section style={{ backgroundColor: '#050a0f', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>What Our Guests Say</h2>
@@ -287,6 +278,7 @@ export const Testimonials = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
+              className="testimonial-card"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 padding: '3rem',
@@ -350,7 +342,7 @@ export const Experience = () => {
 // 8) CONTACT PREVIEW SECTION
 export const ContactPreview = () => {
   return (
-    <section style={{ backgroundColor: '#020508', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
           

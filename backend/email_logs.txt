@@ -1,0 +1,48 @@
+
+========================================
+[EMAIL SENT AT: 2026-05-20T05:40:41.627Z]
+TO: admin@admin.com
+SUBJECT: Welcome to Royal Daawat
+BODY:
+Dear Admin,
+
+Welcome to Royal Daawat! We are delighted to have you as part of our culinary family.
+
+Savor the authentic flavours of India and explore our menu or book a table with us anytime.
+
+Warm regards,
+Royal Daawat
+========================================
+
+
+========================================
+[EMAIL SENT AT: 2026-05-20T05:40:55.281Z]
+TO: owner@admin.com
+SUBJECT: Welcome to Royal Daawat
+BODY:
+Dear Owner,
+
+Welcome to Royal Daawat! We are delighted to have you as part of our culinary family.
+
+Savor the authentic flavours of India and explore our menu or book a table with us anytime.
+
+Warm regards,
+Royal Daawat
+========================================
+
+
+========================================
+[EMAIL SENT AT: 2026-05-25T05:50:39.125Z]
+TO: SARIPALLI@GMAIL.COM
+SUBJECT: We received your booking request
+BODY:
+Dear Mr. pAVAN SARIPALLI,
+
+We have received your booking request for 2 guest(s) on 2026-05-26 at 01:03.
+
+Our team is reviewing your request and we will send you a confirmation shortly.
+
+Warm regards,
+Royal Daawat
+========================================
+

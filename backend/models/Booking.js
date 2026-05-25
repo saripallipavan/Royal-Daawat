@@ -15,6 +15,8 @@ const bookingSchema = mongoose.Schema({
   status: { type: String, enum: ['Pending', 'Approved', 'Rejected', 'Rescheduled'], default: 'Pending' }
 }, { timestamps: true });
 
+bookingSchema.index({ bookingDate: 1, bookingTime: 1 });
+
 const Booking = mongoose.model('Booking', bookingSchema);
 
 export default Booking;
