@@ -392,7 +392,7 @@ const HomePage = () => {
         
         <motion.div className="container" variants={staggerContainer} initial="hidden" animate="visible" style={{ zIndex: 10 }}>
           <motion.h1 variants={fadeInUp} className="cinzel-font text-gold" style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-            Taste the Royalty
+            Welcome to the Royal Daawat
           </motion.h1>
           <motion.p variants={fadeInUp} style={{ fontSize: '1.2rem', letterSpacing: '4px', margin: '1.5rem 0 3.5rem', color: '#fff' }}>
             AUTHENTIC INDIAN CUISINE IN WALTON
