@@ -236,7 +236,7 @@ const GiftCard = () => {
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                backgroundColor: 'var(--secondary-bg, #0F3D2A)',
+                backgroundColor: 'var(--secondary-bg, #15191E)',
                 borderRadius: '20px',
                 border: '1px solid var(--primary-color)',
                 width: '100%',
@@ -267,7 +267,7 @@ const GiftCard = () => {
                   width: '100%',
                   aspectRatio: '1.58 / 1',
                   maxWidth: '340px',
-                  background: 'linear-gradient(135deg, #0B2E1F 0%, #0F3D2A 100%)',
+                  background: 'linear-gradient(135deg, #0B0E11 0%, #15191E 100%)',
                   borderRadius: '15px',
                   border: '2px solid var(--primary-color)',
                   boxShadow: '0 10px 25px rgba(0,0,0,0.5)',

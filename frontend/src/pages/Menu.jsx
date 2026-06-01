@@ -805,7 +805,7 @@ const Menu = () => {
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                backgroundColor: '#0F3D2A',
+                backgroundColor: '#15191E',
                 padding: '2.5rem',
                 borderRadius: '16px',
                 border: '1px solid var(--primary-color)',
