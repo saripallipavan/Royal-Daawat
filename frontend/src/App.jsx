@@ -333,10 +333,25 @@ const AboutUsSection = () => {
   );
 };
 
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=1600"
+];
+
 // Home Page
 const HomePage = () => {
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 800], [0, 200]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <motion.div 
@@ -357,42 +372,39 @@ const HomePage = () => {
           }}
         >
           {/* Luxury Royal Background */}
-          <div className="hero-luxury-bg">
+          <div className="hero-luxury-bg" style={{ backgroundImage: 'none' }}>
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.8, ease: "easeInOut" }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: `linear-gradient(135deg, rgba(5, 22, 14, 0.93) 0%, rgba(11, 46, 31, 0.9) 45%, rgba(15, 61, 42, 0.88) 75%, rgba(7, 31, 20, 0.93) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  zIndex: -3
+                }}
+              />
+            </AnimatePresence>
+
             <div className="hero-glow-light-1" />
             <div className="hero-glow-light-2" />
             <div className="hero-shimmer" />
             <div className="hero-gold-line hero-gold-line-1" />
             <div className="hero-gold-line hero-gold-line-2" />
-            
-            <div className="particles-container">
-              {[...Array(15)].map((_, i) => {
-                const size = (i % 3) * 1.5 + 2;
-                const left = (i * 7) % 100;
-                const delay = (i * 1.3) % 10;
-                const duration = ((i * 2.7) % 8) + 12;
-                const xDistance = (((i * 31) % 160) - 80) + 'px';
-                return (
-                  <div
-                    key={i}
-                    className="gold-particle"
-                    style={{
-                      width: `${size}px`,
-                      height: `${size}px`,
-                      left: `${left}%`,
-                      animationDelay: `${delay}s`,
-                      animationDuration: `${duration}s`,
-                      '--x-distance': xDistance
-                    }}
-                  />
-                );
-              })}
-            </div>
           </div>
         </motion.div>
         
         <motion.div className="container" variants={staggerContainer} initial="hidden" animate="visible" style={{ zIndex: 10 }}>
           <motion.h1 variants={fadeInUp} className="cinzel-font text-gold" style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-            Welcome to the Royal Daawat
+            Welcome to Royal Daawat
           </motion.h1>
           <motion.p variants={fadeInUp} style={{ fontSize: '1.2rem', letterSpacing: '4px', margin: '1.5rem 0 3.5rem', color: '#fff' }}>
             AUTHENTIC INDIAN CUISINE IN WALTON
