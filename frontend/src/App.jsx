@@ -441,6 +441,22 @@ const HomePage = () => {
 // About Page
 const AboutPage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <section style={{ 
@@ -494,13 +510,118 @@ const AboutPage = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Image */}
+          {/* Right Column: Image Slider */}
           <div style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            minHeight: '400px'
+            position: 'relative',
+            minHeight: '500px',
+            overflow: 'hidden',
+            backgroundColor: '#000'
           }}>
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8 }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: `url(${slides[currentSlide]})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              />
+            </AnimatePresence>
+
+            {/* Left Control Arrow */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '20px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0, 0, 0, 0.4)',
+                border: 'none',
+                color: '#fff',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10,
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212, 175, 55, 0.8)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.4)'}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </button>
+
+            {/* Right Control Arrow */}
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '20px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0, 0, 0, 0.4)',
+                border: 'none',
+                color: '#fff',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10,
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212, 175, 55, 0.8)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.4)'}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+
+            {/* Dots Indicator */}
+            <div style={{
+              position: 'absolute',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '8px',
+              zIndex: 10
+            }}>
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  style={{
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    border: 'none',
+                    backgroundColor: currentSlide === idx ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.5)',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'all 0.3s ease'
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
