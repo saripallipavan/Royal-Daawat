@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { createBooking } from '../services/api';
-import { Calendar } from 'lucide-react';
+import { createBooking, getSettings } from '../services/api';
+import { Calendar, Phone } from 'lucide-react';
 
 const BookTable = () => {
   const [formData, setFormData] = useState({
@@ -21,9 +21,56 @@ const BookTable = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [showWhatsAppFallback, setShowWhatsAppFallback] = useState(false);
+  const [settings, setSettings] = useState({
+    phoneNumber: '+01425 476563',
+    openingHours: 'Monday – Sunday: 5 PM – 11 PM'
+  });
 
   // Get today's date in YYYY-MM-DD format for min attribute
   const today = new Date().toISOString().split('T')[0];
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { data } = await getSettings();
+        if (data) {
+          setSettings(prev => ({
+            ...prev,
+            phoneNumber: data.phoneNumber || prev.phoneNumber,
+            openingHours: data.openingHours || prev.openingHours
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to load settings in BookTable:", err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  const handleWhatsAppFallback = () => {
+    const message = encodeURIComponent(
+      `*New Table Reservation Request - Royal Daawat*\n\n` +
+      `- *Name:* ${formData.title} ${formData.firstName} ${formData.lastName}\n` +
+      `- *Guests:* ${formData.guestCount}\n` +
+      `- *Date:* ${formData.bookingDate}\n` +
+      `- *Time:* ${formData.bookingTime}\n` +
+      `- *Duration:* ${formData.duration}\n` +
+      `- *Phone:* ${formData.phone}\n` +
+      `- *Email:* ${formData.email}\n` +
+      (formData.specialRequest ? `- *Notes:* ${formData.specialRequest}\n` : '') +
+      `\nPlease confirm my reservation. Thank you!`
+    );
+
+    const rawPhone = settings.phoneNumber || '+441425476563';
+    let cleanedPhone = rawPhone.replace(/\s+/g, '').replace(/\+/g, '');
+    if (cleanedPhone.startsWith('0') && cleanedPhone.length === 11) {
+      cleanedPhone = '44' + cleanedPhone.slice(1);
+    }
+
+    const whatsappUrl = `https://wa.me/${cleanedPhone}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +81,7 @@ const BookTable = () => {
     e.preventDefault();
     setError(null);
     setSuccess(false);
+    setShowWhatsAppFallback(false);
 
     // Validation
     if (!formData.guestCount || !formData.bookingDate || !formData.bookingTime || !formData.title || !formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
@@ -63,6 +111,7 @@ const BookTable = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to submit booking request. Please try again.');
+      setShowWhatsAppFallback(true);
     } finally {
       setLoading(false);
     }
@@ -119,7 +168,24 @@ const BookTable = () => {
                 <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold' }}>View our opening times</span>
               </div>
 
-              {error && <div style={{ backgroundColor: 'rgba(231, 76, 60, 0.1)', borderLeft: '4px solid #e74c3c', color: '#e74c3c', padding: '15px', borderRadius: '4px', marginBottom: '25px', fontSize: '0.95rem' }}>{error}</div>}
+              {error && (
+                <div style={{ backgroundColor: 'rgba(231, 76, 60, 0.1)', borderLeft: '4px solid #e74c3c', color: '#e74c3c', padding: '15px', borderRadius: '4px', marginBottom: '25px', fontSize: '0.95rem' }}>
+                  <p style={{ margin: '0 0 10px 0', fontWeight: 'bold' }}>{error}</p>
+                  {showWhatsAppFallback && (
+                    <div style={{ borderTop: '1px solid rgba(231, 76, 60, 0.2)', paddingTop: '10px', marginTop: '10px' }}>
+                      <p style={{ margin: '0 0 10px 0', color: '#fff', fontSize: '0.9rem' }}>You can instantly send your reservation details to us directly via WhatsApp instead:</p>
+                      <button 
+                        type="button" 
+                        onClick={handleWhatsAppFallback}
+                        className="btn"
+                        style={{ backgroundColor: '#25D366', color: '#fff', padding: '10px 20px', fontSize: '0.9rem', borderRadius: '30px', fontWeight: 'bold', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                      >
+                        Book via WhatsApp
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
               {success && <div style={{ backgroundColor: 'rgba(46, 204, 113, 0.1)', borderLeft: '4px solid #2ecc71', color: '#2ecc71', padding: '15px', borderRadius: '4px', marginBottom: '25px', fontSize: '0.95rem' }}>Your reservation has been created successfully! We will contact you shortly to confirm.</div>}
 
               <form onSubmit={handleSubmit}>

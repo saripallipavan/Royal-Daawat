@@ -392,7 +392,7 @@ const HomePage = () => {
           }}
         >
           {/* Luxury Royal Background */}
-          <div className="hero-luxury-bg" style={{ backgroundImage: 'none' }}>
+          <div className="hero-luxury-bg" style={{ background: 'none' }}>
             <AnimatePresence initial={false}>
               <motion.div
                 key={currentImageIndex}
@@ -406,10 +406,10 @@ const HomePage = () => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  backgroundImage: `linear-gradient(135deg, rgba(5, 22, 14, 0.93) 0%, rgba(11, 46, 31, 0.9) 45%, rgba(15, 61, 42, 0.88) 75%, rgba(7, 31, 20, 0.93) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
+                  backgroundImage: `linear-gradient(135deg, rgba(5, 22, 14, 0.6) 0%, rgba(11, 46, 31, 0.5) 45%, rgba(15, 61, 42, 0.5) 75%, rgba(7, 31, 20, 0.6) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  zIndex: -3
+                  zIndex: -1
                 }}
               />
             </AnimatePresence>
