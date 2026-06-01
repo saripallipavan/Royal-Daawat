@@ -334,9 +334,9 @@ const AboutUsSection = () => {
 };
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1600",
-  "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1600",
-  "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1585938338392-50a59970d8ee?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=1600",
+  "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1600",
   "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=1600"
 ];
 
@@ -414,6 +414,30 @@ const HomePage = () => {
             <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
           </motion.div>
         </motion.div>
+
+        {/* Left Control Arrow */}
+        <button
+          onClick={() => setCurrentImageIndex((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+          className="hero-control-btn"
+          style={{ left: '30px' }}
+          aria-label="Previous Slide"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+        </button>
+
+        {/* Right Control Arrow */}
+        <button
+          onClick={() => setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length)}
+          className="hero-control-btn"
+          style={{ right: '30px' }}
+          aria-label="Next Slide"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </button>
       </section>
 
       {/* RENDERED ON MOBILE IN POSITION 3, HIDDEN ON DESKTOP */}
