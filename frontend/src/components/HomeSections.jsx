@@ -126,7 +126,7 @@ export const WhyChooseUs = () => {
   ];
 
   return (
-    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
       <div className="container">
         <div className="why-choose-us-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
           {reasons.map((item, i) => (
@@ -136,16 +136,16 @@ export const WhyChooseUs = () => {
               className="why-choose-us-card"
               style={{
                 padding: '3rem 2rem',
-                backgroundColor: 'rgba(255,255,255,0.02)',
+                backgroundColor: 'rgba(0,0,0,0.03)',
                 borderRadius: '20px',
-                border: '1px solid rgba(212, 175, 55, 0.1)',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
                 textAlign: 'center',
                 transition: 'all 0.3s ease'
               }}
             >
               <div style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
-              <h3 className="cinzel-font" style={{ color: '#fff', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>{item.desc}</p>
+              <h3 className="cinzel-font" style={{ color: 'var(--dark-charcoal-text)', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
+              <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.6' }}>{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -263,11 +263,11 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section style={{ backgroundColor: 'var(--light-bg)', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>What Our Guests Say</h2>
-          <p style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>REAL EXPERIENCES FROM OUR VALUED CUSTOMERS</p>
+          <h2 className="cinzel-font" style={{ fontSize: '3rem', marginBottom: '1rem', color: 'var(--dark-charcoal-text)' }}>What Our Guests Say</h2>
+          <p style={{ color: 'var(--muted-charcoal-text)', letterSpacing: '2px' }}>REAL EXPERIENCES FROM OUR VALUED CUSTOMERS</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
@@ -280,10 +280,10 @@ export const Testimonials = () => {
               viewport={{ once: true }}
               className="testimonial-card"
               style={{
-                backgroundColor: 'rgba(255,255,255,0.03)',
+                backgroundColor: 'rgba(0,0,0,0.03)',
                 padding: '3rem',
                 borderRadius: '20px',
-                border: '1px solid rgba(212, 175, 55, 0.1)',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
                 textAlign: 'center'
               }}
             >
@@ -293,8 +293,8 @@ export const Testimonials = () => {
               <div style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>
                 {[...Array(5)].map((_, idx) => <Star key={idx} size={16} fill={idx < rev.rating ? "var(--primary-color)" : "transparent"} />)}
               </div>
-              <p style={{ color: '#fff', fontStyle: 'italic', marginBottom: '2rem', lineHeight: '1.6' }}>"{rev.text}"</p>
-              <h4 className="cinzel-font text-gold" style={{ fontSize: '1.1rem' }}>{rev.name}</h4>
+              <p style={{ color: 'var(--dark-charcoal-text)', fontStyle: 'italic', marginBottom: '2rem', lineHeight: '1.6' }}>"{rev.text}"</p>
+              <h4 className="cinzel-font" style={{ fontSize: '1.1rem', color: 'var(--dark-charcoal-text)' }}>{rev.name}</h4>
             </motion.div>
           ))}
         </div>
@@ -342,14 +342,14 @@ export const Experience = () => {
 // 8) CONTACT PREVIEW SECTION
 export const ContactPreview = () => {
   return (
-    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
           
           <div style={{ textAlign: 'center' }}>
             <Clock color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginBottom: '1.2rem' }}>Opening Hours</h3>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
+            <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Opening Hours</h3>
+            <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
               Monday – Sunday<br />
               05:00 PM – 11:00 PM
             </p>
@@ -357,24 +357,24 @@ export const ContactPreview = () => {
 
           <div style={{ textAlign: 'center' }}>
             <Phone color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginBottom: '1.2rem' }}>Phone</h3>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
+            <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Phone</h3>
+            <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
               +01425 476563
             </p>
           </div>
 
           <div style={{ textAlign: 'center' }}>
             <Mail color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginBottom: '1.2rem' }}>Email</h3>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
+            <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Email</h3>
+            <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
               info@royaldaawat.co.uk
             </p>
           </div>
 
           <div style={{ textAlign: 'center' }}>
             <MapPin color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
-            <h3 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginBottom: '1.2rem' }}>Address</h3>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
+            <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Address</h3>
+            <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
               14 Market Pl,<br />
               Ringwood BH24 1AW
             </p>

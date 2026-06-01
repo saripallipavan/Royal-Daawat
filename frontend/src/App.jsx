@@ -317,17 +317,17 @@ import {
 const AboutUsSection = () => {
   return (
     <section className="about-us-homepage-section" style={{
-      backgroundColor: 'var(--light-bg)',
+      backgroundColor: 'var(--light-linen-bg)',
       padding: '80px 0',
-      borderBottom: '1px solid rgba(212, 175, 55, 0.1)'
+      borderBottom: '1px solid rgba(0, 0, 0, 0.08)'
     }}>
       <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
-        <h2 className="cinzel-font text-gold" style={{ fontSize: '2.2rem', marginBottom: '1.5rem' }}>About Us</h2>
+        <h2 className="cinzel-font" style={{ fontSize: '2.2rem', marginBottom: '1.5rem', color: 'var(--dark-charcoal-text)' }}>About Us</h2>
         <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '0 auto 1.5rem' }}></div>
-        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '2.5rem' }}>
+        <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '2.5rem' }}>
           At Royal Daawat, we bring you an authentic taste of India, blending the rich culinary heritage of the subcontinent with a royal dining experience. Our mission is to take your taste buds on a flavorful journey through the diverse regions of India, offering a vibrant menu that showcases traditional recipes, bold spices, and time-honored cooking techniques.
         </p>
-        <Link to="/about" className="btn btn-secondary" style={{ fontSize: '0.8rem', padding: '10px 25px' }}>Read Our Story</Link>
+        <Link to="/about" className="btn btn-secondary" style={{ fontSize: '0.8rem', padding: '10px 25px', color: 'var(--dark-charcoal-text)', borderColor: 'var(--primary-color)', border: '1px solid var(--primary-color)', borderRadius: '30px' }}>Read Our Story</Link>
       </div>
     </section>
   );
@@ -443,20 +443,65 @@ const AboutPage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh' }}>
-        <div style={{ width: '100%', height: '400px', backgroundImage: `url(${dish1})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}></div>
-        
-        <div className="container section-padding" style={{ maxWidth: '900px', textAlign: 'center' }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <h2 className="cinzel-font text-main" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: '#fff' }}>Royal Daawat - Flavours of India!</h2>
-            
-            <div style={{ color: 'var(--text-muted)', lineHeight: 2, fontSize: '1.05rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
-              <p>At Royal Daawat, we bring you an authentic taste of India, blending the rich culinary heritage of the subcontinent with a royal dining experience. Our mission is to take your taste buds on a flavorful journey through the diverse regions of India, offering a vibrant menu that showcases traditional recipes, bold spices, and time-honored cooking techniques.</p>
-              <p>From the aromatic curries of the North to the spicy delights of the South, the tangy flavors of the West, and the delicate coastal dishes of the East, every plate at Royal Daawat is a celebration of India's culinary diversity. We use only the freshest ingredients and a blend of handpicked spices to create dishes that are rich in flavor and full of authenticity.</p>
-              <p>Whether you're savoring our signature biryanis, indulging in our succulent tandoori kebabs, or enjoying our wide array of vegetarian and vegan specialties, each bite is designed to delight. Our chefs, with years of experience and a passion for Indian cuisine, ensure that every dish not only tastes exceptional but also tells a story of India's vibrant food culture.</p>
-              <p>Step into Royal Daawat and experience the true Flavours of India—a place where every meal is a royal feast.</p>
-            </div>
-          </motion.div>
+      <section style={{ 
+        backgroundColor: 'var(--light-linen-bg)', 
+        minHeight: '100vh',
+        paddingTop: '90px',
+        display: 'flex',
+        alignItems: 'stretch'
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          width: '100%',
+          minHeight: 'calc(100vh - 90px)'
+        }}>
+          {/* Left Column: Text Content */}
+          <div style={{
+            padding: 'clamp(2rem, 5vw, 5rem)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            backgroundColor: 'var(--light-linen-bg)',
+            color: 'var(--dark-charcoal-text)'
+          }}>
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="cinzel-font" style={{ 
+                fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                marginBottom: '2rem', 
+                color: 'var(--dark-charcoal-text)',
+                lineHeight: 1.3
+              }}>
+                Welcome to Royal Daawat - Flavours of India!
+              </h2>
+              
+              <div style={{ 
+                color: 'var(--muted-charcoal-text)', 
+                lineHeight: '1.9', 
+                fontSize: '1.05rem', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '1.5rem'
+              }}>
+                <p>Discover the magic of Indian cuisine at Royal Daawat, where every meal is crafted to offer you an unforgettable dining experience. Step into a world of rich aromas, vibrant colours, and flavours that transport you straight to the heart of India. Our menu is a curated selection of India's most beloved dishes, each prepared with love, authenticity, and a touch of royal flair.</p>
+                <p>Whether you're here for a casual meal, a special celebration, or simply to explore the diverse tastes of India, Royal Daawat promises a dining experience like no other. From our warm hospitality to our exquisite dishes, every detail is thoughtfully designed to make you feel like a guest of honour.</p>
+                <p>Join us and indulge in the Flavours of India—because at Royal Daawat, every meal is a royal celebration.</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Image */}
+          <div style={{
+            backgroundImage: `url(https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            minHeight: '400px'
+          }}>
+          </div>
         </div>
       </section>
     </motion.div>
