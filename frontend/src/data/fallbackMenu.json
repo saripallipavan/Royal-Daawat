@@ -1,0 +1,2054 @@
+[
+  {
+    "id": "6a0c49744fa654bd4d8148cc",
+    "name": "SEAFOODS PLATTER (for two)",
+    "price": 21,
+    "desc": "Tiger prawn, seabass, white fish and calamari",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148cd",
+    "name": "SIZZLING PLATTER (for two)",
+    "price": 18,
+    "desc": "Chicken tikka, lamb tikka, sheek kebab, paneer tikka",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ce",
+    "name": "FRESH WATER KING PRAWN",
+    "price": 12,
+    "desc": "Dusted with garlic and cilantro, then barbequed to finish",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148cf",
+    "name": "SPICY LAMB CHOPS STARTER",
+    "price": 10,
+    "desc": "2 pieces spicy lamb chops",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d0",
+    "name": "MIX KEBAB",
+    "price": 9,
+    "desc": "Chicken tikka, shami kebab and onion bhaji served with petit salad",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d1",
+    "name": "GARLIC BUTTER TIGER PRAWN",
+    "price": 9,
+    "desc": "Tiger prawn cooked in garlic and butter served with puri bread",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d2",
+    "name": "DUCK TIKKA STARTER",
+    "price": 7,
+    "desc": "Marinated duck cubes served with salad",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d3",
+    "name": "KALAMARI",
+    "price": 7,
+    "desc": "Bengal spiced squid with tomato chilli jam",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d4",
+    "name": "MIX TIKKA",
+    "price": 7,
+    "desc": "Marinated chicken tikka, duck tikka and homemade paneer tikka served with mix salad",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d5",
+    "name": "PRAWN PURI",
+    "price": 8,
+    "desc": "Prawn cooked with spices tomato and fenugreek leaves",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d6",
+    "name": "CHICKEN TIKKA CHAT PURI",
+    "price": 7,
+    "desc": "Chicken tikka cooked with spices, tomato and fenugreek leaves",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d7",
+    "name": "AMCHUR WRAP",
+    "price": 7,
+    "desc": "Chicken tikka cooked with a tangy amchur and green mango wrapped up in a puri bread",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d8",
+    "name": "SWEET CHILLI WRAP",
+    "price": 7,
+    "desc": "Chicken cooked with sweet chilli sauce wrapped up with a puri bread",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148d9",
+    "name": "SAG ROLL",
+    "price": 6,
+    "desc": "Spinach and potatoes coated with cheese and serve with a special sauce",
+    "category": "Starters",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148da",
+    "name": "CHICKEN TIKKA STARTER",
+    "price": 6,
+    "desc": "Marinated chicken cubes served with salad",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148db",
+    "name": "ONION BHAJI",
+    "price": 6,
+    "desc": "Slice onion mixed with herbs, spices, garam flour served with mint yoghurt sauce",
+    "category": "Starters",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148dc",
+    "name": "MIX SAMOSA",
+    "price": 6,
+    "desc": "Chicken, lamb and vegetable crispy pastry",
+    "category": "Starters",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148dd",
+    "name": "JAHANGIRI JINGA",
+    "price": 17,
+    "desc": "Marinated king prawns, cooked with green and red pepper and chef special spices",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148de",
+    "name": "LAMB SHANK ROGAN",
+    "price": 18,
+    "desc": "Lamb shank cooked with aromatic tomato sauce and spiced",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148df",
+    "name": "LAMB SHANK DELIGHT",
+    "price": 18,
+    "desc": "Cooked with onions, peppers and chilli, served on sizzler",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e0",
+    "name": "KING PRAWN SAG",
+    "price": 17,
+    "desc": "King prawn cooked with fenugreek leaves, mixed spices and spinach",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e1",
+    "name": "FILLET OF SEABASS",
+    "price": 18,
+    "desc": "Seabass spinach & potatoes with mango garlic sauce",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e2",
+    "name": "SPICY TIGER KING PRAWNS",
+    "price": 16,
+    "desc": "A blend of spice with hint of tamarind, chilli, fresh coriander, garlic and ginger. Popular in Chittagong, Bangladesh.",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e3",
+    "name": "CHICKEN MOCHA",
+    "price": 15,
+    "desc": "Medium to mild dish beautifully balanced with a spicy layer on the bottom, and mild sweet creamy layer on top",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e4",
+    "name": "GUNPOWDER CHICKEN",
+    "price": 15,
+    "desc": "Chicken tikka cooked with red/green peppers onion, dried chilli and a special grind of spices",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e5",
+    "name": "NAGA SUBWALI (Madras Hot)",
+    "price": 15,
+    "desc": "Marinated chicken cooked with mixed herbs and naga chilli",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e6",
+    "name": "TAWHI DE CHICKEN",
+    "price": 15,
+    "desc": "Chicken tikka cooked with special herbs and sweet chilli dressing (medium)",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e7",
+    "name": "MADHURI CHICKEN",
+    "price": 15,
+    "desc": "Chicken cooked with garlic, ginger and mixed spices (spicy and madras hot)",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e8",
+    "name": "RAILWAY CHICKEN",
+    "price": 15,
+    "desc": "Medium hot cooked chicken with prune fruit in thick sauce, served in 1st class train compartment style",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148e9",
+    "name": "RAILWAY LAMB",
+    "price": 16,
+    "desc": "Medium hot cooked lamb with prune fruit in thick sauce, served in 1st class train compartment style",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ea",
+    "name": "RAJASTHAN ROYAL LAMB",
+    "price": 16,
+    "desc": "Succulent Lamb, Panch Puran (Indian five spice), rich tomato and cream sauce (madras hot)",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148eb",
+    "name": "BADAMI CHICKEN",
+    "price": 15,
+    "desc": "Chicken tikka cooked with pistachio almond, yoghurt & cashew nuts (mild)",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ec",
+    "name": "SATRAKI CHICKEN",
+    "price": 15,
+    "desc": "Chicken tikka cooked with green and red pepper, fresh tomato and thick sauce, garnished with fresh mushroom",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ed",
+    "name": "SATRAKI LAMB",
+    "price": 16,
+    "desc": "Lamb tikka cooked with green and red pepper, fresh tomato and thick sauce, garnished with fresh mushroom",
+    "category": "House Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ee",
+    "name": "MIXED SHASHLICK",
+    "price": 16,
+    "desc": "Boneless chicken breast, marinated lamb with capsicum tomatoes, onion cooked on skewers in tandoori",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ef",
+    "name": "CHICKEN SHASHLICK",
+    "price": 14,
+    "desc": "Boneless chicken breast with capsicum, tomatoes, onion cooked on skewers in tandoori",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f0",
+    "name": "LAMB SHASHLICK",
+    "price": 15,
+    "desc": "Marinated lamb with capsicum, tomatoes, onion cooked on skewers in tandoori",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f1",
+    "name": "CHEF'S SPECIAL GRILL",
+    "price": 17,
+    "desc": "Chicken tikka, lamb tikka, sheik kebab, king prawn, potato and aubergine crisp",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f2",
+    "name": "TANDOORI MIXED GRILL",
+    "price": 17,
+    "desc": "Chicken tikka, lamb tikka, sheik kebab and tandoori chicken served with fresh salad",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f3",
+    "name": "SWEET CHILLI CHICKEN SHASHLICK",
+    "price": 16,
+    "desc": "Chicken marinated in spices, sweet chilli, served with mushrooms",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f4",
+    "name": "CHICKEN TIKKA MAIN",
+    "price": 13,
+    "desc": "Chicken marinated in yogurt and clay oven grilled served with salad",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f5",
+    "name": "SPICY LAMB CHOPS MAIN",
+    "price": 16,
+    "desc": "Spicy marinated lamb chops clay oven grilled and served with salad",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f6",
+    "name": "MALAI TIKKA",
+    "price": 14,
+    "desc": "Tender chicken pieces with cheese",
+    "category": "Tandoori Specials",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f7",
+    "name": "CHICKEN BIRYANI",
+    "price": 15,
+    "desc": "Cooked with basmati rice, a special blend of spices, served with vegetable curry sauce",
+    "category": "Biryani Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f8",
+    "name": "LAMB BIRYANI",
+    "price": 16,
+    "desc": "Cooked with basmati rice, a special blend of spices, served with vegetable curry sauce",
+    "category": "Biryani Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148f9",
+    "name": "CHICKEN TIKKA BIRYANI",
+    "price": 17,
+    "desc": "Cooked with basmati rice, a special blend of spices, served with vegetable curry sauce",
+    "category": "Biryani Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148fa",
+    "name": "LAMB TIKKA BIRYANI",
+    "price": 18,
+    "desc": "Cooked with basmati rice, a special blend of spices, served with vegetable curry sauce",
+    "category": "Biryani Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148fb",
+    "name": "Chicken CLASSIC KORMA",
+    "price": 12,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148fc",
+    "name": "Lamb CLASSIC KORMA",
+    "price": 14,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148fd",
+    "name": "Prawn CLASSIC KORMA",
+    "price": 14,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148fe",
+    "name": "King Prawn CLASSIC KORMA",
+    "price": 16,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d8148ff",
+    "name": "Duck CLASSIC KORMA",
+    "price": 15,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814900",
+    "name": "Paneer CLASSIC KORMA",
+    "price": 12,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814901",
+    "name": "Vegetable CLASSIC KORMA",
+    "price": 10,
+    "desc": "Cooked in aromatic coconut and almond sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814902",
+    "name": "Chicken KARAHI",
+    "price": 12,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814903",
+    "name": "Lamb KARAHI",
+    "price": 14,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814904",
+    "name": "Prawn KARAHI",
+    "price": 14,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814905",
+    "name": "King Prawn KARAHI",
+    "price": 16,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814906",
+    "name": "Duck KARAHI",
+    "price": 15,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814907",
+    "name": "Paneer KARAHI",
+    "price": 12,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814908",
+    "name": "Vegetable KARAHI",
+    "price": 10,
+    "desc": "Cooked with spices, tomatoes and peppers, served in Indian oak style",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814909",
+    "name": "Chicken GARLIC CHILLI",
+    "price": 12,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490a",
+    "name": "Lamb GARLIC CHILLI",
+    "price": 14,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490b",
+    "name": "Prawn GARLIC CHILLI",
+    "price": 14,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490c",
+    "name": "King Prawn GARLIC CHILLI",
+    "price": 16,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490d",
+    "name": "Duck GARLIC CHILLI",
+    "price": 15,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490e",
+    "name": "Paneer GARLIC CHILLI",
+    "price": 12,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81490f",
+    "name": "Vegetable GARLIC CHILLI",
+    "price": 10,
+    "desc": "Cooked with garlic, ginger and green chillies, garnished with tomatoes",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814910",
+    "name": "Chicken JALFREZI",
+    "price": 12,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814911",
+    "name": "Lamb JALFREZI",
+    "price": 14,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814912",
+    "name": "Prawn JALFREZI",
+    "price": 14,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814913",
+    "name": "King Prawn JALFREZI",
+    "price": 16,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814914",
+    "name": "Duck JALFREZI",
+    "price": 15,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814915",
+    "name": "Paneer JALFREZI",
+    "price": 12,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814916",
+    "name": "Vegetable JALFREZI",
+    "price": 10,
+    "desc": "Cooked with vegetables, ginger, peppers, tomatoes, onions, green chillies and spices (fairly hot)",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814917",
+    "name": "Chicken BALTI",
+    "price": 12,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814918",
+    "name": "Lamb BALTI",
+    "price": 14,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814919",
+    "name": "Prawn BALTI",
+    "price": 14,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491a",
+    "name": "King Prawn BALTI",
+    "price": 16,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491b",
+    "name": "Duck BALTI",
+    "price": 15,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491c",
+    "name": "Paneer BALTI",
+    "price": 12,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491d",
+    "name": "Vegetable BALTI",
+    "price": 10,
+    "desc": "Special Indian pot dish cooked with mixed spices",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491e",
+    "name": "Chicken JAIPURI STYLE",
+    "price": 12,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81491f",
+    "name": "Lamb JAIPURI STYLE",
+    "price": 14,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814920",
+    "name": "Prawn JAIPURI STYLE",
+    "price": 14,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814921",
+    "name": "King Prawn JAIPURI STYLE",
+    "price": 16,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814922",
+    "name": "Duck JAIPURI STYLE",
+    "price": 15,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814923",
+    "name": "Paneer JAIPURI STYLE",
+    "price": 12,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814924",
+    "name": "Vegetable JAIPURI STYLE",
+    "price": 10,
+    "desc": "Medium spiced cooked with fresh crispy okra",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814925",
+    "name": "Chicken TIKKA MASALA",
+    "price": 12,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814926",
+    "name": "Lamb TIKKA MASALA",
+    "price": 14,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814927",
+    "name": "Prawn TIKKA MASALA",
+    "price": 14,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814928",
+    "name": "King Prawn TIKKA MASALA",
+    "price": 16,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814929",
+    "name": "Duck TIKKA MASALA",
+    "price": 15,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492a",
+    "name": "Paneer TIKKA MASALA",
+    "price": 12,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492b",
+    "name": "Vegetable TIKKA MASALA",
+    "price": 10,
+    "desc": "Tikka cooked in our homemade masala sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492c",
+    "name": "Chicken BENGALI CHILLI",
+    "price": 12,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492d",
+    "name": "Lamb BENGALI CHILLI",
+    "price": 14,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492e",
+    "name": "Prawn BENGALI CHILLI",
+    "price": 14,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81492f",
+    "name": "King Prawn BENGALI CHILLI",
+    "price": 16,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814930",
+    "name": "Duck BENGALI CHILLI",
+    "price": 15,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814931",
+    "name": "Paneer BENGALI CHILLI",
+    "price": 12,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814932",
+    "name": "Vegetable BENGALI CHILLI",
+    "price": 10,
+    "desc": "Cooked with five different chillies, spices and herbs (vindaloo hot)",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814933",
+    "name": "Chicken TAWA",
+    "price": 12,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814934",
+    "name": "Lamb TAWA",
+    "price": 14,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814935",
+    "name": "Prawn TAWA",
+    "price": 14,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814936",
+    "name": "King Prawn TAWA",
+    "price": 16,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814937",
+    "name": "Duck TAWA",
+    "price": 15,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814938",
+    "name": "Paneer TAWA",
+    "price": 12,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814939",
+    "name": "Vegetable TAWA",
+    "price": 10,
+    "desc": "Cooked in mild green peppers and onions, garnished with cheese",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493a",
+    "name": "Chicken SPECIAL CHANA",
+    "price": 12,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493b",
+    "name": "Lamb SPECIAL CHANA",
+    "price": 14,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493c",
+    "name": "Prawn SPECIAL CHANA",
+    "price": 14,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493d",
+    "name": "King Prawn SPECIAL CHANA",
+    "price": 16,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493e",
+    "name": "Duck SPECIAL CHANA",
+    "price": 15,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81493f",
+    "name": "Paneer SPECIAL CHANA",
+    "price": 12,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814940",
+    "name": "Vegetable SPECIAL CHANA",
+    "price": 10,
+    "desc": "Cooked with chickpeas, tomato, onion, garlic and medium spicy thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814941",
+    "name": "Chicken SATKORA",
+    "price": 12,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814942",
+    "name": "Lamb SATKORA",
+    "price": 14,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814943",
+    "name": "Prawn SATKORA",
+    "price": 14,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814944",
+    "name": "King Prawn SATKORA",
+    "price": 16,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d814945",
+    "name": "Duck SATKORA",
+    "price": 15,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814946",
+    "name": "Paneer SATKORA",
+    "price": 12,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814947",
+    "name": "Vegetable SATKORA",
+    "price": 10,
+    "desc": "Cooked in medium Bangladeshi spices with exotic Bangladeshi fruit known as satkora",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814948",
+    "name": "CHOM CHOM CHICKEN",
+    "price": 12,
+    "desc": "Chicken tikka cooked with almond, nut and mango (mild)",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814949",
+    "name": "ALOO PANEER",
+    "price": 12,
+    "desc": "Cooked with potatoes, mixed spices and cheese",
+    "category": "Curries",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494a",
+    "name": "KEEMA POTATO PEAS",
+    "price": 14,
+    "desc": "Mince with potato and peas cooked with garlic, ginger in a medium thick sauce",
+    "category": "Curries",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494b",
+    "name": "Chicken MADRAS",
+    "price": 10,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494c",
+    "name": "Lamb MADRAS",
+    "price": 12,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494d",
+    "name": "Prawn MADRAS",
+    "price": 12,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494e",
+    "name": "King Prawn MADRAS",
+    "price": 15,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81494f",
+    "name": "Duck MADRAS",
+    "price": 15,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814950",
+    "name": "Paneer MADRAS",
+    "price": 12,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814951",
+    "name": "Vegetable MADRAS",
+    "price": 9,
+    "desc": "Fairly hot curry jhol",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814952",
+    "name": "Chicken VINDALOO",
+    "price": 10,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814953",
+    "name": "Lamb VINDALOO",
+    "price": 12,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814954",
+    "name": "Prawn VINDALOO",
+    "price": 12,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814955",
+    "name": "King Prawn VINDALOO",
+    "price": 15,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814956",
+    "name": "Duck VINDALOO",
+    "price": 15,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814957",
+    "name": "Paneer VINDALOO",
+    "price": 12,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814958",
+    "name": "Vegetable VINDALOO",
+    "price": 9,
+    "desc": "Very hot curry and potatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814959",
+    "name": "Chicken BHOUNA",
+    "price": 10,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495a",
+    "name": "Lamb BHOUNA",
+    "price": 12,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495b",
+    "name": "Prawn BHOUNA",
+    "price": 12,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495c",
+    "name": "King Prawn BHOUNA",
+    "price": 15,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495d",
+    "name": "Duck BHOUNA",
+    "price": 15,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495e",
+    "name": "Paneer BHOUNA",
+    "price": 12,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81495f",
+    "name": "Vegetable BHOUNA",
+    "price": 9,
+    "desc": "Onion and tomatoes cooked with Bhouna Spice",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814960",
+    "name": "Chicken DOPIAZA",
+    "price": 10,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814961",
+    "name": "Lamb DOPIAZA",
+    "price": 12,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814962",
+    "name": "Prawn DOPIAZA",
+    "price": 12,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814963",
+    "name": "King Prawn DOPIAZA",
+    "price": 15,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814964",
+    "name": "Duck DOPIAZA",
+    "price": 15,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814965",
+    "name": "Paneer DOPIAZA",
+    "price": 12,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814966",
+    "name": "Vegetable DOPIAZA",
+    "price": 9,
+    "desc": "Bhuna style garnished with crispy fried onions",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814967",
+    "name": "Chicken PATHIA",
+    "price": 10,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814968",
+    "name": "Lamb PATHIA",
+    "price": 12,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814969",
+    "name": "Prawn PATHIA",
+    "price": 12,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496a",
+    "name": "King Prawn PATHIA",
+    "price": 15,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496b",
+    "name": "Duck PATHIA",
+    "price": 15,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496c",
+    "name": "Paneer PATHIA",
+    "price": 12,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496d",
+    "name": "Vegetable PATHIA",
+    "price": 9,
+    "desc": "Hot, sweet and sour curry with onions and tomato",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496e",
+    "name": "Chicken DANSAK",
+    "price": 10,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81496f",
+    "name": "Lamb DANSAK",
+    "price": 12,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814970",
+    "name": "Prawn DANSAK",
+    "price": 12,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814971",
+    "name": "King Prawn DANSAK",
+    "price": 15,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814972",
+    "name": "Duck DANSAK",
+    "price": 15,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814973",
+    "name": "Paneer DANSAK",
+    "price": 12,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814974",
+    "name": "Vegetable DANSAK",
+    "price": 9,
+    "desc": "Hot sweet and sour with lentils",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814975",
+    "name": "Chicken ROGAN",
+    "price": 10,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814976",
+    "name": "Lamb ROGAN",
+    "price": 12,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814977",
+    "name": "Prawn ROGAN",
+    "price": 12,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814978",
+    "name": "King Prawn ROGAN",
+    "price": 15,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814979",
+    "name": "Duck ROGAN",
+    "price": 15,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Non Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497a",
+    "name": "Paneer ROGAN",
+    "price": 12,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497b",
+    "name": "Vegetable ROGAN",
+    "price": 9,
+    "desc": "Bhouna style garnished with tomatoes",
+    "category": "Classic Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497c",
+    "name": "STEAMED RICE",
+    "price": 3.5,
+    "desc": "Plain long grain steamed basmati rice",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497d",
+    "name": "PILAU RICE",
+    "price": 4,
+    "desc": "Fragrant saffron flavored basmati rice",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497e",
+    "name": "SPECIAL FRIED RICE",
+    "price": 5,
+    "desc": "Egg and peas fried basmati rice",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81497f",
+    "name": "LEMON RICE",
+    "price": 5,
+    "desc": "Basmati rice infused with lemon juice and mustard seeds",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814980",
+    "name": "GARLIC RICE",
+    "price": 5,
+    "desc": "Basmati rice tossed with fresh chopped garlic",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814981",
+    "name": "MUSHROOMS RICE",
+    "price": 5,
+    "desc": "Basmati rice sautéed with spiced mushrooms",
+    "category": "Rice",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814982",
+    "name": "GARLIC TIGER PRAWN RICE",
+    "price": 8,
+    "desc": "Basmati rice stir fried with garlic and tiger prawns",
+    "category": "Rice",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814983",
+    "name": "KEEMA RICE",
+    "price": 6,
+    "desc": "Basmati rice cooked with spiced minced lamb",
+    "category": "Rice",
+    "dietary_preference": "Non Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814984",
+    "name": "TARKA DAAL",
+    "price": 6,
+    "desc": "Lentils tempered with ghee, fried garlic, onions and spices",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814985",
+    "name": "BOMBAY POTATOES",
+    "price": 6,
+    "desc": "Spicy cubed potatoes",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814986",
+    "name": "SAG ALOO",
+    "price": 6,
+    "desc": "Spinach & potatoes",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814987",
+    "name": "SAG PANEER",
+    "price": 6,
+    "desc": "Spinach and cottage cheese",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814988",
+    "name": "GARLIC MUSHROOMS",
+    "price": 6,
+    "desc": "Sautéed mushrooms cooked with garlic and mild herbs",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814989",
+    "name": "SAG BHAJI",
+    "price": 6,
+    "desc": "Spinach lightly spiced",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498a",
+    "name": "JAIPURI STYLE CRISPY OKRA",
+    "price": 6,
+    "desc": "Crispy okra tossed with chat masala and spices",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498b",
+    "name": "FRESH AUBERGINE AND SPINACH",
+    "price": 6,
+    "desc": "Lightly spiced aubergine and spinach",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498c",
+    "name": "MIXED VEGETABLE BHAJI",
+    "price": 6,
+    "desc": "Lightly spiced mix veg (dry)",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498d",
+    "name": "VEGETABLE CURRY",
+    "price": 6,
+    "desc": "Mix vegetables cooked in gravy",
+    "category": "Side Dishes",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498e",
+    "name": "PLAIN NAN",
+    "price": 3.5,
+    "desc": "Freshly baked leavened flatbread",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d81498f",
+    "name": "GARLIC NAN",
+    "price": 4.5,
+    "desc": "Freshly baked naan topped with garlic",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814990",
+    "name": "PESHWARI NAN",
+    "price": 4.5,
+    "desc": "Sweet naan filled with coconut, almonds, and sultanas",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d814991",
+    "name": "KEEMA NAN",
+    "price": 5,
+    "desc": "Leavened bread stuffed with spiced minced lamb",
+    "category": "Breads",
+    "dietary_preference": "Non Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d814992",
+    "name": "CHEESE NAN",
+    "price": 6,
+    "desc": "Naan stuffed with cheese",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814993",
+    "name": "CHICKEN TIKKA CHEESE NAN",
+    "price": 6.5,
+    "desc": "Naan stuffed with chicken tikka and cheese",
+    "category": "Breads",
+    "dietary_preference": "Non Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d814994",
+    "name": "CHAPATI",
+    "price": 2,
+    "desc": "Thin, unleavened wheat flatbread",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d814995",
+    "name": "PARATA",
+    "price": 4,
+    "desc": "Layered, shallow fried whole wheat flatbread",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d814996",
+    "name": "PAPADOM",
+    "price": 1,
+    "desc": "Crispy lentil cracker",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814997",
+    "name": "RELISHES",
+    "price": 1,
+    "desc": "Served per person (chutneys, pickles and onions)",
+    "category": "Breads",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d814998",
+    "name": "J20",
+    "price": 3.95,
+    "desc": "Fruit juice drink",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d814999",
+    "name": "COKE/DIET COKE 330ML",
+    "price": 3.75,
+    "desc": "Soft drink",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499a",
+    "name": "LEMONADE 200ML",
+    "price": 2.95,
+    "desc": "Carbonated lemon drink",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499b",
+    "name": "ORANGE JUICE / PINEAPPLE JUICE",
+    "price": 3.5,
+    "desc": "Fresh fruit juice",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499c",
+    "name": "APPLETISER 275ML",
+    "price": 3.95,
+    "desc": "Sparkling apple juice",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499d",
+    "name": "STILL WATER/SPARKLING WATER 330ML",
+    "price": 2.5,
+    "desc": "Bottled mineral water",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499e",
+    "name": "STILL WATER/SPARKLING WATER 750ML",
+    "price": 3.95,
+    "desc": "Large bottled mineral water",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  },
+  {
+    "id": "6a0c49744fa654bd4d81499f",
+    "name": "SODA WATER",
+    "price": 2.5,
+    "desc": "Carbonated water",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.1
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a0",
+    "name": "TONIC WATER FEVER TREE 200ML",
+    "price": 2.95,
+    "desc": "Premium tonic water",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a1",
+    "name": "SWEET MANGO LASSI",
+    "price": 3.95,
+    "desc": "Traditional yogurt based drink sweet mango style",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a2",
+    "name": "VIRGIN MOJITO",
+    "price": 4.95,
+    "desc": "Cool & refreshing mint lemon soda",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a3",
+    "name": "MANGO MOJITO",
+    "price": 4.95,
+    "desc": "Mango mint lemon honey blend",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a4",
+    "name": "STRAWBERRY MOJITO",
+    "price": 4.95,
+    "desc": "Strawberry mint lemon lime blend",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a5",
+    "name": "BLUE LAGOON MOCKTAIL",
+    "price": 5.95,
+    "desc": "Curacao lemonade mocktail",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.6
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a6",
+    "name": "PINA COLADA MOCKTAIL",
+    "price": 5.95,
+    "desc": "Coconut pineapple milk drink",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.7
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a7",
+    "name": "STRAWBERRY & RASPBERRY DAIQUIRI",
+    "price": 5.95,
+    "desc": "Fruity sweet blended mocktail",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a8",
+    "name": "FERRERO MILKSHAKE",
+    "price": 5.95,
+    "desc": "Milkshake blended with Ferrero Rocher chocolates",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149a9",
+    "name": "NUTTY SNICKERS MILKSHAKE",
+    "price": 5.95,
+    "desc": "Milkshake blended with Snickers bar",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.8
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149aa",
+    "name": "LOTUS BISCOFF MILKSHAKE",
+    "price": 5.95,
+    "desc": "Milkshake blended with Biscoff biscuits and spread",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.9
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149ab",
+    "name": "CORONA ZERO 330ML",
+    "price": 3.95,
+    "desc": "Non-alcoholic beer",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.2
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149ac",
+    "name": "PERONI ZERO 330ML",
+    "price": 3.95,
+    "desc": "Non-alcoholic beer",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.3
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149ad",
+    "name": "GINGER BEER 370ML",
+    "price": 3.95,
+    "desc": "Non-alcoholic naturally brewed ginger beer",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.5
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149ae",
+    "name": "HEINEKEN ZERO 330ML",
+    "price": 3.95,
+    "desc": "Non-alcoholic beer",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.1
+  },
+  {
+    "id": "6a0c49744fa654bd4d8149af",
+    "name": "THATCHER ZERO (CIDER) 500ML",
+    "price": 3.95,
+    "desc": "Non-alcoholic apple cider",
+    "category": "Drinks",
+    "dietary_preference": "Veg",
+    "rating": 4.4
+  }
+]

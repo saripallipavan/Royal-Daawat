@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Star, Phone, ArrowUp, ChevronDown, ChevronUp, ShoppingBag, Plus, Minus, Trash2, X, Search } from 'lucide-react';
 import { getMenu, getSettings } from '../services/api';
+import fallbackMenu from '../data/fallbackMenu.json';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -49,26 +50,45 @@ const Menu = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getMenu();
+      let data = [];
+      try {
+        const response = await getMenu();
+        if (response.data && response.data.length > 0) {
+          data = response.data;
+        } else {
+          console.warn("API returned empty menu data. Falling back to local data.");
+          data = fallbackMenu;
+        }
+      } catch (apiErr) {
+        console.warn("Failed to fetch menu from backend API. Using local fallback data:", apiErr);
+        data = fallbackMenu;
+      }
+
       let flattenedMenu = [];
       let fetchedCategories = new Set();
 
-      if (response.data && response.data.length > 0) {
-        response.data.forEach(item => {
-          if (item.availability !== false) { // Only show available items
-            flattenedMenu.push({
-              id: item._id,
-              name: item.food_name,
-              price: parseFloat(item.price) || 0,
-              desc: item.description,
-              category: item.category || 'Specials',
-              dietary_preference: item.dietary_preference || 'Non Veg',
-              rating: item.rating || 0
-            });
-            fetchedCategories.add(item.category || 'Specials');
-          }
-        });
-      }
+      data.forEach(item => {
+        if (item.availability !== false) { // Only show available items
+          const itemId = item.id || item._id || Math.random().toString();
+          const itemName = item.name || item.food_name || '';
+          const itemPrice = parseFloat(item.price) || 0;
+          const itemDesc = item.desc || item.description || '';
+          const itemCat = item.category || 'Specials';
+          const itemDiet = item.dietary_preference || 'Non Veg';
+          const itemRating = item.rating || 0;
+
+          flattenedMenu.push({
+            id: itemId,
+            name: itemName,
+            price: itemPrice,
+            desc: itemDesc,
+            category: itemCat,
+            dietary_preference: itemDiet,
+            rating: itemRating
+          });
+          fetchedCategories.add(itemCat);
+        }
+      });
 
       // Sort categories according to the fixed order
       const sortedCats = Array.from(fetchedCategories).sort((a, b) => {
@@ -90,7 +110,7 @@ const Menu = () => {
         setExpandedCategories({ [sortedCats[0]]: true });
       }
     } catch (err) {
-      console.error("Failed to fetch menu:", err);
+      console.error("Critical failure during menu parsing:", err);
       setError("Unable to load the menu. Please check your internet connection or try again later.");
     } finally {
       setIsLoading(false);
