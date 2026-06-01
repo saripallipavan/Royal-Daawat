@@ -245,7 +245,7 @@ const Footer = () => {
         <MapWrapper googleMapsUrl={settings.googleMapsUrl} height="350px" />
       )}
       
-      <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#050709', color: '#fff', fontSize: '0.9rem' }}>
+      <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#04100c', color: '#fff', fontSize: '0.9rem' }}>
         <p style={{ marginBottom: '1rem', fontSize: '1rem' }}>Connect with us on our social media platforms.</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '1.5rem' }}>
           {settings.facebookUrl && (
@@ -386,7 +386,7 @@ const HomePage = () => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  backgroundImage: `linear-gradient(135deg, rgba(11, 14, 17, 0.93) 0%, rgba(21, 25, 30, 0.9) 45%, rgba(21, 25, 30, 0.88) 75%, rgba(11, 14, 17, 0.93) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
+                  backgroundImage: `linear-gradient(135deg, rgba(5, 22, 14, 0.93) 0%, rgba(11, 46, 31, 0.9) 45%, rgba(15, 61, 42, 0.88) 75%, rgba(7, 31, 20, 0.93) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   zIndex: -3
