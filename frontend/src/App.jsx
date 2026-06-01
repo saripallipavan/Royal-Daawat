@@ -334,10 +334,10 @@ const AboutUsSection = () => {
 };
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1585938338392-50a59970d8ee?auto=format&fit=crop&q=80&w=1600",
-  "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&q=80&w=1600",
-  "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1600",
-  "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=1600"
+  "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1600", // Hyderabadi Biryani
+  "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=1600", // Butter Chicken
+  "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&q=80&w=1600", // Tandoori Chicken
+  "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600"  // Lamb Shank Rogan Josh
 ];
 
 // Home Page
@@ -345,13 +345,33 @@ const HomePage = () => {
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 800], [0, 200]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const timerRef = React.useRef(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const resetTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
     }, 6000);
-    return () => clearInterval(timer);
+  };
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, []);
+
+  const nextSlide = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    resetTimer();
+  };
+
+  const prevSlide = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length);
+    resetTimer();
+  };
 
   return (
     <motion.div 
@@ -417,7 +437,7 @@ const HomePage = () => {
 
         {/* Left Control Arrow */}
         <button
-          onClick={() => setCurrentImageIndex((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+          onClick={prevSlide}
           className="hero-control-btn"
           style={{ left: '30px' }}
           aria-label="Previous Slide"
@@ -429,7 +449,7 @@ const HomePage = () => {
 
         {/* Right Control Arrow */}
         <button
-          onClick={() => setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length)}
+          onClick={nextSlide}
           className="hero-control-btn"
           style={{ right: '30px' }}
           aria-label="Next Slide"
@@ -466,6 +486,7 @@ const HomePage = () => {
 const AboutPage = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const aboutTimerRef = React.useRef(null);
 
   const slides = [
     "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
@@ -474,12 +495,31 @@ const AboutPage = () => {
     "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const resetAboutTimer = () => {
+    if (aboutTimerRef.current) {
+      clearInterval(aboutTimerRef.current);
+    }
+    aboutTimerRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
-    return () => clearInterval(timer);
+  };
+
+  useEffect(() => {
+    resetAboutTimer();
+    return () => {
+      if (aboutTimerRef.current) clearInterval(aboutTimerRef.current);
+    };
   }, []);
+
+  const nextAboutSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    resetAboutTimer();
+  };
+
+  const prevAboutSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    resetAboutTimer();
+  };
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -535,12 +575,7 @@ const AboutPage = () => {
           </div>
 
           {/* Right Column: Image Slider */}
-          <div style={{
-            position: 'relative',
-            minHeight: '500px',
-            overflow: 'hidden',
-            backgroundColor: '#000'
-          }}>
+          <div className="about-image-slider">
             <AnimatePresence initial={false} mode="wait">
               <motion.div
                 key={currentSlide}
@@ -563,27 +598,9 @@ const AboutPage = () => {
 
             {/* Left Control Arrow */}
             <button
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '20px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(0, 0, 0, 0.4)',
-                border: 'none',
-                color: '#fff',
-                width: '45px',
-                height: '45px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 10,
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212, 175, 55, 0.8)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.4)'}
+              onClick={prevAboutSlide}
+              className="about-slider-btn"
+              aria-label="Previous Slide"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m15 18-6-6 6-6"/>
@@ -592,27 +609,9 @@ const AboutPage = () => {
 
             {/* Right Control Arrow */}
             <button
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                right: '20px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(0, 0, 0, 0.4)',
-                border: 'none',
-                color: '#fff',
-                width: '45px',
-                height: '45px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 10,
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212, 175, 55, 0.8)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.4)'}
+              onClick={nextAboutSlide}
+              className="about-slider-btn right-btn"
+              aria-label="Next Slide"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m9 18 6-6-6-6"/>
