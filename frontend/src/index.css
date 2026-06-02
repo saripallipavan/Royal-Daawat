@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
   --primary-color: #D4AF37;
@@ -28,6 +28,55 @@ html, body {
 
 .cinzel-font {
   font-family: 'Playfair Display', serif;
+}
+
+.alex-brush-font {
+  font-family: 'Alex Brush', cursive !important;
+}
+
+/* Hero Title Styling & Responsiveness */
+.hero-title {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.hero-subtitle {
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(1.2rem, 3.5vw, 2.2rem) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 2px !important;
+  color: #ffffff !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+.hero-main-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(2.8rem, 7.5vw, 6.5rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  color: var(--primary-color) !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+@media (max-width: 768px) {
+  .hero-subtitle {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .hero-main-title {
+    font-size: 2.8rem !important;
+    line-height: 1.1 !important;
+  }
 }
 
 /* Global Font Overrides to make all Inter/Cinzel matches Poppins/Playfair Display */
@@ -412,19 +461,21 @@ ul {
 }
 
 .hero-btn-order {
-  background-color: transparent !important;
+  background-color: #0B2E1F !important;
   color: #D4AF37 !important;
   border: 2px solid #D4AF37 !important;
   border-radius: 30px !important;
   font-weight: 700 !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.1) !important;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .hero-btn-order:hover {
   background-color: #D4AF37 !important;
+  border-color: #D4AF37 !important;
   color: #0B2E1F !important;
   transform: scale(1.05) !important;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5) !important;
 }
 
 /* Homepage About Us Section */
@@ -477,28 +528,28 @@ ul {
   
   /* Why Choose Us Cards */
   .why-choose-us-grid {
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 6px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
   }
   .why-choose-us-card {
-    padding: 0.75rem 0.25rem !important;
-    border-radius: 8px !important;
+    padding: 1.5rem 1rem !important;
+    border-radius: 12px !important;
   }
   .why-choose-us-card h3 {
-    font-size: 0.72rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 0.2rem !important;
+    font-size: 1.1rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.5rem !important;
   }
   .why-choose-us-card p {
-    font-size: 0.58rem !important;
-    line-height: 1.3 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
   }
   .why-choose-us-card div {
-    margin-bottom: 0.35rem !important;
+    margin-bottom: 0.8rem !important;
   }
   .why-choose-us-card svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 28px !important;
+    height: 28px !important;
   }
 
   /* Signature Dishes Cards */
@@ -680,5 +731,65 @@ ul {
   .about-slider-btn.right-btn {
     right: 10px !important;
     left: auto !important;
+  }
+}
+
+/* Gallery Slider Styling & Responsiveness */
+.gallery-slider-wrapper {
+  display: grid !important;
+  grid-template-columns: 1.2fr 1fr !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(212, 175, 55, 0.1) !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+  min-height: 480px !important;
+}
+
+@media (max-width: 992px) {
+  .gallery-slider-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+  .gallery-slider-wrapper > div:last-child {
+    padding: 2.5rem 1.5rem !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.1) !important;
+  }
+}
+
+/* Responsive Footer Columns & Chef Recommendations */
+.footer-column {
+  flex: 1 1 300px;
+  color: #f4f4f4;
+  padding: 5rem 2rem;
+  text-align: center;
+  border-right: 1px solid rgba(212, 175, 55, 0.05);
+  transition: all 0.3s ease;
+}
+
+.footer-column.dark-bg {
+  background-color: var(--dark-bg);
+}
+
+.footer-column.light-bg {
+  background-color: var(--light-bg);
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .footer-column {
+    padding: 2.5rem 1.5rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.05) !important;
+  }
+  .footer-column:last-child {
+    border-bottom: none !important;
+  }
+  
+  .chef-rec-card {
+    flex-direction: column !important; /* Stack vertically on mobile */
+  }
+  .chef-rec-content {
+    padding: 2rem 1.5rem !important;
   }
 }

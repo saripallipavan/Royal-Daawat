@@ -214,14 +214,14 @@ const Footer = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         
         {/* Column 1: Opening Hours */}
-        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--dark-bg)', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center', borderRight: '1px solid rgba(212, 175, 55, 0.05)' }}>
+        <div className="footer-column dark-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings.openingHours}</p>
           <Link to="/contact" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
         </div>
 
         {/* Column 2: Contact Us */}
-        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--light-bg)', color: '#ffffff', padding: '5rem 2rem', textAlign: 'center', borderRight: '1px solid rgba(212, 175, 55, 0.05)' }}>
+        <div className="footer-column light-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Contact Us</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 600 }}>Phone: {settings.phoneNumber}</p>
           <a href="mailto:info@royaldaawat.co.uk" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '3rem', textDecoration: 'underline', color: 'inherit' }}>info@royaldaawat.co.uk</a>
@@ -230,12 +230,72 @@ const Footer = () => {
         </div>
 
         {/* Column 3: Social Links */}
-        <div style={{ flex: '1 1 300px', backgroundColor: 'var(--dark-bg)', color: '#f4f4f4', padding: '5rem 2rem', textAlign: 'center' }}>
+        <div className="footer-column dark-bg" style={{ borderRight: 'none' }}>
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Follow Us</h3>
-          <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6, padding: '0 1rem' }}>
+          <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', lineHeight: 1.6, padding: '0 1rem', color: 'var(--text-muted)' }}>
             Stay updated with our latest offers and news by following us on social media.
           </p>
-          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book A Table</Link>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', alignItems: 'center' }}>
+            {settings.facebookUrl && (
+              <a 
+                href={settings.facebookUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
+                  color: 'var(--primary-color)', backgroundColor: 'transparent', transition: 'all 0.3s ease' 
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = 'var(--dark-bg)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                aria-label="Facebook Link"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+            )}
+            {settings.instagramUrl && (
+              <a 
+                href={settings.instagramUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
+                  color: 'var(--primary-color)', backgroundColor: 'transparent', transition: 'all 0.3s ease' 
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = 'var(--dark-bg)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                aria-label="Instagram Link"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            )}
+            {settings.tiktokUrl && (
+              <a 
+                href={settings.tiktokUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
+                  color: 'var(--primary-color)', backgroundColor: 'transparent', transition: 'all 0.3s ease' 
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = 'var(--dark-bg)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                aria-label="TikTok Link"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
 
       </div>
@@ -422,9 +482,24 @@ const HomePage = () => {
           </div>
         </motion.div>
         
-        <motion.div className="container" variants={staggerContainer} initial="hidden" animate="visible" style={{ zIndex: 10 }}>
-          <motion.h1 variants={fadeInUp} className="cinzel-font text-gold" style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-            Welcome to Royal Daawat
+        <motion.div 
+          className="container" 
+          variants={staggerContainer} 
+          initial="hidden" 
+          animate="visible" 
+          style={{ 
+            zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            width: '100%'
+          }}
+        >
+          <motion.h1 variants={fadeInUp} className="hero-title" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
+            <span className="hero-subtitle">Welcome to</span>
+            <span className="hero-main-title">Royal Daawat</span>
           </motion.h1>
           <motion.p variants={fadeInUp} style={{ fontSize: '1.2rem', letterSpacing: '4px', margin: '1.5rem 0 3.5rem', color: '#fff' }}>
             AUTHENTIC INDIAN CUISINE IN WALTON
@@ -467,14 +542,7 @@ const HomePage = () => {
       <SignatureDishes />
       <WhyChooseUs />
       <ChefRecommendations />
-      <GalleryPreview images={[
-        "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800"
-      ]} />
+      <GalleryPreview images={[dish1, dish2, dish3]} />
       <Testimonials />
       <Experience />
       <ContactPreview />

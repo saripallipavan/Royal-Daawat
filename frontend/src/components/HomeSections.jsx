@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, ShieldCheck, ChefHat, Zap, Gem, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
 import ImageWithFallback from './ImageWithFallback';
@@ -19,10 +19,7 @@ export const SignatureDishes = () => {
   const dishes = [
     { name: "Butter Chicken", price: "£14.95", desc: "Tender chicken in a rich, creamy tomato gravy.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800" },
     { name: "Hyderabadi Biryani", price: "£16.95", desc: "Fragrant basmati rice layered with spiced meat.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=800" },
-    { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800" },
-    { name: "Tandoori Chicken", price: "£13.95", desc: "Classic roasted chicken with smoky tandoor flavor.", img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&q=80&w=800" },
-    { name: "Assorted Kebabs", price: "£15.95", desc: "A selection of our finest minced meat kebabs.", img: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&q=80&w=800" },
-    { name: "Royal Dessert", price: "£7.95", desc: "Traditional sweet dumplings in sugar syrup.", img: "https://images.unsplash.com/photo-1589119908995-c6837fa14848?auto=format&fit=crop&q=80&w=800" }
+    { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800" }
   ];
 
   return (
@@ -83,33 +80,197 @@ export const SignatureDishes = () => {
 
 // 2) GALLERY PREVIEW SECTION
 export const GalleryPreview = ({ images }) => {
+  const galleryImages = images.slice(0, 3);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const timerRef = React.useRef(null);
+
+  const slideData = [
+    {
+      title: "Aromatic Dum Biryani",
+      subtitle: "SIGNATURE FEAST",
+      desc: "Fragrant, long-grain basmati rice layered with tender meat, infused with saffron and cooked to perfection under a traditional dum cover."
+    },
+    {
+      title: "Sizzling Kebab Platter",
+      subtitle: "GOURMET GRILL",
+      desc: "Perfectly seasoned, succulent skewers grilled over open embers, locking in rich, smoky flavors and tender juices."
+    },
+    {
+      title: "Royal Refreshments",
+      subtitle: "SIGNATURE SIPS",
+      desc: "Exquisite mocktails and handcrafted drinks, carefully blended with fresh botanicals, citrus, and aromatic spices to complement your meal."
+    }
+  ];
+
+  const resetTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 6000);
+  };
+
+  React.useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [galleryImages.length]);
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    resetTimer();
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    resetTimer();
+  };
+
   return (
-    <section style={{ backgroundColor: 'var(--light-bg)', padding: '60px 0' }}>
-      <div className="container">
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '15px'
-        }}>
-          {images.map((img, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.02 }}
-              style={{ position: 'relative', height: '300px', overflow: 'hidden', borderRadius: '10px' }}
-            >
-              <ImageWithFallback src={img} alt="Gallery item" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
-              <div style={{ 
-                position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
-                backgroundColor: 'rgba(0,0,0,0.4)', opacity: 0, transition: 'opacity 0.3s ease',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
+    <section style={{ backgroundColor: 'var(--light-bg)', padding: '100px 0', overflow: 'hidden', position: 'relative' }}>
+      {/* Background ambient glows */}
+      <div style={{
+        position: 'absolute', top: '-10%', left: '-10%', width: '40%', height: '40%',
+        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%)',
+        zIndex: 1, pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '-10%', right: '-10%', width: '40%', height: '40%',
+        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%)',
+        zIndex: 1, pointerEvents: 'none'
+      }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <span className="alex-brush-font" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', display: 'block', marginBottom: '0.5rem' }}>Our Gallery</span>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem', letterSpacing: '2px' }}>Visual Culinary Journey</h2>
+          <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '0 auto' }}></div>
+        </div>
+
+        {/* Main Slider Container */}
+        <div className="gallery-slider-wrapper">
+          {/* Left Column: Animated Image */}
+          <div style={{ position: 'relative', overflow: 'hidden', height: '100%', minHeight: '350px' }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
+                style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
               >
-                <Gem color="var(--primary-color)" size={30} />
-              </div>
-            </motion.div>
-          ))}
+                <ImageWithFallback
+                  src={galleryImages[activeIndex]}
+                  alt={slideData[activeIndex].title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                {/* Image Overlay */}
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                  background: 'linear-gradient(to right, rgba(4, 16, 12, 0.2) 0%, rgba(4, 16, 12, 0.7) 100%)'
+                }} />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Slider Controls (arrows) overlay on image */}
+            <div style={{
+              position: 'absolute', bottom: '30px', left: '30px', display: 'flex', gap: '15px', zIndex: 20
+            }}>
+              <button
+                onClick={prevSlide}
+                style={{
+                  width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
+                  backgroundColor: 'rgba(4, 16, 12, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--primary-color)', cursor: 'pointer', transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(4, 16, 12, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                aria-label="Previous image"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+              <button
+                onClick={nextSlide}
+                style={{
+                  width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
+                  backgroundColor: 'rgba(4, 16, 12, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--primary-color)', cursor: 'pointer', transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(4, 16, 12, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                aria-label="Next image"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Content card */}
+          <div style={{
+            padding: '3.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            backgroundColor: '#04100c'
+          }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.5 }}
+                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+              >
+                <span className="cinzel-font" style={{
+                  color: 'var(--primary-color)', fontSize: '0.9rem', letterSpacing: '4px',
+                  fontWeight: 600, marginBottom: '1rem', display: 'block'
+                }}>
+                  {slideData[activeIndex].subtitle}
+                </span>
+                
+                <h3 className="cinzel-font" style={{
+                  color: '#ffffff', fontSize: '2.5rem', fontWeight: 700,
+                  marginBottom: '1.5rem', lineHeight: '1.2'
+                }}>
+                  {slideData[activeIndex].title}
+                </h3>
+                
+                <div style={{ width: '50px', height: '2px', backgroundColor: 'var(--primary-color)', marginBottom: '2rem' }}></div>
+                
+                <p style={{
+                  color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.8',
+                  marginBottom: '2.5rem'
+                }}>
+                  {slideData[activeIndex].desc}
+                </p>
+
+                {/* Pagination indicator */}
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  {galleryImages.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveIndex(i)}
+                      style={{
+                        width: activeIndex === i ? '30px' : '10px',
+                        height: '10px',
+                        borderRadius: '5px',
+                        backgroundColor: activeIndex === i ? 'var(--primary-color)' : 'rgba(212, 175, 55, 0.3)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        padding: 0
+                      }}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
@@ -320,7 +481,7 @@ export const Experience = () => {
         backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
         zIndex: -1
       }}></div>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)' }}></div>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.85)' }}></div>
       <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <motion.h2 
           initial={{ opacity: 0, y: 50 }}
