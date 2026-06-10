@@ -169,7 +169,7 @@ export const GalleryPreview = ({ images }) => {
                 {/* Image Overlay */}
                 <div style={{
                   position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                  background: 'linear-gradient(to right, rgba(2, 5, 8, 0.2) 0%, rgba(2, 5, 8, 0.7) 100%)'
+                  background: 'linear-gradient(to right, rgba(4, 16, 12, 0.2) 0%, rgba(4, 16, 12, 0.7) 100%)'
                 }} />
               </motion.div>
             </AnimatePresence>
@@ -182,11 +182,11 @@ export const GalleryPreview = ({ images }) => {
                 onClick={prevSlide}
                 style={{
                   width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
-                  backgroundColor: 'rgba(2, 5, 8, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  backgroundColor: 'rgba(4, 16, 12, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--primary-color)', cursor: 'pointer', transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(2, 5, 8, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(4, 16, 12, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
                 aria-label="Previous image"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -197,11 +197,11 @@ export const GalleryPreview = ({ images }) => {
                 onClick={nextSlide}
                 style={{
                   width: '50px', height: '50px', borderRadius: '50%', border: '1px solid var(--primary-color)',
-                  backgroundColor: 'rgba(2, 5, 8, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  backgroundColor: 'rgba(4, 16, 12, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--primary-color)', cursor: 'pointer', transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--primary-color)'; e.currentTarget.style.color = '#000'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(2, 5, 8, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(4, 16, 12, 0.6)'; e.currentTarget.style.color = 'var(--primary-color)'; }}
                 aria-label="Next image"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -214,7 +214,7 @@ export const GalleryPreview = ({ images }) => {
           {/* Right Column: Content card */}
           <div style={{
             padding: '3.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center',
-            backgroundColor: '#05080a'
+            backgroundColor: '#04100c'
           }}>
             <AnimatePresence mode="wait">
               <motion.div

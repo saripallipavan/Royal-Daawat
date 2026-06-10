@@ -48,7 +48,7 @@ const Navigation = () => {
     <nav style={{
       position: 'fixed', width: '100%', top: 0, zIndex: 50,
       transition: 'all 0.4s ease',
-      backgroundColor: isScrolled ? 'rgba(2, 5, 8, 0.95)' : 'transparent',
+      backgroundColor: isScrolled ? 'rgba(5, 16, 24, 0.95)' : 'transparent',
       backdropFilter: isScrolled ? 'blur(10px)' : 'none',
       borderBottom: isScrolled ? '1px solid rgba(182, 162, 94, 0.1)' : 'none',
       padding: isScrolled ? '1rem 0' : '1.5rem 0'

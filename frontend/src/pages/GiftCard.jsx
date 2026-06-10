@@ -240,7 +240,7 @@ const GiftCard = () => {
               {/* Left Column: Live Card Preview */}
               <div style={{
                 flex: '1 1 380px',
-                backgroundColor: '#05080A',
+                backgroundColor: '#071F14',
                 padding: '2rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -255,7 +255,7 @@ const GiftCard = () => {
                   width: '100%',
                   aspectRatio: '1.58 / 1',
                   maxWidth: '340px',
-                  background: 'linear-gradient(135deg, #020508 0%, #090E12 100%)',
+                  background: 'linear-gradient(135deg, #0B2E1F 0%, #0F3D2A 100%)',
                   borderRadius: '15px',
                   border: '2px solid var(--primary-color)',
                   boxShadow: '0 10px 25px rgba(0,0,0,0.5)',

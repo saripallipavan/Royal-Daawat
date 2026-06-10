@@ -3,8 +3,8 @@
 :root {
   --primary-color: #B6A25E; /* User Requested Gold */
   --secondary-color: #D8C78F; /* Lighter gold highlight */
-  --dark-bg: #020508; /* Premium Dark Charcoal-Black */
-  --light-bg: #090E12; /* Premium Light Charcoal-Black */
+  --dark-bg: #0B2E1F; /* Original Dark Green */
+  --light-bg: #0F3D2A; /* Original Light Green */
   --light-linen-bg: #E5DDD9; /* Original Cream background */
   --dark-charcoal-text: #1C1C1C; /* Original Dark Charcoal Text */
   --muted-charcoal-text: #4E4A47; /* Original Muted Charcoal Text */
@@ -466,7 +466,7 @@ ul {
 /* Styled Hero Buttons */
 .hero-btn-book {
   background-color: #B6A25E !important;
-  color: #020508 !important;
+  color: #0B2E1F !important;
   border: 1px solid #B6A25E !important;
   border-radius: 30px !important;
   font-weight: 700 !important;
@@ -482,7 +482,7 @@ ul {
 }
 
 .hero-btn-order {
-  background-color: #020508 !important;
+  background-color: #0B2E1F !important;
   color: #B6A25E !important;
   border: 2px solid #B6A25E !important;
   border-radius: 30px !important;
@@ -494,7 +494,7 @@ ul {
 .hero-btn-order:hover {
   background-color: #B6A25E !important;
   border-color: #B6A25E !important;
-  color: #020508 !important;
+  color: #0B2E1F !important;
   transform: scale(1.05) !important;
   box-shadow: 0 0 20px rgba(182, 162, 94, 0.5) !important;
 }
@@ -887,7 +887,7 @@ ul {
 
 /* Gift Card Modal Canvas wrapping & scroll styling */
 .giftcard-modal-container {
-  background-color: var(--secondary-bg, #090E12);
+  background-color: var(--secondary-bg, #0F3D2A);
   border-radius: 20px;
   border: 1px solid var(--primary-color);
   width: 100%;
