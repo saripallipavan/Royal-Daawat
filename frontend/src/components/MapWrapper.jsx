@@ -35,7 +35,7 @@ const MapWrapper = ({ googleMapsUrl, height = "100%" }) => {
           width: '100%', 
           height: height, 
           overflow: 'hidden', 
-          backgroundColor: '#0a1a14',
+          backgroundColor: 'var(--dark-bg)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
