@@ -23,14 +23,56 @@ const categoryOrder = [
   "Drinks"
 ];
 
+const getInitialMenuData = () => {
+  let flattenedMenu = [];
+  let fetchedCategories = new Set();
+  
+  fallbackMenu.forEach(item => {
+    if (item.availability !== false) {
+      const itemId = item.id || item._id || Math.random().toString();
+      const itemName = item.name || item.food_name || '';
+      const itemPrice = parseFloat(item.price) || 0;
+      const itemDesc = item.desc || item.description || '';
+      const itemCat = item.category || 'Specials';
+      const itemDiet = item.dietary_preference || 'Non Veg';
+      const itemRating = item.rating || 0;
+
+      flattenedMenu.push({
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        desc: itemDesc,
+        category: itemCat,
+        dietary_preference: itemDiet,
+        rating: itemRating
+      });
+      fetchedCategories.add(itemCat);
+    }
+  });
+
+  const sortedCats = Array.from(fetchedCategories).sort((a, b) => {
+    const indexA = categoryOrder.indexOf(a);
+    const indexB = categoryOrder.indexOf(b);
+    if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+  });
+
+  return { flattenedMenu, sortedCats };
+};
+
 const Menu = () => {
-  const [menuItems, setMenuItems] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const initialData = getInitialMenuData();
+  const [menuItems, setMenuItems] = useState(initialData.flattenedMenu);
+  const [categories, setCategories] = useState(initialData.sortedCats);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showCallPopup, setShowCallPopup] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [expandedCategories, setExpandedCategories] = useState({});
+  const [expandedCategories, setExpandedCategories] = useState(
+    initialData.sortedCats.includes("Starters") ? { "Starters": true } : (initialData.sortedCats.length > 0 ? { [initialData.sortedCats[0]]: true } : {})
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
 
@@ -47,73 +89,51 @@ const Menu = () => {
   });
 
   const fetchMenu = async () => {
-    setIsLoading(true);
     setError(null);
     try {
-      let data = [];
-      try {
-        const response = await getMenu();
-        if (response.data && response.data.length > 0) {
-          data = response.data;
-        } else {
-          console.warn("API returned empty menu data. Falling back to local data.");
-          data = fallbackMenu;
-        }
-      } catch (apiErr) {
-        console.warn("Failed to fetch menu from backend API. Using local fallback data:", apiErr);
-        data = fallbackMenu;
+      const response = await getMenu();
+      if (response.data && response.data.length > 0) {
+        const data = response.data;
+        let flattenedMenu = [];
+        let fetchedCategories = new Set();
+
+        data.forEach(item => {
+          if (item.availability !== false) {
+            const itemId = item.id || item._id || Math.random().toString();
+            const itemName = item.name || item.food_name || '';
+            const itemPrice = parseFloat(item.price) || 0;
+            const itemDesc = item.desc || item.description || '';
+            const itemCat = item.category || 'Specials';
+            const itemDiet = item.dietary_preference || 'Non Veg';
+            const itemRating = item.rating || 0;
+
+            flattenedMenu.push({
+              id: itemId,
+              name: itemName,
+              price: itemPrice,
+              desc: itemDesc,
+              category: itemCat,
+              dietary_preference: itemDiet,
+              rating: itemRating
+            });
+            fetchedCategories.add(itemCat);
+          }
+        });
+
+        const sortedCats = Array.from(fetchedCategories).sort((a, b) => {
+          const indexA = categoryOrder.indexOf(a);
+          const indexB = categoryOrder.indexOf(b);
+          if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+          if (indexA === -1) return 1;
+          if (indexB === -1) return -1;
+          return indexA - indexB;
+        });
+
+        setMenuItems(flattenedMenu);
+        setCategories(sortedCats);
       }
-
-      let flattenedMenu = [];
-      let fetchedCategories = new Set();
-
-      data.forEach(item => {
-        if (item.availability !== false) { // Only show available items
-          const itemId = item.id || item._id || Math.random().toString();
-          const itemName = item.name || item.food_name || '';
-          const itemPrice = parseFloat(item.price) || 0;
-          const itemDesc = item.desc || item.description || '';
-          const itemCat = item.category || 'Specials';
-          const itemDiet = item.dietary_preference || 'Non Veg';
-          const itemRating = item.rating || 0;
-
-          flattenedMenu.push({
-            id: itemId,
-            name: itemName,
-            price: itemPrice,
-            desc: itemDesc,
-            category: itemCat,
-            dietary_preference: itemDiet,
-            rating: itemRating
-          });
-          fetchedCategories.add(itemCat);
-        }
-      });
-
-      // Sort categories according to the fixed order
-      const sortedCats = Array.from(fetchedCategories).sort((a, b) => {
-        const indexA = categoryOrder.indexOf(a);
-        const indexB = categoryOrder.indexOf(b);
-        if (indexA === -1 && indexB === -1) return a.localeCompare(b);
-        if (indexA === -1) return 1;
-        if (indexB === -1) return -1;
-        return indexA - indexB;
-      });
-
-      setMenuItems(flattenedMenu);
-      setCategories(sortedCats);
-      
-      // Open "Starters" by default
-      if (sortedCats.includes("Starters")) {
-        setExpandedCategories({ "Starters": true });
-      } else if (sortedCats.length > 0) {
-        setExpandedCategories({ [sortedCats[0]]: true });
-      }
-    } catch (err) {
-      console.error("Critical failure during menu parsing:", err);
-      setError("Unable to load the menu. Please check your internet connection or try again later.");
-    } finally {
-      setIsLoading(false);
+    } catch (apiErr) {
+      console.warn("Failed to fetch menu from backend API in background, keeping local data:", apiErr);
     }
   };
 
@@ -825,7 +845,7 @@ const Menu = () => {
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                backgroundColor: '#0F3D2A',
+                backgroundColor: '#090E12',
                 padding: '2.5rem',
                 borderRadius: '16px',
                 border: '1px solid var(--primary-color)',
