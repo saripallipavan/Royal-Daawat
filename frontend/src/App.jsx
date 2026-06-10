@@ -225,8 +225,8 @@ const Footer = () => {
         </div>
 
         {/* Column 2: Contact Us */}
-        <div className="footer-column light-bg">
-          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Contact Us</h3>
+        <div className="footer-column" style={{ backgroundColor: 'var(--light-linen-bg)', color: 'var(--dark-charcoal-text)' }}>
+          <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--dark-bg)' }}>Contact Us</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 600 }}>Phone: {settings.phoneNumber}</p>
           <a href="mailto:info@royaldaawat.co.uk" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '3rem', textDecoration: 'underline', color: 'inherit' }}>info@royaldaawat.co.uk</a>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6 }}>{settings.address}</p>
@@ -234,7 +234,7 @@ const Footer = () => {
         </div>
 
         {/* Column 3: Social Links */}
-        <div className="footer-column dark-bg" style={{ borderRight: 'none' }}>
+        <div className="footer-column light-bg" style={{ borderRight: 'none' }}>
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Follow Us</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', lineHeight: 1.6, padding: '0 1rem', color: 'var(--text-muted)' }}>
             Stay updated with our latest offers and news by following us on social media.
