@@ -819,12 +819,12 @@ ul {
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background-color: #020508;
+  background-color: var(--dark-bg);
   color: #fff;
 }
 .admin-sidebar {
   width: 250px;
-  background-color: #050a0f;
+  background-color: var(--light-bg);
   border-right: 1px solid rgba(182, 162, 94, 0.1);
   padding: 2rem 0;
   position: fixed;
