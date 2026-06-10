@@ -35,7 +35,7 @@ const Login = () => {
       animate={{ opacity: 1 }} 
       style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '3rem', borderRadius: '20px', border: '1px solid rgba(212, 175, 55, 0.1)', width: '100%', maxWidth: '400px' }}>
+      <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '3rem', borderRadius: '20px', border: '1px solid rgba(182, 162, 94, 0.1)', width: '100%', maxWidth: '400px' }}>
         <h2 className="cinzel-font text-gold" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem' }}>Owner Login</h2>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1.5rem' }}>

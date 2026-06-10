@@ -19,7 +19,7 @@ const Loyalty = () => {
     >
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem' }}>Loyalty Points</h2>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>Loyalty Points</h2>
           <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '1rem auto' }}></div>
           <p style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>REWARDING YOUR ROYAL TASTE</p>
         </div>
@@ -36,7 +36,7 @@ const Loyalty = () => {
                 backgroundColor: 'rgba(255,255,255,0.02)',
                 padding: '3rem',
                 borderRadius: '20px',
-                border: '1px solid rgba(212, 175, 55, 0.1)',
+                border: '1px solid rgba(182, 162, 94, 0.1)',
                 textAlign: 'center'
               }}
             >
@@ -50,10 +50,10 @@ const Loyalty = () => {
         </div>
 
         <div style={{ 
-          backgroundColor: 'rgba(212, 175, 55, 0.05)', 
+          backgroundColor: 'rgba(182, 162, 94, 0.05)', 
           padding: '4rem', 
           borderRadius: '30px', 
-          border: '1px solid rgba(212, 175, 55, 0.2)',
+          border: '1px solid rgba(182, 162, 94, 0.2)',
           textAlign: 'center'
         }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Join the Royal Circle</h2>

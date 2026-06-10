@@ -50,7 +50,7 @@ const Navigation = () => {
       transition: 'all 0.4s ease',
       backgroundColor: isScrolled ? 'rgba(5, 16, 24, 0.95)' : 'transparent',
       backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-      borderBottom: isScrolled ? '1px solid rgba(212, 175, 55, 0.1)' : 'none',
+      borderBottom: isScrolled ? '1px solid rgba(182, 162, 94, 0.1)' : 'none',
       padding: isScrolled ? '1rem 0' : '1.5rem 0'
     }}>
       <div className="nav-container">
@@ -64,32 +64,36 @@ const Navigation = () => {
               height: isScrolled ? '55px' : '75px', 
               borderRadius: '50%',
               border: '2px solid var(--primary-color)',
-              boxShadow: isScrolled ? '0 0 10px rgba(212, 175, 55, 0.3)' : '0 0 15px rgba(212, 175, 55, 0.4)',
+              boxShadow: isScrolled ? '0 0 10px rgba(182, 162, 94, 0.3)' : '0 0 15px rgba(182, 162, 94, 0.4)',
               transition: 'all 0.3s ease-in-out'
             }} 
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.08)';
-              e.currentTarget.style.boxShadow = '0 0 25px rgba(212, 175, 55, 0.8)';
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(182, 162, 94, 0.8)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = isScrolled ? '0 0 10px rgba(212, 175, 55, 0.3)' : '0 0 15px rgba(212, 175, 55, 0.4)';
+              e.currentTarget.style.boxShadow = isScrolled ? '0 0 10px rgba(182, 162, 94, 0.3)' : '0 0 15px rgba(182, 162, 94, 0.4)';
             }}
           />
           <div className="logo-text" style={{ transition: 'all 0.3s ease' }}>
             <h1 className="cinzel-font text-gold" style={{ 
               fontSize: isScrolled ? '1.3rem' : '1.6rem', 
               lineHeight: 1,
-              transition: 'font-size 0.3s ease'
-            }}>ROYAL DAAWAT</h1>
-            <span style={{ 
-              fontSize: isScrolled ? '0.7rem' : '0.78rem', 
-              letterSpacing: '2px', 
-              color: 'var(--text-muted)',
+              transition: 'font-size 0.3s ease',
+              letterSpacing: '1px'
+            }}>
+              ROYAL DAAWAT
+            </h1>
+            <span className="cormorant-font" style={{ 
+              fontSize: isScrolled ? '0.85rem' : '0.95rem', 
+              letterSpacing: '1px', 
+              color: 'var(--primary-color)',
+              fontStyle: 'italic',
               transition: 'font-size 0.3s ease',
               display: 'block',
               marginTop: '4px'
-            }}>FLAVOURS OF INDIA</span>
+            }}>Flavours of India</span>
           </div>
         </Link>
 
@@ -101,7 +105,7 @@ const Navigation = () => {
             { name: 'BOOK A TABLE', path: '/book-table' },
             { name: 'GIFT CARD', path: '/gift-card' },
             { name: 'MEDIA', path: '/media' },
-            { name: 'TERMS & CONDITIONS', path: '/terms' },
+            { name: 'TERMS', path: '/terms' },
             { name: 'CONTACT US', path: '/contact' }
           ].map((item) => (
             <Link 
@@ -147,7 +151,7 @@ const Navigation = () => {
               { name: 'BOOK A TABLE', path: '/book-table' },
               { name: 'GIFT CARD', path: '/gift-card' },
               { name: 'MEDIA', path: '/media' },
-              { name: 'TERMS & CONDITIONS', path: '/terms' },
+              { name: 'TERMS', path: '/terms' },
               { name: 'CONTACT US', path: '/contact' }
             ].map((item, idx) => (
               <motion.div
@@ -217,7 +221,7 @@ const Footer = () => {
         <div className="footer-column dark-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings.openingHours}</p>
-          <Link to="/contact" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
+          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
         </div>
 
         {/* Column 2: Contact Us */}
@@ -304,8 +308,7 @@ const Footer = () => {
       {settings.googleMapsUrl && (
         <MapWrapper googleMapsUrl={settings.googleMapsUrl} height="350px" />
       )}
-      
-      <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#04100c', color: '#fff', fontSize: '0.9rem' }}>
+          <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#060606', color: '#fff', fontSize: '0.9rem' }}>
         <p style={{ marginBottom: '1rem', fontSize: '1rem' }}>Connect with us on our social media platforms.</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '1.5rem' }}>
           {settings.facebookUrl && (
@@ -353,7 +356,28 @@ const Footer = () => {
             </a>
           )}
         </div>
-        <p>Copyright &copy; 2026 {settings.restaurantName}. All Rights Reserved.</p>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+          <img 
+            src={logoImg} 
+            alt="Royal Daawat Logo" 
+            style={{ 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '50%', 
+              border: '1px solid var(--primary-color)',
+              objectFit: 'cover'
+            }} 
+          />
+          <span className="cinzel-font text-gold" style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '1px' }}>
+            <span style={{ color: '#ffffff' }}>ROYAL </span>DAAWAT
+          </span>
+        </div>
+        <p style={{ marginBottom: '0.5rem' }}>Copyright &copy; 2026 {settings.restaurantName}. All Rights Reserved.</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)', marginTop: '0.5rem' }}>
+          <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Terms & Conditions</Link>
+          <span>|</span>
+          <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Privacy Policy</Link>
+        </div>
       </div>
     </footer>
   );
@@ -466,7 +490,7 @@ const HomePage = () => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  backgroundImage: `linear-gradient(135deg, rgba(5, 22, 14, 0.6) 0%, rgba(11, 46, 31, 0.5) 45%, rgba(15, 61, 42, 0.5) 75%, rgba(7, 31, 20, 0.6) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
+                  backgroundImage: `linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(20, 20, 20, 0.5) 50%, rgba(10, 10, 10, 0.7) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   zIndex: -1
@@ -498,12 +522,40 @@ const HomePage = () => {
           }}
         >
           <motion.h1 variants={fadeInUp} className="hero-title" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-            <span className="hero-subtitle">Welcome to</span>
-            <span className="hero-main-title">Royal Daawat</span>
+            <span className="hero-subtitle">
+              <span className="shining-gold-text" style={{ letterSpacing: '4px', textTransform: 'uppercase' }}>Welcome to</span>
+            </span>
+            <span className="hero-main-title">
+              <span className="shining-gold-text">ROYAL DAAWAT</span>
+            </span>
           </motion.h1>
-          <motion.p variants={fadeInUp} style={{ fontSize: '1.2rem', letterSpacing: '4px', margin: '1.5rem 0 3.5rem', color: '#fff' }}>
-            AUTHENTIC INDIAN CUISINE IN WALTON
-          </motion.p>
+          <motion.div
+            variants={fadeInUp}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '15px',
+              margin: '1.5rem 0 3.5rem',
+              width: '100%'
+            }}
+          >
+            <div style={{ height: '2px', width: 'clamp(20px, 8vw, 80px)', background: 'linear-gradient(90deg, transparent, var(--primary-color))' }}></div>
+            <span 
+              className="shining-gold-text"
+              style={{ 
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: 'clamp(1.1rem, 3.2vw, 2.2rem)',
+                fontWeight: 700,
+                letterSpacing: '4px',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Flavours of India
+            </span>
+            <div style={{ height: '2px', width: 'clamp(20px, 8vw, 80px)', background: 'linear-gradient(90deg, var(--primary-color), transparent)' }}></div>
+          </motion.div>
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
             <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
@@ -760,6 +812,7 @@ const NotFoundPage = () => {
 import Menu from './pages/Menu';
 import Media from './pages/Media';
 import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
 import GiftCard from './pages/GiftCard';
 import Login from './pages/Login';
@@ -785,6 +838,7 @@ function AppContent() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/media" element={<Media />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gift-card" element={<GiftCard />} />
             <Route path="/login" element={<Login />} />

@@ -153,7 +153,7 @@ const BookTable = () => {
       <section className="section-padding" style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh', paddingTop: '150px' }}>
         <div className="container" style={{ maxWidth: '800px', display: 'flex', justifyContent: 'center' }}>
           
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', width: '100%', maxWidth: '700px', borderRadius: '15px', border: '1px solid rgba(212, 175, 55, 0.1)', overflow: 'hidden' }}>
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', width: '100%', maxWidth: '700px', borderRadius: '15px', border: '1px solid rgba(182, 162, 94, 0.1)', overflow: 'hidden' }}>
             
             <div style={{ padding: '40px' }}>
               <div style={{ textAlign: 'center', marginBottom: '30px' }}>

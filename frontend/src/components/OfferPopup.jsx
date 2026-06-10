@@ -116,7 +116,7 @@ const OfferPopup = () => {
             )}
 
             <div style={{ padding: '2rem', textAlign: 'center' }}>
-              <div style={{ display: 'inline-block', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary-color)', padding: '5px 15px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+              <div style={{ display: 'inline-block', backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)', padding: '5px 15px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem' }}>
                 🔥 Special Offer
               </div>
               <h2 className="cinzel-font text-gold" style={{ fontSize: '2rem', marginBottom: '1rem' }}>

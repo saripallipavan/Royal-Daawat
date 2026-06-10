@@ -27,7 +27,7 @@ export const SignatureDishes = () => {
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <motion.h2 initial="hidden" whileInView="visible" variants={fadeInUp} viewport={{ once: true }} className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Signature Dishes</motion.h2>
-          <motion.p initial="hidden" whileInView="visible" variants={fadeInUp} viewport={{ once: true }} style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>EXPERIENCE OUR CHEF'S FINEST CREATIONS</motion.p>
+          <motion.p initial="hidden" whileInView="visible" variants={fadeInUp} viewport={{ once: true }} style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>AUTHENTIC INDIAN FINE DINING</motion.p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
@@ -44,7 +44,7 @@ export const SignatureDishes = () => {
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderRadius: '15px',
                 overflow: 'hidden',
-                border: '1px solid rgba(212, 175, 55, 0.1)',
+                border: '1px solid rgba(182, 162, 94, 0.1)',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
               }}
             >
@@ -131,12 +131,12 @@ export const GalleryPreview = ({ images }) => {
       {/* Background ambient glows */}
       <div style={{
         position: 'absolute', top: '-10%', left: '-10%', width: '40%', height: '40%',
-        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(182, 162, 94, 0.05) 0%, transparent 70%)',
         zIndex: 1, pointerEvents: 'none'
       }} />
       <div style={{
         position: 'absolute', bottom: '-10%', right: '-10%', width: '40%', height: '40%',
-        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(182, 162, 94, 0.05) 0%, transparent 70%)',
         zIndex: 1, pointerEvents: 'none'
       }} />
 
@@ -258,7 +258,7 @@ export const GalleryPreview = ({ images }) => {
                         width: activeIndex === i ? '30px' : '10px',
                         height: '10px',
                         borderRadius: '5px',
-                        backgroundColor: activeIndex === i ? 'var(--primary-color)' : 'rgba(212, 175, 55, 0.3)',
+                        backgroundColor: activeIndex === i ? 'var(--primary-color)' : 'rgba(182, 162, 94, 0.3)',
                         border: 'none',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease',
@@ -280,10 +280,10 @@ export const GalleryPreview = ({ images }) => {
 // 3) WHY CHOOSE US SECTION
 export const WhyChooseUs = () => {
   const reasons = [
-    { icon: <Gem size={40} />, title: "Premium Quality", desc: "Authentic spices and top-tier meats." },
-    { icon: <ChefHat size={40} />, title: "Master Chefs", desc: "Expertise in traditional Indian cuisine." },
-    { icon: <Zap size={40} />, title: "Fast Service", desc: "Hot food delivered right to your table." },
-    { icon: <Gem size={40} />, title: "Luxury Dining", desc: "Elegant ambiance for special moments." }
+    { icon: <Gem size={40} />, title: "Royal Dining", desc: "Immerse yourself in a luxurious atmosphere with traditional and refined hospitality." },
+    { icon: <Star size={40} />, title: "Loyalty Rewards", desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." },
+    { icon: <Zap size={40} />, title: "Fast Delivery", desc: "Quick and reliable home delivery service, bringing piping hot food directly to you." },
+    { icon: <Heart size={40} />, title: "Fine Dining Atmosphere", desc: "Sleek and modern contemporary surroundings tailored for special dining moments." }
   ];
 
   return (
@@ -293,13 +293,13 @@ export const WhyChooseUs = () => {
           {reasons.map((item, i) => (
             <motion.div
               key={i}
-              whileHover={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--primary-color)' }}
+              whileHover={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', borderColor: 'var(--primary-color)' }}
               className="why-choose-us-card"
               style={{
                 padding: '3rem 2rem',
-                backgroundColor: 'rgba(0,0,0,0.03)',
+                backgroundColor: 'rgba(255,255,255,0.02)',
                 borderRadius: '20px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 textAlign: 'center',
                 transition: 'all 0.3s ease'
               }}
@@ -481,7 +481,7 @@ export const Experience = () => {
         backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
         zIndex: -1
       }}></div>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.85)' }}></div>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(10, 10, 10, 0.85)' }}></div>
       <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <motion.h2 
           initial={{ opacity: 0, y: 50 }}
@@ -489,12 +489,12 @@ export const Experience = () => {
           viewport={{ once: true }}
           className="cinzel-font text-gold" style={{ fontSize: '4rem', marginBottom: '2rem' }}
         >
-          Experience Royal Dining
+          Royal Dining Experience
         </motion.h2>
         <p style={{ color: '#fff', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: '1.8' }}>
           Immerse yourself in an atmosphere of luxury and tradition. Every detail, from our decor to our service, is designed to make you feel like royalty.
         </p>
-        <Link to="/contact" className="btn btn-primary" style={{ padding: '15px 50px' }}>BOOK AN EXPERIENCE</Link>
+        <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 50px' }}>BOOK A FINE DINING EXPERIENCE</Link>
       </div>
     </section>
   );
@@ -544,7 +544,7 @@ export const ContactPreview = () => {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-          <Link to="/contact" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
+          <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
         </div>
       </div>
     </section>

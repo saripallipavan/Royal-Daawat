@@ -69,7 +69,7 @@ const Contact = () => {
     >
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem' }}>Get in Touch</h2>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>Get in Touch</h2>
           <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '1rem auto' }}></div>
           <p style={{ color: 'var(--text-muted)' }}>WE WOULD LOVE TO HEAR FROM YOU</p>
         </div>
@@ -81,7 +81,7 @@ const Contact = () => {
               <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', marginBottom: '2rem' }}>Contact Information</h3>
               
               <div style={{ display: 'flex', gap: '20px', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
                   <Clock size={24} />
                 </div>
                 <div>
@@ -91,7 +91,7 @@ const Contact = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '20px', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
                   <Phone size={24} />
                 </div>
                 <div>
@@ -101,7 +101,7 @@ const Contact = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '20px', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
                   <Mail size={24} />
                 </div>
                 <div>
@@ -111,7 +111,7 @@ const Contact = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '20px', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', padding: '15px', borderRadius: '12px', color: 'var(--primary-color)' }}>
                   <MapPin size={24} />
                 </div>
                 <div>
@@ -134,7 +134,7 @@ const Contact = () => {
               backgroundColor: 'rgba(255,255,255,0.02)', 
               padding: '3rem', 
               borderRadius: '20px', 
-              border: '1px solid rgba(212, 175, 55, 0.1)'
+              border: '1px solid rgba(182, 162, 94, 0.1)'
             }}
           >
             <div className="form-group" style={{ marginBottom: '1.5rem' }}>
@@ -188,7 +188,7 @@ const Contact = () => {
         </div>
 
         {/* Map */}
-        <div style={{ marginTop: '5rem', height: '450px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+        <div style={{ marginTop: '5rem', height: '450px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
           <MapWrapper googleMapsUrl={settings.googleMapsUrl} height="100%" />
         </div>
       </div>

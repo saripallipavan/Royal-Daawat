@@ -53,7 +53,7 @@ const Media = () => {
     >
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem' }}>Royal Daawat Media</h2>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>Royal Daawat Media</h2>
           <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '1rem auto' }}></div>
           <p style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>LATEST NEWS, AWARDS & PRESS COVERAGE</p>
         </div>
@@ -67,7 +67,7 @@ const Media = () => {
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderRadius: '15px',
                 overflow: 'hidden',
-                border: '1px solid rgba(212, 175, 55, 0.1)',
+                border: '1px solid rgba(182, 162, 94, 0.1)',
                 display: 'flex',
                 flexDirection: 'column'
               }}

@@ -67,7 +67,7 @@ const Terms = () => {
     >
       <div className="container" style={{ maxWidth: '1000px' }}>
         <div style={{ textAlign: 'left', marginBottom: '4rem', padding: '0 20px' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>Terms and Conditions</h2>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', marginBottom: '2rem' }}>Terms and Conditions</h2>
         </div>
 
         <div style={{ padding: '0 20px' }}>

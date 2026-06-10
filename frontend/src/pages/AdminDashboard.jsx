@@ -220,10 +220,10 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#020508', color: '#fff' }}>
+    <div className="admin-layout">
       
       {/* Sidebar */}
-      <aside style={{ width: '250px', backgroundColor: '#050a0f', borderRight: '1px solid rgba(212, 175, 55, 0.1)', padding: '2rem 0', position: 'fixed', height: '100vh', overflowY: 'auto', zIndex: 10 }}>
+      <aside className="admin-sidebar">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginTop: '1rem' }}>Admin Panel</h2>
         </div>
@@ -234,7 +234,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab(item.id)}
               style={{
                 display: 'flex', alignItems: 'center', gap: '15px', padding: '15px 25px', width: '100%',
-                backgroundColor: activeTab === item.id ? 'rgba(212, 175, 55, 0.1)' : 'transparent',
+                backgroundColor: activeTab === item.id ? 'rgba(182, 162, 94, 0.1)' : 'transparent',
                 color: activeTab === item.id ? 'var(--primary-color)' : 'var(--text-muted)',
                 border: 'none', borderRight: activeTab === item.id ? '3px solid var(--primary-color)' : '3px solid transparent',
                 cursor: 'pointer', textAlign: 'left', fontSize: '1rem', transition: 'all 0.3s'
@@ -256,37 +256,37 @@ const AdminDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main style={{ marginLeft: '250px', padding: '100px 40px 40px 40px', flex: 1 }}>
-        <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '15px', border: '1px solid rgba(212, 175, 55, 0.1)', minHeight: '80vh' }}>
+      <main className="admin-main">
+        <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '15px', border: '1px solid rgba(182, 162, 94, 0.1)', minHeight: '80vh' }}>
           
           {activeTab === 'dashboard' && (
             <div>
               <h3 className="text-gold" style={{ marginBottom: '2rem', fontSize: '1.8rem' }}>Dashboard Overview</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '3rem' }}>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
                   <h4 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Today's Bookings</h4>
                   <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}>{todaysBookings.length}</div>
                 </div>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
                   <h4 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Total Bookings</h4>
                   <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}>{data.bookings.length}</div>
                 </div>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
                   <h4 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Active Offers</h4>
                   <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}>{activeOffers.length}</div>
                 </div>
-                <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <div style={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', padding: '20px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
                   <h4 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '10px' }}>Unread Alerts</h4>
                   <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>{unreadCount}</div>
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', alignItems: 'start' }}>
+              <div className="admin-overview-grid">
                 <div>
                   <h4 className="text-gold" style={{ marginBottom: '1rem', fontSize: '1.2rem' }}>Recent Booking Requests</h4>
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
-                      <tr style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', textAlign: 'left' }}>
+                      <tr style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', textAlign: 'left' }}>
                         <th style={{ padding: '12px' }}>Name</th>
                         <th style={{ padding: '12px' }}>Date/Time</th>
                         <th style={{ padding: '12px' }}>Guests</th>
@@ -344,7 +344,7 @@ const AdminDashboard = () => {
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '900px' }}>
                   <thead>
-                    <tr style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', textAlign: 'left' }}>
+                    <tr style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', textAlign: 'left' }}>
                       <th style={{ padding: '12px' }}>Customer Name</th>
                       <th style={{ padding: '12px' }}>Phone Number</th>
                       <th style={{ padding: '12px' }}>Date</th>
@@ -367,7 +367,7 @@ const AdminDashboard = () => {
                         <td style={{ padding: '12px' }}>
                           <span style={{ 
                             padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem',
-                            backgroundColor: b.status === 'Approved' ? 'rgba(76, 175, 80, 0.2)' : b.status === 'Pending' ? 'rgba(212, 175, 55, 0.2)' : 'rgba(244, 67, 54, 0.2)',
+                            backgroundColor: b.status === 'Approved' ? 'rgba(76, 175, 80, 0.2)' : b.status === 'Pending' ? 'rgba(182, 162, 94, 0.2)' : 'rgba(244, 67, 54, 0.2)',
                             color: b.status === 'Approved' ? '#4CAF50' : b.status === 'Pending' ? 'var(--primary-color)' : '#f44336'
                           }}>
                             {b.status}
@@ -581,7 +581,7 @@ const AdminDashboard = () => {
               <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Restaurant Variables & Settings</h3>
               <form onSubmit={handleSettingsSubmit} style={{ display: 'grid', gap: '20px', backgroundColor: 'rgba(255,255,255,0.01)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="admin-grid-2col">
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                     <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Restaurant Name</label>
                     <input 
@@ -638,7 +638,7 @@ const AdminDashboard = () => {
 
                 <h4 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Social Profiles</h4>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
+                <div className="admin-grid-3col">
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                     <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Facebook Link</label>
                     <input 
@@ -683,8 +683,8 @@ const AdminDashboard = () => {
                   <button 
                     onClick={handleMarkAllNotifsRead} 
                     style={{ 
-                      backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary-color)',
-                      border: '1px solid rgba(212, 175, 55, 0.3)', padding: '8px 16px', borderRadius: '4px',
+                      backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)',
+                      border: '1px solid rgba(182, 162, 94, 0.3)', padding: '8px 16px', borderRadius: '4px',
                       cursor: 'pointer', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px'
                     }}
                   >
@@ -696,7 +696,7 @@ const AdminDashboard = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {data.notifications.map(n => (
                   <div key={n._id} style={{ 
-                    backgroundColor: n.isRead ? 'rgba(255,255,255,0.01)' : 'rgba(212, 175, 55, 0.03)', 
+                    backgroundColor: n.isRead ? 'rgba(255,255,255,0.01)' : 'rgba(182, 162, 94, 0.03)', 
                     padding: '20px', 
                     borderRadius: '8px', 
                     borderLeft: `4px solid ${n.isRead ? '#333' : 'var(--primary-color)'}`,
@@ -733,7 +733,7 @@ const AdminDashboard = () => {
                           onClick={() => handleMarkNotifRead(n._id)} 
                           style={{ 
                             backgroundColor: 'transparent', color: 'var(--primary-color)',
-                            border: '1px solid rgba(212, 175, 55, 0.2)', padding: '6px 12px', borderRadius: '4px',
+                            border: '1px solid rgba(182, 162, 94, 0.2)', padding: '6px 12px', borderRadius: '4px',
                             cursor: 'pointer', fontSize: '0.8rem'
                           }}
                         >

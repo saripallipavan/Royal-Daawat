@@ -118,7 +118,7 @@ const GiftCard = () => {
       <div className="container">
         {/* Title */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem', margin: 0 }}>Gift Cards</h2>
+          <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', margin: 0 }}>Gift Cards</h2>
           <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '1rem auto' }}></div>
           <p style={{ color: 'var(--text-muted)', letterSpacing: '2px', textTransform: 'uppercase' }}>Give the gift of royal dining</p>
         </div>
@@ -137,12 +137,12 @@ const GiftCard = () => {
           justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
-          border: '1px solid rgba(212, 175, 55, 0.15)',
+          border: '1px solid rgba(182, 162, 94, 0.15)',
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)'
         }}>
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)' }}></div>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '20px' }}>
-            <h3 className="cinzel-font text-gold" style={{ fontSize: '3.5rem', marginBottom: '1rem', letterSpacing: '1px' }}>Royal Daawat</h3>
+            <h3 className="cinzel-font text-gold" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', marginBottom: '1rem', letterSpacing: '1px' }}>Royal Daawat</h3>
             <p style={{ color: '#fff', fontSize: '1.2rem', letterSpacing: '4px', textTransform: 'uppercase', margin: 0 }}>Exclusively Yours</p>
           </div>
         </div>
@@ -157,7 +157,7 @@ const GiftCard = () => {
                 backgroundColor: 'rgba(255,255,255,0.02)',
                 padding: '3rem 2rem',
                 borderRadius: '20px',
-                border: '1px solid rgba(212, 175, 55, 0.15)',
+                border: '1px solid rgba(182, 162, 94, 0.15)',
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
@@ -182,7 +182,7 @@ const GiftCard = () => {
           <motion.div
             whileHover={{ y: -10 }}
             style={{
-              backgroundColor: 'rgba(212, 175, 55, 0.02)',
+              backgroundColor: 'rgba(182, 162, 94, 0.02)',
               padding: '3rem 2rem',
               borderRadius: '20px',
               border: '1px dashed var(--primary-color)',
@@ -235,19 +235,7 @@ const GiftCard = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              style={{
-                backgroundColor: 'var(--secondary-bg, #0F3D2A)',
-                borderRadius: '20px',
-                border: '1px solid var(--primary-color)',
-                width: '100%',
-                maxWidth: '900px',
-                boxShadow: '0 15px 50px rgba(0,0,0,0.8), 0 0 35px rgba(212, 175, 55, 0.15)',
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                overflow: 'hidden',
-                maxHeight: '90vh'
-              }}
+              className="giftcard-modal-container"
             >
               {/* Left Column: Live Card Preview */}
               <div style={{
@@ -258,7 +246,7 @@ const GiftCard = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRight: '1px solid rgba(212, 175, 55, 0.15)'
+                borderRight: '1px solid rgba(182, 162, 94, 0.15)'
               }}>
                 <h4 className="cinzel-font text-gold" style={{ fontSize: '1.2rem', marginBottom: '1.5rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Live Voucher Preview</h4>
                 

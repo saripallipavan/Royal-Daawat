@@ -245,7 +245,7 @@ const Menu = () => {
           justify-content: center;
           gap: 15px;
           background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(212, 175, 55, 0.1);
+          border: 1px solid rgba(182, 162, 94, 0.1);
           padding: 20px 30px;
           border-radius: 12px;
           cursor: pointer;
@@ -254,12 +254,12 @@ const Menu = () => {
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .category-header-btn:hover {
-          background: rgba(212, 175, 55, 0.04);
-          border-color: rgba(212, 175, 55, 0.3);
+          background: rgba(182, 162, 94, 0.04);
+          border-color: rgba(182, 162, 94, 0.3);
           transform: translateY(-2px);
         }
         .category-header-btn:hover .text-gold {
-          text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+          text-shadow: 0 0 10px rgba(182, 162, 94, 0.3);
         }
         .menu-item-block {
           transition: all 0.25s ease;
@@ -269,7 +269,7 @@ const Menu = () => {
           border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
         .menu-item-block:hover {
-          background-color: rgba(212, 175, 55, 0.03);
+          background-color: rgba(182, 162, 94, 0.03);
         }
         .menu-item-block:hover .menu-item-title {
           color: var(--primary-color) !important;
@@ -289,7 +289,7 @@ const Menu = () => {
         .btn-add-to-cart:hover {
           background-color: var(--primary-color) !important;
           color: var(--dark-bg) !important;
-          box-shadow: 0 0 10px rgba(212, 175, 55, 0.4) !important;
+          box-shadow: 0 0 10px rgba(182, 162, 94, 0.4) !important;
         }
       `}</style>
 
@@ -297,7 +297,7 @@ const Menu = () => {
         <div className="container" style={{ maxWidth: '850px' }}>
           
           <motion.div initial="hidden" animate="visible" variants={fadeInUp} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <h2 className="cinzel-font text-gold" style={{ fontSize: '3.5rem', letterSpacing: '2px', margin: 0 }}>MENU & ORDER ONLINE</h2>
+            <h2 className="cinzel-font text-gold" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', letterSpacing: '2px', margin: 0 }}>MENU & ORDER ONLINE</h2>
             <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '0.8rem auto' }}></div>
           </motion.div>
 
@@ -322,7 +322,7 @@ const Menu = () => {
                   width: '100%',
                   padding: '12px 45px 12px 45px',
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  border: '1px solid rgba(212, 175, 55, 0.2)',
+                  border: '1px solid rgba(182, 162, 94, 0.2)',
                   borderRadius: '30px',
                   color: '#fff',
                   fontSize: '1rem',
@@ -332,10 +332,10 @@ const Menu = () => {
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = 'var(--primary-color)';
-                  e.target.style.boxShadow = '0 0 15px rgba(212, 175, 55, 0.15)';
+                  e.target.style.boxShadow = '0 0 15px rgba(182, 162, 94, 0.15)';
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = 'rgba(212, 175, 55, 0.2)';
+                  e.target.style.borderColor = 'rgba(182, 162, 94, 0.2)';
                   e.target.style.boxShadow = 'none';
                 }}
               />
@@ -380,7 +380,7 @@ const Menu = () => {
           {/* Accordion List of Categories or Search Results */}
           {isLoading ? (
             <div style={{ textAlign: 'center', padding: '5rem 2rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
-              <div style={{ width: '40px', height: '40px', border: '3px solid rgba(212, 175, 55, 0.1)', borderTop: '3px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+              <div style={{ width: '40px', height: '40px', border: '3px solid rgba(182, 162, 94, 0.1)', borderTop: '3px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
               <p style={{ fontSize: '1.1rem', letterSpacing: '1px' }}>Preparing our royal menu...</p>
             </div>
           ) : error ? (
@@ -400,7 +400,7 @@ const Menu = () => {
                 Search Results ({filteredMenuItems.length})
               </h3>
               {filteredMenuItems.length > 0 ? (
-                <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '12px', padding: '10px', border: '1px solid rgba(212, 175, 55, 0.1)' }}>
+                <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '12px', padding: '10px', border: '1px solid rgba(182, 162, 94, 0.1)' }}>
                   {filteredMenuItems.map(item => (
                     <div 
                       key={item.id} 
@@ -615,7 +615,7 @@ const Menu = () => {
             alignItems: 'center',
             gap: '10px',
             cursor: 'pointer',
-            boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4)',
+            boxShadow: '0 8px 25px rgba(182, 162, 94, 0.4)',
             zIndex: 998,
             fontWeight: 'bold',
             transition: 'all 0.3s ease',
@@ -647,14 +647,14 @@ const Menu = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               style={{
                 width: '100%', maxWidth: '450px', height: '100vh',
-                backgroundColor: 'var(--dark-bg)', borderLeft: '1px solid rgba(212, 175, 55, 0.15)',
+                backgroundColor: 'var(--dark-bg)', borderLeft: '1px solid rgba(182, 162, 94, 0.15)',
                 padding: '2rem', display: 'flex', flexDirection: 'column',
                 boxShadow: '-10px 0 35px rgba(0, 0, 0, 0.6)'
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(212, 175, 55, 0.1)', paddingBottom: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(182, 162, 94, 0.1)', paddingBottom: '1rem' }}>
                 <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', margin: 0 }}>Your Order</h3>
                 <button onClick={() => setShowCartModal(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
                   <X size={24} />
@@ -665,7 +665,7 @@ const Menu = () => {
               <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '5px', marginBottom: '1rem' }}>
                 {cart.length > 0 ? (
                   cart.map((item) => (
-                    <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(212, 175, 55, 0.05)' }}>
+                    <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(182, 162, 94, 0.05)' }}>
                       <div style={{ flex: 1, marginRight: '10px' }}>
                         <h4 style={{ color: '#fff', fontSize: '0.95rem', margin: '0 0 4px 0', fontWeight: '600' }}>{item.name}</h4>
                         <span style={{ color: 'var(--primary-color)', fontSize: '0.9rem', fontWeight: 'bold' }}>£{(item.price * item.quantity).toFixed(2)}</span>
@@ -688,7 +688,7 @@ const Menu = () => {
               </div>
 
               {/* Call Banner */}
-              <div style={{ textAlign: 'center', margin: '0.5rem 0 1rem 0', padding: '12px', backgroundColor: 'rgba(212, 175, 55, 0.05)', borderRadius: '8px', border: '1px dashed rgba(212, 175, 55, 0.2)' }}>
+              <div style={{ textAlign: 'center', margin: '0.5rem 0 1rem 0', padding: '12px', backgroundColor: 'rgba(182, 162, 94, 0.05)', borderRadius: '8px', border: '1px dashed rgba(182, 162, 94, 0.2)' }}>
                 <p style={{ margin: '0 0 5px 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>Prefer to order by phone?</p>
                 <a href={`tel:${settings.phoneNumber}`} style={{ color: 'var(--primary-color)', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', textDecoration: 'none' }}>
                   <Phone size={14} /> Call: {settings.phoneNumber}
@@ -696,7 +696,7 @@ const Menu = () => {
               </div>
 
               {/* Checkout Form */}
-              <div style={{ borderTop: '1px solid rgba(212, 175, 55, 0.15)', paddingTop: '1rem' }}>
+              <div style={{ borderTop: '1px solid rgba(182, 162, 94, 0.15)', paddingTop: '1rem' }}>
                 <div style={{ display: 'flex', gap: '10px', marginBottom: '1rem' }}>
                   <button 
                     onClick={() => setOrderType('Pickup')}
@@ -778,7 +778,7 @@ const Menu = () => {
               <div style={{ width: '40px', height: '1px', backgroundColor: 'var(--primary-color)', margin: '0.5rem auto 1.5rem auto' }}></div>
               <p style={{ color: '#fff', fontSize: '1.05rem', marginBottom: '1.5rem' }}>Call us directly to place your order:</p>
               
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(212, 175, 55, 0.08)', padding: '12px 25px', borderRadius: '30px', marginBottom: '1.5rem', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(182, 162, 94, 0.08)', padding: '12px 25px', borderRadius: '30px', marginBottom: '1.5rem', border: '1px solid rgba(182, 162, 94, 0.2)' }}>
                 <Phone size={18} color="var(--primary-color)" />
                 <span style={{ color: 'var(--primary-color)', fontSize: '1.4rem', fontWeight: 'bold', letterSpacing: '1px' }}>{settings.phoneNumber}</span>
               </div>
@@ -831,7 +831,7 @@ const Menu = () => {
                 border: '1px solid var(--primary-color)',
                 width: '100%',
                 maxWidth: '550px',
-                boxShadow: '0 15px 50px rgba(0,0,0,0.8), 0 0 35px rgba(212, 175, 55, 0.15)',
+                boxShadow: '0 15px 50px rgba(0,0,0,0.8), 0 0 35px rgba(182, 162, 94, 0.15)',
                 position: 'relative',
                 textAlign: 'left'
               }}
@@ -900,7 +900,7 @@ const Menu = () => {
               </div>
 
               {/* Divider */}
-              <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(212, 175, 55, 0.15)', marginBottom: '1.5rem' }}></div>
+              <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(182, 162, 94, 0.15)', marginBottom: '1.5rem' }}></div>
 
               {/* Description */}
               <p style={{ 

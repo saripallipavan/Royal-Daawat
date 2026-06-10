@@ -75,7 +75,7 @@ const MapWrapper = ({ googleMapsUrl, height = "100%" }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary-color)' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)' }}>
               <MapPin size={18} />
             </div>
             <div>
@@ -91,7 +91,7 @@ const MapWrapper = ({ googleMapsUrl, height = "100%" }) => {
               display: 'flex', 
               alignItems: 'center', 
               gap: '4px',
-              border: '1px solid rgba(212, 175, 55, 0.3)',
+              border: '1px solid rgba(182, 162, 94, 0.3)',
               borderRadius: '20px',
               padding: '3px 8px',
               backgroundColor: 'rgba(0,0,0,0.2)',
