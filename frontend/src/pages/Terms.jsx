@@ -63,7 +63,7 @@ const Terms = () => {
     <motion.div 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
-      style={{ backgroundColor: '#020508', minHeight: '100vh', paddingTop: '150px', paddingBottom: '80px' }}
+      style={{ backgroundColor: 'var(--dark-bg)', minHeight: '100vh', paddingTop: '150px', paddingBottom: '80px' }}
     >
       <div className="container" style={{ maxWidth: '1000px' }}>
         <div style={{ textAlign: 'left', marginBottom: '4rem', padding: '0 20px' }}>
