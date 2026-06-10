@@ -481,7 +481,7 @@ export const Experience = () => {
         backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
         zIndex: -1
       }}></div>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(10, 10, 10, 0.85)' }}></div>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.9)' }}></div>
       <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         <motion.h2 
           initial={{ opacity: 0, y: 50 }}
