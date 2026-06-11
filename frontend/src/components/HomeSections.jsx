@@ -462,7 +462,27 @@ export const Experience = () => {
         zIndex: -1
       }}></div>
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.93)' }}></div>
-      <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        
+        {/* Section Header */}
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="cinzel-font text-gold" 
+          style={{ 
+            fontSize: 'clamp(2rem, 5vw, 3.2rem)', 
+            marginBottom: '3.5rem', 
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            color: 'var(--primary-color)'
+          }}
+        >
+          Royal Dining Experience
+        </motion.h2>
+
         <div className="experience-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', width: '100%' }}>
           {reasons.map((item, i) => (
             <motion.div
