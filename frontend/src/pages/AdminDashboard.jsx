@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   getContact, getMenu, postMenu, deleteMenu, 
@@ -11,7 +11,7 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ExternalLink, ShieldCheck
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -44,15 +44,6 @@ const AdminDashboard = () => {
 
   const [imageFile, setImageFile] = useState(null);
   const [galleryFile, setGalleryFile] = useState(null);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || user.role !== 'Admin') {
-      navigate('/login');
-    } else {
-      fetchData();
-    }
-  }, [navigate]);
 
   const fetchData = async () => {
     try {
@@ -92,6 +83,15 @@ const AdminDashboard = () => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user.role !== 'Admin') {
+      navigate('/login');
+    } else {
+      fetchData();
+    }
+  }, [navigate]);
 
   const handleMenuSubmit = async (e) => {
     e.preventDefault();

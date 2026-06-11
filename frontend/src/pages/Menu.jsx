@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Star, Phone, ArrowUp, ChevronDown, ChevronUp, ShoppingBag, Plus, Minus, Trash2, X, Search } from 'lucide-react';
+import { Star, Phone, ArrowUp, ChevronDown, ChevronUp, ShoppingBag, Plus, Minus, X, Search } from 'lucide-react';
 import { getMenu, getSettings } from '../services/api';
 import fallbackMenu from '../data/fallbackMenu.json';
 
@@ -66,7 +66,7 @@ const Menu = () => {
   const initialData = getInitialMenuData();
   const [menuItems, setMenuItems] = useState(initialData.flattenedMenu);
   const [categories, setCategories] = useState(initialData.sortedCats);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showCallPopup, setShowCallPopup] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -89,7 +89,6 @@ const Menu = () => {
   });
 
   const fetchMenu = async () => {
-    setError(null);
     try {
       const response = await getMenu();
       if (response.data && response.data.length > 0) {
@@ -134,6 +133,7 @@ const Menu = () => {
       }
     } catch (apiErr) {
       console.warn("Failed to fetch menu from backend API in background, keeping local data:", apiErr);
+      setError("Failed to load backend menu items. Displaying offline fallback menu.");
     }
   };
 

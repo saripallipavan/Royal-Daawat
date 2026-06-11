@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import fallbackImage from '../assets/logo.jpg';
 
 const ImageWithFallback = ({ src, alt, className, style, ...props }) => {
+  const [prevSrc, setPrevSrc] = useState(src);
   const [imgSrc, setImgSrc] = useState(src || fallbackImage);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  if (src !== prevSrc) {
+    setPrevSrc(src);
+    setImgSrc(src || fallbackImage);
+    setHasError(false);
+    setIsLoading(true);
+  }
 
   const handleError = (e) => {
     if (!hasError) {
@@ -23,12 +31,6 @@ const ImageWithFallback = ({ src, alt, className, style, ...props }) => {
       props.onLoad(e);
     }
   };
-
-  React.useEffect(() => {
-    setImgSrc(src || fallbackImage);
-    setHasError(false);
-    setIsLoading(true);
-  }, [src]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', borderRadius: style?.borderRadius, overflow: 'hidden' }}>

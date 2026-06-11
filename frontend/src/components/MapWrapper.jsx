@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, ExternalLink, Wifi } from 'lucide-react';
+import { MapPin, ExternalLink } from 'lucide-react';
 import mapSatellite from '../assets/map_satellite.jpg';
 
 const MapWrapper = ({ googleMapsUrl, height = "100%" }) => {

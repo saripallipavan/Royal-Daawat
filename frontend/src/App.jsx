@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Menu as MenuIcon, X, ChevronRight, Phone, Clock, MapPin } from 'lucide-react';
-import { useContext } from 'react';
+import { Menu as MenuIcon, X } from 'lucide-react';
 
 import logoImg from './assets/logo.jpg';
-import heroBg from './assets/hero_bg.png';
+
 import dish1 from './assets/dish1.jpg';
 import dish2 from './assets/dish2.jpg';
 import dish3 from './assets/dish3.jpg';
-import { getMenu, getSettings } from './services/api';
+import { getSettings } from './services/api';
 import MapWrapper from './components/MapWrapper';
 
 // Shared Animations
@@ -390,7 +389,6 @@ import {
   SignatureDishes, 
   GalleryPreview, 
   WhyChooseUs, 
-  SpecialOffers, 
   ChefRecommendations, 
   Testimonials, 
   Experience, 
@@ -562,16 +560,16 @@ const HomePage = () => {
             variants={fadeInUp}
             style={{ 
               fontFamily: "'Cinzel', serif", 
-              fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', 
-              letterSpacing: '3px', 
-              color: '#ffffff', 
+              fontSize: 'clamp(0.85rem, 1.8vw, 1.25rem)', 
+              letterSpacing: '4px', 
+              color: 'var(--secondary-color)', 
               textTransform: 'uppercase',
               marginBottom: '2.5rem',
               fontWeight: 500,
               textShadow: '0 2px 10px rgba(0,0,0,0.5)'
             }}
           >
-            RESTAURANT <span style={{ color: 'var(--primary-color)', margin: '0 10px' }}>|</span> TAKEAWAY <span style={{ color: 'var(--primary-color)', margin: '0 10px' }}>|</span> DELIVERY
+            RESTAURANT <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> TAKEAWAY <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> DELIVERY
           </motion.div>
 
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -647,6 +645,7 @@ const AboutPage = () => {
     return () => {
       if (aboutTimerRef.current) clearInterval(aboutTimerRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nextAboutSlide = () => {

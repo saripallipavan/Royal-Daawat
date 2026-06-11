@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getMedia } from '../services/api';
 import { ExternalLink } from 'lucide-react';
@@ -43,7 +43,7 @@ const Media = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const categories = ["Euro Star Awards 2024", "New Launch", "Restaurant News", "Awards", "Press Coverage"];
+
 
   return (
     <motion.div 

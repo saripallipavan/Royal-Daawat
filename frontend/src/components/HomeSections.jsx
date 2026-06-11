@@ -1,17 +1,13 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, ShieldCheck, ChefHat, Zap, Gem, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
+import { Star, Zap, Gem, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
 import ImageWithFallback from './ImageWithFallback';
 
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  visible: { transition: { staggerChildren: 0.2 } }
 };
 
 // 1) SIGNATURE DISHES SECTION
@@ -114,6 +110,7 @@ export const GalleryPreview = ({ images }) => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [galleryImages.length]);
 
   const nextSlide = () => {
@@ -347,6 +344,7 @@ export const SpecialOffers = () => {
       }
     };
     fetchOffers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

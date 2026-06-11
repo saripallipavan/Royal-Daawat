@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { createBooking, getSettings } from '../services/api';
-import { Calendar, Phone } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 const BookTable = () => {
   const [formData, setFormData] = useState({

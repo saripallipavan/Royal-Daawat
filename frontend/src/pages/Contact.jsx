@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { postContact, getSettings } from '../services/api';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
@@ -54,7 +54,7 @@ const Contact = () => {
       await postContact(formData);
       setStatus({ type: 'success', message: 'Message sent successfully! We will get back to you soon.' });
       setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (err) {
+    } catch {
       setStatus({ type: 'error', message: 'Failed to send message. Please try again or call us directly.' });
     } finally {
       setLoading(false);
