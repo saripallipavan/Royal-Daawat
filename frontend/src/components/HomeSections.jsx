@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, Zap, Gem, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
+import { Star, Zap, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
 import ImageWithFallback from './ImageWithFallback';
 
 // Animation variants
@@ -428,10 +428,21 @@ export const Testimonials = () => {
 // 7) EXPERIENCE SECTION
 export const Experience = () => {
   const reasons = [
-    { icon: <Gem size={40} />, title: "Royal Dining", desc: "Immerse yourself in a luxurious atmosphere with traditional and refined hospitality." },
-    { icon: <Star size={40} />, title: "Loyalty Rewards", desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." },
-    { icon: <Zap size={40} />, title: "Fast Delivery", desc: "Quick and reliable home delivery service, bringing piping hot food directly to you." },
-    { icon: <Heart size={40} />, title: "Fine Dining Atmosphere", desc: "Sleek and modern contemporary surroundings tailored for special dining moments." }
+    { 
+      icon: <Star size={40} />, 
+      title: "Loyalty Rewards", 
+      desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." 
+    },
+    { 
+      icon: <Zap size={40} />, 
+      title: "Fast Delivery", 
+      desc: "QUICK AND EASY ON THE GO ORDERING, WE AIM TO DELIVER WITHIN 45 MINUTES" 
+    },
+    { 
+      icon: <Heart size={40} />, 
+      title: "Fine Dining Atmosphere", 
+      desc: "Sleek and modern contemporary surroundings tailored for special dining moments." 
+    }
   ];
 
   return (
@@ -452,24 +463,24 @@ export const Experience = () => {
       }}></div>
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.93)' }}></div>
       <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
-        <div className="why-choose-us-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', width: '100%' }}>
+        <div className="experience-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', width: '100%' }}>
           {reasons.map((item, i) => (
             <motion.div
               key={i}
-              whileHover={{ backgroundColor: 'rgba(182, 162, 94, 0.08)', borderColor: 'var(--primary-color)', y: -10 }}
+              whileHover={{ backgroundColor: '#152d21', borderColor: 'var(--primary-color)', y: -10 }}
               className="why-choose-us-card"
               style={{
                 padding: '3rem 2rem',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                borderRadius: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#112219',
+                borderRadius: '12px',
+                border: '1px solid rgba(182, 162, 94, 0.15)',
                 textAlign: 'center',
                 transition: 'all 0.3s ease, y 0.3s ease'
               }}
             >
               <div style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
-              <h3 className="cinzel-font" style={{ color: '#ffffff', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>{item.desc}</p>
+              <h3 className="cinzel-font" style={{ color: 'var(--primary-color)', fontSize: '1.3rem', marginBottom: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{item.title}</h3>
+              <p className="cinzel-font" style={{ color: '#ffffff', fontSize: '0.9rem', lineHeight: '1.6', letterSpacing: '1px', textTransform: 'uppercase' }}>{item.desc}</p>
             </motion.div>
           ))}
         </div>
