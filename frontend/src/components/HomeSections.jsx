@@ -345,27 +345,38 @@ export const ChefRecommendations = () => {
   ];
 
   return (
-    <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
+    <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="cinzel-font text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Chef's Recommendations</h2>
-          <p style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>HANDPICKED FAVORITES BY OUR HEAD CHEF</p>
+          <h2 className="cinzel-font" style={{ fontSize: '3rem', marginBottom: '1rem', color: 'var(--dark-charcoal-text)' }}>Chef's Recommendations</h2>
+          <p style={{ color: 'var(--muted-charcoal-text)', letterSpacing: '2px' }}>HANDPICKED FAVORITES BY OUR HEAD CHEF</p>
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
           {recommendations.map((rec, i) => (
             <motion.div 
               key={i} 
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(0,0,0,0.08)' }}
               className="chef-rec-card"
-              style={{ flex: '1 1 500px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '25px', overflow: 'hidden', display: 'flex', flexDirection: i % 2 === 0 ? 'row' : 'row-reverse', flexWrap: 'wrap' }}
+              style={{ 
+                flex: '1 1 500px', 
+                backgroundColor: '#ffffff', 
+                borderRadius: '25px', 
+                border: '1px solid rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                overflow: 'hidden', 
+                display: 'flex', 
+                flexDirection: i % 2 === 0 ? 'row' : 'row-reverse', 
+                flexWrap: 'wrap',
+                transition: 'all 0.3s ease'
+              }}
             >
               <div className="chef-rec-img-container" style={{ flex: '1 1 300px', height: '400px' }}>
                 <ImageWithFallback src={rec.img} alt={rec.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
               </div>
               <div className="chef-rec-content" style={{ flex: '1 1 300px', padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>{rec.name}</h3>
-                <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2rem' }}>{rec.desc}</p>
+                <h3 className="cinzel-font" style={{ fontSize: '1.8rem', marginBottom: '1.5rem', color: 'var(--dark-charcoal-text)' }}>{rec.name}</h3>
+                <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8', marginBottom: '2rem' }}>{rec.desc}</p>
                 <Link to="/menu" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 'bold', letterSpacing: '2px' }}>DISCOVER MORE →</Link>
               </div>
             </motion.div>
