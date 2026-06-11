@@ -274,43 +274,6 @@ export const GalleryPreview = ({ images }) => {
   );
 };
 
-// 3) WHY CHOOSE US SECTION
-export const WhyChooseUs = () => {
-  const reasons = [
-    { icon: <Gem size={40} />, title: "Royal Dining", desc: "Immerse yourself in a luxurious atmosphere with traditional and refined hospitality." },
-    { icon: <Star size={40} />, title: "Loyalty Rewards", desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." },
-    { icon: <Zap size={40} />, title: "Fast Delivery", desc: "Quick and reliable home delivery service, bringing piping hot food directly to you." },
-    { icon: <Heart size={40} />, title: "Fine Dining Atmosphere", desc: "Sleek and modern contemporary surroundings tailored for special dining moments." }
-  ];
-
-  return (
-    <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
-      <div className="container">
-        <div className="why-choose-us-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
-          {reasons.map((item, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ backgroundColor: 'rgba(182, 162, 94, 0.05)', borderColor: 'var(--primary-color)' }}
-              className="why-choose-us-card"
-              style={{
-                padding: '3rem 2rem',
-                backgroundColor: 'rgba(255,255,255,0.02)',
-                borderRadius: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                textAlign: 'center',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              <div style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
-              <h3 className="cinzel-font" style={{ color: 'var(--dark-charcoal-text)', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
-              <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.6' }}>{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 // 4) SPECIAL OFFERS SECTION
 import { useState, useEffect } from 'react';
@@ -464,9 +427,17 @@ export const Testimonials = () => {
 
 // 7) EXPERIENCE SECTION
 export const Experience = () => {
+  const reasons = [
+    { icon: <Gem size={40} />, title: "Royal Dining", desc: "Immerse yourself in a luxurious atmosphere with traditional and refined hospitality." },
+    { icon: <Star size={40} />, title: "Loyalty Rewards", desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." },
+    { icon: <Zap size={40} />, title: "Fast Delivery", desc: "Quick and reliable home delivery service, bringing piping hot food directly to you." },
+    { icon: <Heart size={40} />, title: "Fine Dining Atmosphere", desc: "Sleek and modern contemporary surroundings tailored for special dining moments." }
+  ];
+
   return (
     <section style={{ 
-      height: '600px', 
+      minHeight: '600px', 
+      padding: '100px 0',
       position: 'relative', 
       display: 'flex', 
       alignItems: 'center', 
@@ -479,20 +450,29 @@ export const Experience = () => {
         backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed',
         zIndex: -1
       }}></div>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.9)' }}></div>
-      <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-        <motion.h2 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="cinzel-font text-gold" style={{ fontSize: '4rem', marginBottom: '2rem' }}
-        >
-          Royal Dining Experience
-        </motion.h2>
-        <p style={{ color: '#fff', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: '1.8' }}>
-          Immerse yourself in an atmosphere of luxury and tradition. Every detail, from our decor to our service, is designed to make you feel like royalty.
-        </p>
-        <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 50px' }}>BOOK A FINE DINING EXPERIENCE</Link>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(11, 46, 31, 0.93)' }}></div>
+      <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+        <div className="why-choose-us-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', width: '100%' }}>
+          {reasons.map((item, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ backgroundColor: 'rgba(182, 162, 94, 0.08)', borderColor: 'var(--primary-color)', y: -10 }}
+              className="why-choose-us-card"
+              style={{
+                padding: '3rem 2rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                textAlign: 'center',
+                transition: 'all 0.3s ease, y 0.3s ease'
+              }}
+            >
+              <div style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
+              <h3 className="cinzel-font" style={{ color: '#ffffff', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

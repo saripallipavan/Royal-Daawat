@@ -388,7 +388,6 @@ const Footer = () => {
 import { 
   SignatureDishes, 
   GalleryPreview, 
-  WhyChooseUs, 
   ChefRecommendations, 
   Testimonials, 
   Experience, 
@@ -608,7 +607,6 @@ const HomePage = () => {
 
       {/* NEW SECTIONS */}
       <SignatureDishes />
-      <WhyChooseUs />
       <ChefRecommendations />
       <GalleryPreview images={[dish1, dish2, dish3]} />
       <Testimonials />
