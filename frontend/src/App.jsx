@@ -536,7 +536,7 @@ const HomePage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '15px',
-              margin: '1.5rem 0 3.5rem',
+              margin: '1.5rem 0 1.5rem',
               width: '100%'
             }}
           >
@@ -556,6 +556,24 @@ const HomePage = () => {
             </span>
             <div style={{ height: '2px', width: 'clamp(20px, 8vw, 80px)', background: 'linear-gradient(90deg, var(--primary-color), transparent)' }}></div>
           </motion.div>
+
+          {/* RESTAURANT | TAKEAWAY | DELIVERY Subtitle */}
+          <motion.div 
+            variants={fadeInUp}
+            style={{ 
+              fontFamily: "'Cinzel', serif", 
+              fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', 
+              letterSpacing: '3px', 
+              color: '#ffffff', 
+              textTransform: 'uppercase',
+              marginBottom: '2.5rem',
+              fontWeight: 500,
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+            }}
+          >
+            RESTAURANT <span style={{ color: 'var(--primary-color)', margin: '0 10px' }}>|</span> TAKEAWAY <span style={{ color: 'var(--primary-color)', margin: '0 10px' }}>|</span> DELIVERY
+          </motion.div>
+
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
             <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
