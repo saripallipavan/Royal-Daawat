@@ -103,6 +103,7 @@ const Navigation = () => {
             { name: 'DINE-IN MENU', path: '/menu' },
             { name: 'BOOK A TABLE', path: '/book-table' },
             { name: 'GIFT CARD', path: '/gift-card' },
+            { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
             { name: 'MEDIA', path: '/media' },
             { name: 'TERMS', path: '/terms' },
             { name: 'CONTACT US', path: '/contact' }
@@ -149,6 +150,7 @@ const Navigation = () => {
               { name: 'DINE-IN MENU', path: '/menu' },
               { name: 'BOOK A TABLE', path: '/book-table' },
               { name: 'GIFT CARD', path: '/gift-card' },
+              { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
               { name: 'MEDIA', path: '/media' },
               { name: 'TERMS', path: '/terms' },
               { name: 'CONTACT US', path: '/contact' }
@@ -833,6 +835,7 @@ import GiftCard from './pages/GiftCard';
 import Login from './pages/Login';
 import BookTable from './pages/BookTable';
 import AdminDashboard from './pages/AdminDashboard';
+import OffersGallery from './pages/OffersGallery';
 
 import OfferPopup from './components/OfferPopup';
 
@@ -856,6 +859,7 @@ function AppContent() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gift-card" element={<GiftCard />} />
+            <Route path="/offers-gallery" element={<OffersGallery />} />
             <Route path="/login" element={<Login />} />
             <Route path="/book-table" element={<BookTable />} />
             <Route path="/admin" element={<AdminDashboard />} />
