@@ -11,13 +11,14 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [data, setData] = useState({ 
     bookings: [], 
     contact: [], 
@@ -275,9 +276,36 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-layout">
+      {/* Mobile Top Header */}
+      <div className="admin-mobile-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <button 
+            type="button"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            style={{ background: 'transparent', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '5px' }}
+            aria-label="Toggle Sidebar"
+          >
+            <MenuIcon size={24} />
+          </button>
+          <span className="cinzel-font text-gold" style={{ fontSize: '1.25rem', fontWeight: 600, letterSpacing: '1px' }}>Admin Panel</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('user'); navigate('/login'); }}
+          style={{ background: 'transparent', border: 'none', color: '#f44336', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '5px' }}
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </button>
+      </div>
+
+      {/* Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="admin-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>
+      )}
       
       {/* Sidebar */}
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h2 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginTop: '1rem' }}>Admin Panel</h2>
         </div>
@@ -285,7 +313,7 @@ const AdminDashboard = () => {
           {sidebarItems.map(item => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
               style={{
                 display: 'flex', alignItems: 'center', gap: '15px', padding: '15px 25px', width: '100%',
                 backgroundColor: activeTab === item.id ? 'rgba(182, 162, 94, 0.1)' : 'transparent',
@@ -338,33 +366,35 @@ const AdminDashboard = () => {
               <div className="admin-overview-grid">
                 <div>
                   <h4 className="text-gold" style={{ marginBottom: '1rem', fontSize: '1.2rem' }}>Recent Booking Requests</h4>
-                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                      <tr style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', textAlign: 'left' }}>
-                        <th style={{ padding: '12px' }}>Name</th>
-                        <th style={{ padding: '12px' }}>Date/Time</th>
-                        <th style={{ padding: '12px' }}>Guests</th>
-                        <th style={{ padding: '12px' }}>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.bookings.slice(0, 5).map(b => (
-                        <tr key={b._id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                          <td style={{ padding: '12px' }}>{b.name || `${b.firstName} ${b.lastName}`}</td>
-                          <td style={{ padding: '12px' }}>{b.bookingDate} at {b.bookingTime}</td>
-                          <td style={{ padding: '12px' }}>{b.guestCount}</td>
-                          <td style={{ padding: '12px' }}>
-                            <span style={{ color: b.status === 'Approved' ? '#4CAF50' : b.status === 'Pending' ? 'var(--primary-color)' : '#f44336' }}>{b.status}</span>
-                          </td>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <thead>
+                        <tr style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', textAlign: 'left' }}>
+                          <th style={{ padding: '12px' }}>Name</th>
+                          <th style={{ padding: '12px' }}>Date/Time</th>
+                          <th style={{ padding: '12px' }}>Guests</th>
+                          <th style={{ padding: '12px' }}>Status</th>
                         </tr>
-                      ))}
-                      {data.bookings.length === 0 && (
-                        <tr>
-                          <td colSpan="4" style={{ padding: '20px', textAlign: 'center', color: 'var(--text-muted)' }}>No bookings found</td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {data.bookings.slice(0, 5).map(b => (
+                          <tr key={b._id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                            <td style={{ padding: '12px' }}>{b.name || `${b.firstName} ${b.lastName}`}</td>
+                            <td style={{ padding: '12px' }}>{b.bookingDate} at {b.bookingTime}</td>
+                            <td style={{ padding: '12px' }}>{b.guestCount}</td>
+                            <td style={{ padding: '12px' }}>
+                              <span style={{ color: b.status === 'Approved' ? '#4CAF50' : b.status === 'Pending' ? 'var(--primary-color)' : '#f44336' }}>{b.status}</span>
+                            </td>
+                          </tr>
+                        ))}
+                        {data.bookings.length === 0 && (
+                          <tr>
+                            <td colSpan="4" style={{ padding: '20px', textAlign: 'center', color: 'var(--text-muted)' }}>No bookings found</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
 
                 <div>

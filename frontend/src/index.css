@@ -816,6 +816,13 @@ ul {
 }
 
 /* Admin Dashboard Responsiveness styling */
+.admin-mobile-header {
+  display: none;
+}
+.admin-sidebar-overlay {
+  display: none;
+}
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -864,20 +871,59 @@ ul {
 }
 
 @media (max-width: 768px) {
+  .admin-mobile-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: rgba(10, 36, 24, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(182, 162, 94, 0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 98;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .admin-sidebar-overlay {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 99;
+  }
   .admin-layout {
     flex-direction: column !important;
   }
   .admin-sidebar {
-    width: 100% !important;
-    position: relative !important;
-    height: auto !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(182, 162, 94, 0.1) !important;
-    padding: 1.5rem 1rem !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: -280px !important;
+    width: 280px !important;
+    height: 100vh !important;
+    z-index: 100 !important;
+    background-color: rgba(11, 46, 31, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(182, 162, 94, 0.15) !important;
+    border-bottom: none !important;
+    padding: 6rem 0 2rem 0 !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 10px 0 40px rgba(0,0,0,0.5) !important;
+  }
+  .admin-sidebar.open {
+    left: 0 !important;
   }
   .admin-main {
     margin-left: 0 !important;
-    padding: 40px 20px !important;
+    padding: 90px 15px 30px 15px !important;
   }
   .admin-grid-2col, .admin-grid-3col {
     grid-template-columns: 1fr !important;
