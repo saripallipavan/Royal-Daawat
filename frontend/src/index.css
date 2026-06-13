@@ -863,14 +863,14 @@ ul {
   gap: 15px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1180px) {
   .admin-overview-grid {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
   .admin-mobile-header {
     display: flex !important;
     justify-content: space-between;
