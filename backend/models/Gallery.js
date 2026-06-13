@@ -5,6 +5,7 @@ const opts = { toJSON: { virtuals: true }, toObject: { virtuals: true }, timesta
 const gallerySchema = new mongoose.Schema({
   image: { type: String, required: true },
   title: { type: String },
+  subtitle: { type: String, default: '' },
   sortOrder: { type: Number, default: 0 }
 }, opts);
 

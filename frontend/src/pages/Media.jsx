@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getMedia } from '../services/api';
+import { getMedia, getImageUrl } from '../services/api';
 import { ExternalLink } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -31,7 +31,7 @@ const Media = () => {
         if (response.data && response.data.length > 0) {
           const backendMedia = response.data.map(item => ({
             ...item,
-            image: item.image ? (item.image.startsWith('http') ? item.image : `http://localhost:5000/${item.image.replace(/\\/g, '/')}`) : null
+            image: getImageUrl(item.image)
           }));
           setMediaItems(prev => [...prev, ...backendMedia]);
         }

@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
   const [menuForm, setMenuForm] = useState({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
   const [offerForm, setOfferForm] = useState({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true });
-  const [galleryForm, setGalleryForm] = useState({ title: '', sortOrder: '0' });
+  const [galleryForm, setGalleryForm] = useState({ title: '', subtitle: '', sortOrder: '0' });
   const [settingsForm, setSettingsForm] = useState({
     restaurantName: '',
     phoneNumber: '',
@@ -39,7 +39,10 @@ const AdminDashboard = () => {
     googleMapsUrl: '',
     facebookUrl: '',
     instagramUrl: '',
-    tiktokUrl: ''
+    tiktokUrl: '',
+    orderOnlineUrl: '',
+    tableReservationsUrl: '',
+    hookahOnlineUrl: ''
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -76,7 +79,10 @@ const AdminDashboard = () => {
           googleMapsUrl: setts.data.googleMapsUrl || '',
           facebookUrl: setts.data.facebookUrl || '',
           instagramUrl: setts.data.instagramUrl || '',
-          tiktokUrl: setts.data.tiktokUrl || ''
+          tiktokUrl: setts.data.tiktokUrl || '',
+          orderOnlineUrl: setts.data.orderOnlineUrl || '',
+          tableReservationsUrl: setts.data.tableReservationsUrl || '',
+          hookahOnlineUrl: setts.data.hookahOnlineUrl || ''
         });
       }
     } catch (err) {
@@ -130,11 +136,12 @@ const AdminDashboard = () => {
     }
     const fd = new FormData();
     fd.append('title', galleryForm.title);
+    fd.append('subtitle', galleryForm.subtitle || '');
     fd.append('sortOrder', galleryForm.sortOrder);
     fd.append('image', galleryFile);
     
     await postGallery(fd);
-    setGalleryForm({ title: '', sortOrder: '0' });
+    setGalleryForm({ title: '', subtitle: '', sortOrder: '0' });
     setGalleryFile(null);
     const fileInput = document.getElementById('galleryImageInput');
     if (fileInput) fileInput.value = '';
@@ -462,9 +469,16 @@ const AdminDashboard = () => {
               <form onSubmit={handleGallerySubmit} style={{ display: 'grid', gap: '15px', marginBottom: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '10px' }}>
                 <input 
                   type="text" 
-                  placeholder="Image Title / Caption" 
+                  placeholder="Image Title / Caption (Header)" 
                   value={galleryForm.title} 
                   onChange={e => setGalleryForm({...galleryForm, title: e.target.value})} 
+                  style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                />
+                <input 
+                  type="text" 
+                  placeholder="Image Sub-caption / Description (Sub-column)" 
+                  value={galleryForm.subtitle} 
+                  onChange={e => setGalleryForm({...galleryForm, subtitle: e.target.value})} 
                   style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                 />
                 <input 
@@ -512,7 +526,10 @@ const AdminDashboard = () => {
                       </span>
                     </div>
                     <div style={{ padding: '10px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-                      <p style={{ margin: '0 0 10px 0', fontSize: '0.9rem', color: '#fff', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{g.title || '(No Title)'}</p>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', fontSize: '0.9rem', color: '#fff', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontWeight: 'bold' }}>{g.title || '(No Title)'}</p>
+                        <p style={{ margin: '0 0 10px 0', fontSize: '0.8rem', color: 'var(--text-muted)', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{g.subtitle || '(No Subtitle)'}</p>
+                      </div>
                       <button 
                         onClick={() => handleDeleteGallery(g._id)} 
                         style={{ 
@@ -634,6 +651,41 @@ const AdminDashboard = () => {
                     rows="3"
                     style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', fontFamily: 'monospace', fontSize: '0.85rem' }} 
                   />
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>External Integration Links</h4>
+
+                <div className="admin-grid-3col">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Order Online URL (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://ubereats.com/... (leave empty for internal menu)"
+                      value={settingsForm.orderOnlineUrl} 
+                      onChange={e => setSettingsForm({...settingsForm, orderOnlineUrl: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Table Reservations URL (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://opentable.com/... (leave empty for internal booking)"
+                      value={settingsForm.tableReservationsUrl} 
+                      onChange={e => setSettingsForm({...settingsForm, tableReservationsUrl: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Hookah Online URL</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://order.hookahonline.com/..."
+                      value={settingsForm.hookahOnlineUrl} 
+                      onChange={e => setSettingsForm({...settingsForm, hookahOnlineUrl: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
                 </div>
 
                 <h4 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Social Profiles</h4>

@@ -277,7 +277,7 @@ export const GalleryPreview = ({ images }) => {
 
 // 4) SPECIAL OFFERS SECTION
 import { useState, useEffect } from 'react';
-import { getOffers } from '../services/api';
+import { getOffers, getImageUrl } from '../services/api';
 
 export const SpecialOffers = () => {
   const defaultOffers = [
@@ -298,7 +298,7 @@ export const SpecialOffers = () => {
             title: o.title,
             badge: `${o.discount_percentage}% OFF`,
             desc: o.description,
-            img: o.image ? (o.image.startsWith('http') ? o.image : `http://localhost:5000/${o.image.replace(/\\/g, '/')}`) : defaultOffers[0].img
+            img: getImageUrl(o.image) || defaultOffers[0].img
           }));
           setOffers([...dynamicOffers, ...defaultOffers].slice(0, 3)); // show top 3
         }

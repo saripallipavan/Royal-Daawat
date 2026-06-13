@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getOffers } from '../services/api';
+import { getOffers, getImageUrl } from '../services/api';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -108,7 +108,7 @@ const OfferPopup = () => {
             {activeOffer.image && (
               <div style={{ width: '100%', height: '250px' }}>
                 <img 
-                  src={activeOffer.image.startsWith('http') ? activeOffer.image : `http://localhost:5000/${activeOffer.image.replace(/\\\\/g, '/')}`}
+                  src={getImageUrl(activeOffer.image)}
                   alt={activeOffer.title}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

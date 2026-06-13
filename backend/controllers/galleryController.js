@@ -12,7 +12,7 @@ export const getGallery = async (req, res) => {
 };
 
 export const postGallery = async (req, res) => {
-  const { title, sortOrder } = req.body;
+  const { title, subtitle, sortOrder } = req.body;
   const image = req.file ? req.file.path : null;
 
   if (!image) {
@@ -22,6 +22,7 @@ export const postGallery = async (req, res) => {
   try {
     const newGallery = await Gallery.create({ 
       title, 
+      subtitle: subtitle || '',
       image,
       sortOrder: sortOrder ? Number(sortOrder) : 0
     });

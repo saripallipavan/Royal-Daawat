@@ -34,7 +34,10 @@ export const updateSettings = async (req, res) => {
       googleMapsUrl,
       facebookUrl,
       instagramUrl,
-      tiktokUrl
+      tiktokUrl,
+      orderOnlineUrl,
+      tableReservationsUrl,
+      hookahOnlineUrl
     } = req.body;
 
     settings.restaurantName = restaurantName !== undefined ? restaurantName : settings.restaurantName;
@@ -45,6 +48,9 @@ export const updateSettings = async (req, res) => {
     settings.facebookUrl = facebookUrl !== undefined ? facebookUrl : settings.facebookUrl;
     settings.instagramUrl = instagramUrl !== undefined ? instagramUrl : settings.instagramUrl;
     settings.tiktokUrl = tiktokUrl !== undefined ? tiktokUrl : settings.tiktokUrl;
+    settings.orderOnlineUrl = orderOnlineUrl !== undefined ? orderOnlineUrl : settings.orderOnlineUrl;
+    settings.tableReservationsUrl = tableReservationsUrl !== undefined ? tableReservationsUrl : settings.tableReservationsUrl;
+    settings.hookahOnlineUrl = hookahOnlineUrl !== undefined ? hookahOnlineUrl : settings.hookahOnlineUrl;
 
     const updatedSettings = await settings.save();
     res.json(updatedSettings);

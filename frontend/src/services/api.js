@@ -48,4 +48,13 @@ export const markNotificationRead = (id) => API.put(`/notifications/${id}/read`)
 export const markAllNotificationsRead = () => API.put('/notifications/read-all');
 export const deleteNotification = (id) => API.delete(`/notifications/${id}`);
 
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http')) return imagePath;
+  const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+  return `${cleanBase}/${cleanPath.replace(/\\/g, '/')}`;
+};
+
 export default API;

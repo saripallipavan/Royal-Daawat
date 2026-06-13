@@ -30,7 +30,7 @@ const staggerContainer = {
 // --- COMPONENTS ---
 
 // Navigation Component
-const Navigation = () => {
+const Navigation = ({ settings }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -101,28 +101,50 @@ const Navigation = () => {
             { name: 'HOME', path: '/' },
             { name: 'ABOUT US', path: '/about' },
             { name: 'DINE-IN MENU', path: '/menu' },
-            { name: 'BOOK A TABLE', path: '/book-table' },
+            ...(settings?.hookahOnlineUrl ? [{ name: 'HOOKAH ONLINE', path: settings.hookahOnlineUrl, isExternal: true }] : []),
+            { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
             { name: 'GIFT CARD', path: '/gift-card' },
             { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
             { name: 'MEDIA', path: '/media' },
             { name: 'TERMS', path: '/terms' },
             { name: 'CONTACT US', path: '/contact' }
           ].map((item) => (
-            <Link 
-              key={item.name} 
-              to={item.path}
-              className="desktop-menu-link"
-              style={{ 
-                fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', 
-                color: location.pathname === item.path ? 'var(--primary-color)' : 'var(--text-main)',
-                transition: 'color 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--primary-color)'}
-              onMouseLeave={(e) => e.target.style.color = location.pathname === item.path ? 'var(--primary-color)' : 'var(--text-main)'}
-            >
-              {item.name}
-            </Link>
+            item.isExternal ? (
+              <a 
+                key={item.name} 
+                href={item.path}
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="desktop-menu-link"
+                style={{ 
+                  fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', 
+                  color: 'var(--text-main)',
+                  transition: 'color 0.3s ease',
+                  whiteSpace: 'nowrap',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'var(--primary-color)'}
+                onMouseLeave={(e) => e.target.style.color = 'var(--text-main)'}
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link 
+                key={item.name} 
+                to={item.path}
+                className="desktop-menu-link"
+                style={{ 
+                  fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', 
+                  color: location.pathname === item.path ? 'var(--primary-color)' : 'var(--text-main)',
+                  transition: 'color 0.3s ease',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'var(--primary-color)'}
+                onMouseLeave={(e) => e.target.style.color = location.pathname === item.path ? 'var(--primary-color)' : 'var(--text-main)'}
+              >
+                {item.name}
+              </Link>
+            )
           ))}
         </div>
         
@@ -148,7 +170,8 @@ const Navigation = () => {
               { name: 'HOME', path: '/' },
               { name: 'ABOUT US', path: '/about' },
               { name: 'DINE-IN MENU', path: '/menu' },
-              { name: 'BOOK A TABLE', path: '/book-table' },
+              ...(settings?.hookahOnlineUrl ? [{ name: 'HOOKAH ONLINE', path: settings.hookahOnlineUrl, isExternal: true }] : []),
+              { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
               { name: 'GIFT CARD', path: '/gift-card' },
               { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
               { name: 'MEDIA', path: '/media' },
@@ -161,13 +184,26 @@ const Navigation = () => {
                 transition={{ delay: idx * 0.05 }}
                 key={item.name}
               >
-                <Link
-                  to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`mobile-drawer-link ${location.pathname === item.path ? 'active' : ''}`}
-                >
-                  {item.name}
-                </Link>
+                {item.isExternal ? (
+                  <a
+                    href={item.path}
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="mobile-drawer-link"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`mobile-drawer-link ${location.pathname === item.path ? 'active' : ''}`}
+                  >
+                    {item.name}
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>
@@ -178,42 +214,7 @@ const Navigation = () => {
 };
 
 // Global Footer Component
-const Footer = () => {
-  const [settings, setSettings] = React.useState({
-    restaurantName: 'Royal Daawat',
-    phoneNumber: '+01425 476563',
-    address: '14 Market Pl, Ringwood BH24 1AW',
-    openingHours: 'Monday – Sunday : 05 PM – 11 PM',
-    googleMapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus',
-    facebookUrl: 'https://www.facebook.com/people/Royal-Daawat/61565689980459/?mibextid=LQQJ4d&rdid=hgQhiVuThkWuTs0e&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1kUkV4EWVqiogDHF%2F%3Fmibextid%3DLQQJ4d',
-    instagramUrl: 'https://www.instagram.com/royaldaawatuk/?igsh=MXUwODF4dmpnNmthNA%3D%3D#',
-    tiktokUrl: 'https://www.tiktok.com/@royaldaawatuk'
-  });
-
-  React.useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const { data } = await getSettings();
-        if (data) {
-          setSettings(prev => ({
-            ...prev,
-            restaurantName: data.restaurantName || prev.restaurantName,
-            phoneNumber: data.phoneNumber || prev.phoneNumber,
-            address: data.address || prev.address,
-            openingHours: data.openingHours || prev.openingHours,
-            googleMapsUrl: data.googleMapsUrl || prev.googleMapsUrl,
-            facebookUrl: data.facebookUrl || prev.facebookUrl,
-            instagramUrl: data.instagramUrl || prev.instagramUrl,
-            tiktokUrl: data.tiktokUrl || prev.tiktokUrl
-          }));
-        }
-      } catch (err) {
-        console.error('Failed to load footer settings:', err);
-      }
-    };
-    fetchSettings();
-  }, []);
-
+const Footer = ({ settings }) => {
   return (
     <footer style={{ marginTop: 'auto' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -221,17 +222,25 @@ const Footer = () => {
         {/* Column 1: Opening Hours */}
         <div className="footer-column dark-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
-          <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings.openingHours}</p>
-          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
+          <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings?.openingHours}</p>
+          {settings?.tableReservationsUrl ? (
+            <a href={settings.tableReservationsUrl} target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Book Now</a>
+          ) : (
+            <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
+          )}
         </div>
 
         {/* Column 2: Contact Us */}
         <div className="footer-column" style={{ backgroundColor: 'var(--light-linen-bg)', color: 'var(--dark-charcoal-text)' }}>
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--dark-bg)' }}>Contact Us</h3>
-          <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 600 }}>Phone: {settings.phoneNumber}</p>
+          <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 600 }}>Phone: {settings?.phoneNumber}</p>
           <a href="mailto:info@royaldaawat.co.uk" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '3rem', textDecoration: 'underline', color: 'inherit' }}>info@royaldaawat.co.uk</a>
-          <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6 }}>{settings.address}</p>
-          <Link to="/menu" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Dine-in Menu</Link>
+          <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6 }}>{settings?.address}</p>
+          {settings?.orderOnlineUrl ? (
+            <a href={settings.orderOnlineUrl} target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Order Online</a>
+          ) : (
+            <Link to="/menu" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Dine-in Menu</Link>
+          )}
         </div>
 
         {/* Column 3: Social Links */}
@@ -424,7 +433,7 @@ const HERO_IMAGES = [
 ];
 
 // Home Page
-const HomePage = () => {
+const HomePage = ({ settings }) => {
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 800], [0, 200]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -574,8 +583,16 @@ const HomePage = () => {
           </motion.div>
 
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
-            <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
+            {settings?.tableReservationsUrl ? (
+              <a href={settings.tableReservationsUrl} target="_blank" rel="noopener noreferrer" className="btn hero-btn-book" style={{ textDecoration: 'none' }}>BOOK NOW</a>
+            ) : (
+              <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
+            )}
+            {settings?.orderOnlineUrl ? (
+              <a href={settings.orderOnlineUrl} target="_blank" rel="noopener noreferrer" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
+            ) : (
+              <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
+            )}
           </motion.div>
         </motion.div>
 
@@ -844,14 +861,55 @@ function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login');
 
+  const [settings, setSettings] = useState({
+    restaurantName: 'Royal Daawat',
+    phoneNumber: '+01425 476563',
+    address: '14 Market Pl, Ringwood BH24 1AW',
+    openingHours: 'Monday – Sunday : 05 PM – 11 PM',
+    googleMapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus',
+    facebookUrl: 'https://www.facebook.com/people/Royal-Daawat/61565689980459/?mibextid=LQQJ4d&rdid=hgQhiVuThkWuTs0e&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1kUkV4EWVqiogDHF%2F%3Fmibextid%3DLQQJ4d',
+    instagramUrl: 'https://www.instagram.com/royaldaawatuk/?igsh=MXUwODF4dmpnNmthNA%3D%3D#',
+    tiktokUrl: 'https://www.tiktok.com/@royaldaawatuk',
+    orderOnlineUrl: '',
+    tableReservationsUrl: '',
+    hookahOnlineUrl: ''
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { data } = await getSettings();
+        if (data) {
+          setSettings(prev => ({
+            ...prev,
+            restaurantName: data.restaurantName || prev.restaurantName,
+            phoneNumber: data.phoneNumber || prev.phoneNumber,
+            address: data.address || prev.address,
+            openingHours: data.openingHours || prev.openingHours,
+            googleMapsUrl: data.googleMapsUrl || prev.googleMapsUrl,
+            facebookUrl: data.facebookUrl || prev.facebookUrl,
+            instagramUrl: data.instagramUrl || prev.instagramUrl,
+            tiktokUrl: data.tiktokUrl || prev.tiktokUrl,
+            orderOnlineUrl: data.orderOnlineUrl || '',
+            tableReservationsUrl: data.tableReservationsUrl || '',
+            hookahOnlineUrl: data.hookahOnlineUrl || ''
+          }));
+        }
+      } catch (err) {
+        console.error('Failed to load settings in AppContent:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   return (
     <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {!isAdminRoute && <Navigation />}
+      {!isAdminRoute && <Navigation settings={settings} />}
       
       <main style={{ flex: 1 }}>
         <AnimatePresence mode="wait">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage settings={settings} />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/media" element={<Media />} />
@@ -868,7 +926,7 @@ function AppContent() {
         </AnimatePresence>
       </main>
 
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <Footer settings={settings} />}
       {!isAdminRoute && <OfferPopup />}
     </div>
   );

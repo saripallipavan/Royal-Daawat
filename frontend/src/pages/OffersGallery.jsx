@@ -209,16 +209,21 @@ const OffersGallery = () => {
                       />
                       <div className="gallery-hover-overlay" style={{
                         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                        backgroundColor: 'rgba(11, 46, 31, 0.8)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        backgroundColor: 'rgba(11, 46, 31, 0.85)',
+                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                         opacity: 0, transition: 'opacity 0.3s ease', padding: '20px', textAlign: 'center'
                       }}
                       onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
                       onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
                       >
-                        <h4 className="cinzel-font text-gold" style={{ fontSize: '1.1rem', margin: 0 }}>
+                        <h4 className="cinzel-font text-gold" style={{ fontSize: '1.2rem', margin: '0 0 8px 0', fontWeight: 'bold' }}>
                           {item.title || "View Image"}
                         </h4>
+                        {item.subtitle && (
+                          <p style={{ color: '#fff', fontSize: '0.85rem', margin: 0, opacity: 0.9, lineHeight: 1.4 }}>
+                            {item.subtitle}
+                          </p>
+                        )}
                       </div>
                     </motion.div>
                   ))}
@@ -306,9 +311,14 @@ const OffersGallery = () => {
                 }}
               />
               {gallery[lightboxIndex].title && (
-                <h4 className="cinzel-font text-gold" style={{ fontSize: '1.4rem', marginTop: '20px', textAlign: 'center' }}>
+                <h4 className="cinzel-font text-gold" style={{ fontSize: '1.5rem', marginTop: '20px', marginBottom: '4px', textAlign: 'center' }}>
                   {gallery[lightboxIndex].title}
                 </h4>
+              )}
+              {gallery[lightboxIndex].subtitle && (
+                <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem', margin: '0 auto', maxWidth: '600px', textAlign: 'center', lineHeight: 1.5 }}>
+                  {gallery[lightboxIndex].subtitle}
+                </p>
               )}
             </motion.div>
 
