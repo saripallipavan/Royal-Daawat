@@ -101,7 +101,8 @@ const Navigation = ({ settings }) => {
             { name: 'HOME', path: '/' },
             { name: 'ABOUT US', path: '/about' },
             { name: 'DINE-IN MENU', path: '/menu' },
-            ...(settings?.hookahOnlineUrl ? [{ name: 'HOOKAH ONLINE', path: settings.hookahOnlineUrl, isExternal: true }] : []),
+            ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
+            ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
             { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
             { name: 'GIFT CARD', path: '/gift-card' },
             { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
@@ -170,7 +171,8 @@ const Navigation = ({ settings }) => {
               { name: 'HOME', path: '/' },
               { name: 'ABOUT US', path: '/about' },
               { name: 'DINE-IN MENU', path: '/menu' },
-              ...(settings?.hookahOnlineUrl ? [{ name: 'HOOKAH ONLINE', path: settings.hookahOnlineUrl, isExternal: true }] : []),
+              ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
+              ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
               { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
               { name: 'GIFT CARD', path: '/gift-card' },
               { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
@@ -383,10 +385,22 @@ const Footer = ({ settings }) => {
           </span>
         </div>
         <p style={{ marginBottom: '0.5rem' }}>Copyright &copy; 2026 {settings.restaurantName}. All Rights Reserved.</p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)', marginTop: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '15px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)', marginTop: '0.5rem' }}>
           <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Terms & Conditions</Link>
           <span>|</span>
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Privacy Policy</Link>
+          {settings?.bookOnlineUrl && (
+            <React.Fragment>
+              <span>|</span>
+              <a href={settings.bookOnlineUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</a>
+            </React.Fragment>
+          )}
+          {settings?.customLinks && settings.customLinks.filter(l => l.label && l.url).map((l, idx) => (
+            <React.Fragment key={idx}>
+              <span>|</span>
+              <a href={l.url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>{l.label}</a>
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </footer>
@@ -872,7 +886,8 @@ function AppContent() {
     tiktokUrl: 'https://www.tiktok.com/@royaldaawatuk',
     orderOnlineUrl: '',
     tableReservationsUrl: '',
-    hookahOnlineUrl: ''
+    bookOnlineUrl: '',
+    customLinks: []
   });
 
   useEffect(() => {
@@ -892,7 +907,8 @@ function AppContent() {
             tiktokUrl: data.tiktokUrl || prev.tiktokUrl,
             orderOnlineUrl: data.orderOnlineUrl || '',
             tableReservationsUrl: data.tableReservationsUrl || '',
-            hookahOnlineUrl: data.hookahOnlineUrl || ''
+            bookOnlineUrl: data.bookOnlineUrl || '',
+            customLinks: data.customLinks || []
           }));
         }
       } catch (err) {

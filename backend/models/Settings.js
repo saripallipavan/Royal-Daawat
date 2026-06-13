@@ -11,7 +11,13 @@ const settingsSchema = mongoose.Schema({
   tiktokUrl: { type: String, default: 'https://www.tiktok.com/@royaldaawatuk' },
   orderOnlineUrl: { type: String, default: '' },
   tableReservationsUrl: { type: String, default: '' },
-  hookahOnlineUrl: { type: String, default: '' }
+  bookOnlineUrl: { type: String, default: '' },
+  customLinks: [
+    {
+      label: { type: String, default: '' },
+      url: { type: String, default: '' }
+    }
+  ]
 }, { timestamps: true });
 
 const Settings = mongoose.model('Settings', settingsSchema);

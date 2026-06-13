@@ -11,7 +11,7 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -43,7 +43,8 @@ const AdminDashboard = () => {
     tiktokUrl: '',
     orderOnlineUrl: '',
     tableReservationsUrl: '',
-    hookahOnlineUrl: ''
+    bookOnlineUrl: '',
+    customLinks: []
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -83,7 +84,8 @@ const AdminDashboard = () => {
           tiktokUrl: setts.data.tiktokUrl || '',
           orderOnlineUrl: setts.data.orderOnlineUrl || '',
           tableReservationsUrl: setts.data.tableReservationsUrl || '',
-          hookahOnlineUrl: setts.data.hookahOnlineUrl || ''
+          bookOnlineUrl: setts.data.bookOnlineUrl || '',
+          customLinks: setts.data.customLinks || []
         });
       }
     } catch (err) {
@@ -169,6 +171,28 @@ const AdminDashboard = () => {
       sortOrder: String(item.sortOrder || 0)
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAddCustomLink = () => {
+    setSettingsForm(prev => ({
+      ...prev,
+      customLinks: [...(prev.customLinks || []), { label: '', url: '' }]
+    }));
+  };
+
+  const handleUpdateCustomLink = (index, field, value) => {
+    setSettingsForm(prev => {
+      const updated = [...(prev.customLinks || [])];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, customLinks: updated };
+    });
+  };
+
+  const handleRemoveCustomLink = (index) => {
+    setSettingsForm(prev => ({
+      ...prev,
+      customLinks: (prev.customLinks || []).filter((_, idx) => idx !== index)
+    }));
   };
 
   const handleSettingsSubmit = async (e) => {
@@ -741,15 +765,88 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Hookah Online URL</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Book Online URL</label>
                     <input 
                       type="text" 
-                      placeholder="e.g., https://order.hookahonline.com/..."
-                      value={settingsForm.hookahOnlineUrl} 
-                      onChange={e => setSettingsForm({...settingsForm, hookahOnlineUrl: e.target.value})} 
+                      placeholder="e.g., https://book.royaldaawat.com/..."
+                      value={settingsForm.bookOnlineUrl} 
+                      onChange={e => setSettingsForm({...settingsForm, bookOnlineUrl: e.target.value})} 
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '20px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>Custom Integration Links</span>
+                  <button 
+                    type="button" 
+                    onClick={handleAddCustomLink}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '5px', 
+                      backgroundColor: 'transparent', 
+                      color: 'var(--gold)', 
+                      border: '1px dashed var(--gold)', 
+                      padding: '4px 10px', 
+                      borderRadius: '4px', 
+                      cursor: 'pointer',
+                      fontSize: '0.85rem'
+                    }}
+                  >
+                    <Plus size={14} /> Add Link
+                  </button>
+                </h4>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
+                  {(!settingsForm.customLinks || settingsForm.customLinks.length === 0) && (
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: '5px 0' }}>No custom links added yet.</p>
+                  )}
+                  {settingsForm.customLinks && settingsForm.customLinks.map((link, idx) => (
+                    <div key={idx} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Link Label</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g., Book Event"
+                          value={link.label}
+                          onChange={e => handleUpdateCustomLink(idx, 'label', e.target.value)}
+                          style={{ width: '100%', padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                      <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Link Target URL</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g., https://..."
+                          value={link.url}
+                          onChange={e => handleUpdateCustomLink(idx, 'url', e.target.value)}
+                          style={{ width: '100%', padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                      <button 
+                        type="button"
+                        onClick={() => handleRemoveCustomLink(idx)}
+                        style={{ 
+                          padding: '10px', 
+                          marginTop: '20px',
+                          borderRadius: '6px', 
+                          backgroundColor: 'rgba(239, 68, 68, 0.1)', 
+                          color: '#ef4444', 
+                          border: '1px solid rgba(239, 68, 68, 0.2)',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          height: '42px',
+                          width: '42px'
+                        }}
+                        title="Delete custom link"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
 
                 <h4 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Social Profiles</h4>

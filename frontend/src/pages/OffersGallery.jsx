@@ -109,7 +109,7 @@ const OffersGallery = () => {
                   viewport={{ once: true }}
                   style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}
                 >
-                  {offers.filter(o => o.active !== false).map((offer, idx) => (
+                  {offers.filter(o => o.active !== false).map((offer) => (
                     <motion.div
                       key={offer._id}
                       variants={fadeInUp}
