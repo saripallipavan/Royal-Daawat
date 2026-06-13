@@ -6,7 +6,7 @@ import {
   getBookings, updateBookingStatus,
   getSettings, updateSettings,
   getNotifications, markNotificationRead, markAllNotificationsRead, deleteNotification,
-  getGallery, postGallery, deleteGallery
+  getGallery, postGallery, putGallery, deleteGallery
 } from '../services/api';
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
@@ -31,6 +31,7 @@ const AdminDashboard = () => {
   const [menuForm, setMenuForm] = useState({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
   const [offerForm, setOfferForm] = useState({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true });
   const [galleryForm, setGalleryForm] = useState({ title: '', subtitle: '', sortOrder: '0' });
+  const [editingGalleryId, setEditingGalleryId] = useState(null);
   const [settingsForm, setSettingsForm] = useState({
     restaurantName: '',
     phoneNumber: '',
@@ -130,22 +131,44 @@ const AdminDashboard = () => {
 
   const handleGallerySubmit = async (e) => {
     e.preventDefault();
-    if (!galleryFile) {
-      alert('Please select an image file to upload.');
-      return;
-    }
     const fd = new FormData();
     fd.append('title', galleryForm.title);
     fd.append('subtitle', galleryForm.subtitle || '');
     fd.append('sortOrder', galleryForm.sortOrder);
-    fd.append('image', galleryFile);
+    if (galleryFile) fd.append('image', galleryFile);
     
-    await postGallery(fd);
-    setGalleryForm({ title: '', subtitle: '', sortOrder: '0' });
-    setGalleryFile(null);
-    const fileInput = document.getElementById('galleryImageInput');
-    if (fileInput) fileInput.value = '';
-    fetchData();
+    try {
+      if (editingGalleryId) {
+        await putGallery(editingGalleryId, fd);
+        setEditingGalleryId(null);
+        alert('Gallery item updated successfully!');
+      } else {
+        if (!galleryFile) {
+          alert('Please select an image file to upload.');
+          return;
+        }
+        await postGallery(fd);
+        alert('Gallery item uploaded successfully!');
+      }
+      setGalleryForm({ title: '', subtitle: '', sortOrder: '0' });
+      setGalleryFile(null);
+      const fileInput = document.getElementById('galleryImageInput');
+      if (fileInput) fileInput.value = '';
+      fetchData();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save gallery item');
+    }
+  };
+
+  const handleEditGallery = (item) => {
+    setEditingGalleryId(item._id);
+    setGalleryForm({
+      title: item.title || '',
+      subtitle: item.subtitle || '',
+      sortOrder: String(item.sortOrder || 0)
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSettingsSubmit = async (e) => {
@@ -465,7 +488,9 @@ const AdminDashboard = () => {
 
           {activeTab === 'gallery' && (
             <div>
-              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Gallery Management</h3>
+              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>
+                {editingGalleryId ? 'Edit Gallery Item' : 'Gallery Management'}
+              </h3>
               <form onSubmit={handleGallerySubmit} style={{ display: 'grid', gap: '15px', marginBottom: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '10px' }}>
                 <input 
                   type="text" 
@@ -488,17 +513,42 @@ const AdminDashboard = () => {
                   onChange={e => setGalleryForm({...galleryForm, sortOrder: e.target.value})} 
                   style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                 />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  <label htmlFor="galleryImageInput" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Select Image File <span style={{ color: 'var(--primary-color)' }}>*</span></label>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  <label htmlFor="galleryImageInput" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    Select Image File {!editingGalleryId && <span style={{ color: 'var(--primary-color)' }}>*</span>}
+                  </label>
                   <input 
                     type="file" 
                     id="galleryImageInput" 
-                    required 
+                    required={!editingGalleryId} 
                     onChange={e => setGalleryFile(e.target.files[0])} 
                     style={{ color: '#fff' }} 
                   />
+                  {editingGalleryId && (
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Leave empty to keep current image</span>
+                  )}
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: 'fit-content' }}>Upload Image</button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button type="submit" className="btn btn-primary" style={{ width: 'fit-content' }}>
+                    {editingGalleryId ? 'Save Changes' : 'Upload Image'}
+                  </button>
+                  {editingGalleryId && (
+                    <button 
+                      type="button" 
+                      className="btn" 
+                      onClick={() => {
+                        setEditingGalleryId(null);
+                        setGalleryForm({ title: '', subtitle: '', sortOrder: '0' });
+                        setGalleryFile(null);
+                        const fileInput = document.getElementById('galleryImageInput');
+                        if (fileInput) fileInput.value = '';
+                      }}
+                      style={{ width: 'fit-content', backgroundColor: '#333', color: '#fff', border: '1px solid #444' }}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
               </form>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
@@ -530,18 +580,32 @@ const AdminDashboard = () => {
                         <p style={{ margin: '0 0 4px 0', fontSize: '0.9rem', color: '#fff', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontWeight: 'bold' }}>{g.title || '(No Title)'}</p>
                         <p style={{ margin: '0 0 10px 0', fontSize: '0.8rem', color: 'var(--text-muted)', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{g.subtitle || '(No Subtitle)'}</p>
                       </div>
-                      <button 
-                        onClick={() => handleDeleteGallery(g._id)} 
-                        style={{ 
-                          backgroundColor: 'rgba(244, 67, 54, 0.1)', color: '#ff4436', 
-                          border: '1px solid rgba(244, 67, 54, 0.3)', padding: '5px', 
-                          borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
-                          width: '100%'
-                        }}
-                      >
-                        <Trash2 size={14} /> Delete
-                      </button>
+                      <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
+                        <button 
+                          onClick={() => handleEditGallery(g)}
+                          style={{ 
+                            flex: 1,
+                            backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)', 
+                            border: '1px solid rgba(182, 162, 94, 0.3)', padding: '6px 5px', 
+                            borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px'
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteGallery(g._id)} 
+                          style={{ 
+                            flex: 1,
+                            backgroundColor: 'rgba(244, 67, 54, 0.1)', color: '#ff4436', 
+                            border: '1px solid rgba(244, 67, 54, 0.3)', padding: '6px 5px', 
+                            borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px'
+                          }}
+                        >
+                          <Trash2 size={12} fill="none" /> Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

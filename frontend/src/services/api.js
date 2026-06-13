@@ -15,6 +15,7 @@ API.interceptors.request.use((config) => {
 
 export const getGallery = () => API.get('/gallery');
 export const postGallery = (data) => API.post('/gallery', data);
+export const putGallery = (id, data) => API.put(`/gallery/${id}`, data);
 export const deleteGallery = (id) => API.delete(`/gallery/${id}`);
 
 export const getMedia = () => API.get('/media');

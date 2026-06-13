@@ -53,3 +53,36 @@ export const deleteGallery = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const putGallery = async (req, res) => {
+  const { id } = req.params;
+  const { title, subtitle, sortOrder } = req.body;
+  const image = req.file ? req.file.path : undefined;
+
+  try {
+    const updateData = {};
+    if (title !== undefined) updateData.title = title;
+    if (subtitle !== undefined) updateData.subtitle = subtitle;
+    if (sortOrder !== undefined) updateData.sortOrder = sortOrder ? Number(sortOrder) : 0;
+    if (image !== undefined) {
+      // Find the old one first to delete the old physical file if a new image is uploaded
+      const oldItem = await Gallery.findById(id);
+      if (oldItem && oldItem.image) {
+        const filePath = path.resolve(oldItem.image);
+        fs.unlink(filePath, (err) => {
+          if (err) console.error('Failed to delete physical file during update:', err);
+        });
+      }
+      updateData.image = image;
+    }
+
+    const updatedGallery = await Gallery.findByIdAndUpdate(id, updateData, { new: true });
+    
+    if (!updatedGallery) {
+      return res.status(404).json({ error: 'Gallery item not found' });
+    }
+    res.status(200).json(updatedGallery);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
