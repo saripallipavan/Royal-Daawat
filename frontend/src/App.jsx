@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu as MenuIcon, X } from 'lucide-react';
 
@@ -937,6 +937,15 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/book-table" element={<BookTable />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/gallery" element={<Navigate to="/offers-gallery" replace />} />
+            <Route path="/offers" element={<Navigate to="/offers-gallery" replace />} />
+            <Route path="/dine-in-menu" element={<Navigate to="/menu" replace />} />
+            <Route path="/Dine-In Menu" element={<Navigate to="/menu" replace />} />
+            <Route path="/Dine-In%20Menu" element={<Navigate to="/menu" replace />} />
+            <Route path="/book" element={<Navigate to="/book-table" replace />} />
+            <Route path="/booking" element={<Navigate to="/book-table" replace />} />
+            <Route path="/birthday" element={<Navigate to="/" replace />} />
+            <Route path="/birthday-club" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AnimatePresence>

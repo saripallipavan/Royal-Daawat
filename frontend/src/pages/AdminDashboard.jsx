@@ -6,7 +6,7 @@ import {
   getBookings, updateBookingStatus,
   getSettings, updateSettings,
   getNotifications, markNotificationRead, markAllNotificationsRead, deleteNotification,
-  getGallery, postGallery, putGallery, deleteGallery
+  getGallery, postGallery, putGallery, deleteGallery, getImageUrl
 } from '../services/api';
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
@@ -617,7 +617,7 @@ const AdminDashboard = () => {
                   }}>
                     <div style={{ width: '100%', height: '150px', position: 'relative' }}>
                       <ImageWithFallback 
-                        src={g.image} 
+                        src={getImageUrl(g.image)} 
                         alt={g.title} 
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                       />
