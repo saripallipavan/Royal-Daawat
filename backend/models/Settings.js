@@ -12,6 +12,7 @@ const settingsSchema = mongoose.Schema({
   orderOnlineUrl: { type: String, default: '' },
   tableReservationsUrl: { type: String, default: '' },
   bookOnlineUrl: { type: String, default: '' },
+  giftCardPurchaseUrl: { type: String, default: '' },
   customLinks: [
     {
       label: { type: String, default: '' },

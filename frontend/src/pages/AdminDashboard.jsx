@@ -45,6 +45,7 @@ const AdminDashboard = () => {
     orderOnlineUrl: '',
     tableReservationsUrl: '',
     bookOnlineUrl: '',
+    giftCardPurchaseUrl: '',
     customLinks: [],
     signatureDishes: Array(3).fill(null).map(() => ({ name: '', price: '', desc: '', img: '' })),
     chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
@@ -99,6 +100,7 @@ const AdminDashboard = () => {
           orderOnlineUrl: setts.data.orderOnlineUrl || '',
           tableReservationsUrl: setts.data.tableReservationsUrl || '',
           bookOnlineUrl: setts.data.bookOnlineUrl || '',
+          giftCardPurchaseUrl: setts.data.giftCardPurchaseUrl || '',
           customLinks: setts.data.customLinks || [],
           signatureDishes: Array(3).fill(null).map((_, i) => ({
             name: setts.data.signatureDishes?.[i]?.name || '',
@@ -932,7 +934,7 @@ const AdminDashboard = () => {
 
                 <h4 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>External Integration Links</h4>
 
-                <div className="admin-grid-3col">
+                <div className="admin-grid-2col" style={{ marginBottom: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                     <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Order Online URL (Custom)</label>
                     <input 
@@ -960,6 +962,16 @@ const AdminDashboard = () => {
                       placeholder="e.g., https://book.royaldaawat.com/..."
                       value={settingsForm.bookOnlineUrl} 
                       onChange={e => setSettingsForm({...settingsForm, bookOnlineUrl: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://vouchercart.com/... (leave empty for WhatsApp purchase)"
+                      value={settingsForm.giftCardPurchaseUrl} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl: e.target.value})} 
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>

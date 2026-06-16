@@ -510,13 +510,6 @@ const Menu = () => {
                           </p>
                         )}
                       </div>
-
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); addToCart(item); }}
-                        className="btn-add-to-cart"
-                      >
-                        ADD +
-                      </button>
                     </div>
                   ))}
                 </div>
@@ -620,13 +613,6 @@ const Menu = () => {
                                       </p>
                                     )}
                                   </div>
-
-                                  <button 
-                                    onClick={(e) => { e.stopPropagation(); addToCart(item); }}
-                                    className="btn-add-to-cart"
-                                  >
-                                    ADD +
-                                  </button>
                                 </div>
                               ))}
                             </div>
@@ -1041,25 +1027,7 @@ const Menu = () => {
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', gap: '15px' }}>
-                <button
-                  onClick={() => {
-                    addToCart(selectedFood);
-                    setSelectedFood(null);
-                  }}
-                  className="btn btn-primary"
-                  style={{ 
-                    flex: 2, 
-                    padding: '14px 0', 
-                    fontSize: '0.95rem', 
-                    letterSpacing: '1px', 
-                    textTransform: 'uppercase', 
-                    fontFamily: 'Cinzel, serif',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  Add to Cart
-                </button>
+              <div style={{ display: 'flex' }}>
                 <button
                   onClick={() => setSelectedFood(null)}
                   className="btn btn-secondary"

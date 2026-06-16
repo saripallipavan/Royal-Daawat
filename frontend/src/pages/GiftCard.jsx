@@ -7,7 +7,8 @@ import { getSettings } from '../services/api';
 const GiftCard = () => {
   const [settings, setSettings] = useState({
     phoneNumber: '+01425 476563',
-    openingHours: 'Monday – Sunday: 5 PM – 11 PM'
+    openingHours: 'Monday – Sunday: 5 PM – 11 PM',
+    giftCardPurchaseUrl: ''
   });
 
   useEffect(() => {
@@ -19,7 +20,8 @@ const GiftCard = () => {
           setSettings(prev => ({
             ...prev,
             phoneNumber: data.phoneNumber || prev.phoneNumber,
-            openingHours: data.openingHours || prev.openingHours
+            openingHours: data.openingHours || prev.openingHours,
+            giftCardPurchaseUrl: data.giftCardPurchaseUrl || ''
           }));
         }
       } catch (err) {
@@ -42,12 +44,20 @@ const GiftCard = () => {
   const [isPurchasing, setIsPurchasing] = useState(false);
 
   const handlePurchaseInit = (amount) => {
+    if (settings.giftCardPurchaseUrl) {
+      window.open(settings.giftCardPurchaseUrl, '_blank');
+      return;
+    }
     setSelectedAmount(amount);
     setIsCustomAmount(false);
     setIsPurchasing(true);
   };
 
   const handleCustomPurchaseInit = () => {
+    if (settings.giftCardPurchaseUrl) {
+      window.open(settings.giftCardPurchaseUrl, '_blank');
+      return;
+    }
     setSelectedAmount(0);
     setIsCustomAmount(true);
     setIsPurchasing(true);

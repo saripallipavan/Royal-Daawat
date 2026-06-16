@@ -38,6 +38,7 @@ export const updateSettings = async (req, res) => {
       orderOnlineUrl,
       tableReservationsUrl,
       bookOnlineUrl,
+      giftCardPurchaseUrl,
       customLinks,
       signatureDishes,
       chefRecommendations,
@@ -57,6 +58,7 @@ export const updateSettings = async (req, res) => {
     settings.orderOnlineUrl = orderOnlineUrl !== undefined ? orderOnlineUrl : settings.orderOnlineUrl;
     settings.tableReservationsUrl = tableReservationsUrl !== undefined ? tableReservationsUrl : settings.tableReservationsUrl;
     settings.bookOnlineUrl = bookOnlineUrl !== undefined ? bookOnlineUrl : settings.bookOnlineUrl;
+    settings.giftCardPurchaseUrl = giftCardPurchaseUrl !== undefined ? giftCardPurchaseUrl : settings.giftCardPurchaseUrl;
     settings.customLinks = customLinks !== undefined ? customLinks : settings.customLinks;
     settings.signatureDishes = signatureDishes !== undefined ? signatureDishes : settings.signatureDishes;
     settings.chefRecommendations = chefRecommendations !== undefined ? chefRecommendations : settings.chefRecommendations;
