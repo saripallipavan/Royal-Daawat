@@ -328,6 +328,24 @@ const AdminDashboard = () => {
     }));
   };
 
+  const handleClearOccasionBanner = () => {
+    if (window.confirm(`Are you sure you want to clear/delete all content for the "${editingOccasion.replace(/([A-Z])/g, ' $1')}" banner?`)) {
+      setSettingsForm(prev => ({
+        ...prev,
+        popupBanners: {
+          ...prev.popupBanners,
+          [editingOccasion]: {
+            title: '',
+            description: '',
+            img: '',
+            link: '',
+            buttonText: 'Learn More'
+          }
+        }
+      }));
+    }
+  };
+
   const handleSettingsSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -1285,9 +1303,30 @@ const AdminDashboard = () => {
                 </div>
 
                 <div style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.1)', borderRadius: '8px' }}>
-                  <h4 className="text-gold" style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem', textTransform: 'capitalize' }}>
-                    {editingOccasion.replace(/([A-Z])/g, ' $1')} Banner Settings
-                  </h4>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                    <h4 className="text-gold" style={{ margin: 0, fontSize: '1.2rem', textTransform: 'capitalize' }}>
+                      {editingOccasion.replace(/([A-Z])/g, ' $1')} Banner Settings
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={handleClearOccasionBanner}
+                      style={{
+                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                        color: '#ff4436',
+                        border: '1px solid rgba(244, 67, 54, 0.3)',
+                        padding: '6px 12px',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                      title="Erase all content for this occasion banner"
+                    >
+                      <Trash2 size={14} /> Clear Banner Content
+                    </button>
+                  </div>
 
                   <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -1332,13 +1371,47 @@ const AdminDashboard = () => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                       <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., /menu, /book-table, or https://..."
-                        value={settingsForm.popupBanners?.[editingOccasion]?.link || ''} 
-                        onChange={e => handleUpdateEditingBanner('link', e.target.value)}
-                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                      />
+                      {(() => {
+                        const currentLinkValue = settingsForm.popupBanners?.[editingOccasion]?.link || '';
+                        const standardPages = ['/offers-gallery', '/menu', '/book-table', '/gift-card', '/contact'];
+                        const isStandardPage = standardPages.includes(currentLinkValue);
+                        const dropdownVal = currentLinkValue === '' ? '' : (isStandardPage ? currentLinkValue : 'custom');
+
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <select
+                              value={dropdownVal}
+                              onChange={e => {
+                                const val = e.target.value;
+                                if (val === 'custom') {
+                                  handleUpdateEditingBanner('link', 'https://');
+                                } else {
+                                  handleUpdateEditingBanner('link', val);
+                                }
+                              }}
+                              style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                            >
+                              <option value="">None (No Action Button)</option>
+                              <option value="/offers-gallery">Offers & Gallery Page (internal)</option>
+                              <option value="/menu">Dine-In Menu Page (internal)</option>
+                              <option value="/book-table">Book a Table Page (internal)</option>
+                              <option value="/gift-card">Gift Card Page (internal)</option>
+                              <option value="/contact">Contact Us Page (internal)</option>
+                              <option value="custom">Custom URL / External Link</option>
+                            </select>
+
+                            {dropdownVal === 'custom' && (
+                              <input 
+                                type="text" 
+                                placeholder="Enter custom URL (e.g. https://instagram.com/p/...)"
+                                value={currentLinkValue} 
+                                onChange={e => handleUpdateEditingBanner('link', e.target.value)}
+                                style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', marginTop: '5px' }}
+                              />
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
 
