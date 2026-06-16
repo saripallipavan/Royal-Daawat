@@ -600,19 +600,7 @@ export const ContactPreview = ({ settings }) => {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-          {settings?.tableReservationsUrl ? (
-            <a 
-              href={settings.tableReservationsUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn btn-primary" 
-              style={{ padding: '15px 60px', textDecoration: 'none', display: 'inline-block' }}
-            >
-              BOOK A TABLE NOW
-            </a>
-          ) : (
-            <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
-          )}
+          <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
         </div>
       </div>
     </section>
