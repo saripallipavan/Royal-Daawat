@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { getOffers, getGallery } from '../services/api';
+import { getOffers, getGallery, getSettings } from '../services/api';
 import { X, ChevronLeft, ChevronRight, Tags, ImageIcon, ArrowUpRight } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -24,21 +24,29 @@ const OffersGallery = () => {
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [settings, setSettings] = useState(null);
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const promo = queryParams.get('promo');
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
     const fetchData = async () => {
       try {
-        const [offersRes, galleryRes] = await Promise.all([
+        const [offersRes, galleryRes, settingsRes] = await Promise.all([
           getOffers().catch(() => ({ data: [] })),
-          getGallery().catch(() => ({ data: [] }))
+          getGallery().catch(() => ({ data: [] })),
+          getSettings().catch(() => ({ data: null }))
         ]);
 
         setOffers(offersRes.data || []);
         // Sort gallery items by sortOrder ascending
         const sortedGallery = (galleryRes.data || []).sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
         setGallery(sortedGallery);
+        if (settingsRes && settingsRes.data) {
+          setSettings(settingsRes.data);
+        }
       } catch (err) {
         console.error("Error loading Offers and Gallery data:", err);
       } finally {
@@ -100,6 +108,33 @@ const OffersGallery = () => {
                 <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', margin: 0, letterSpacing: '1px' }}>Special Offers</h3>
                 <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(182, 162, 94, 0.15)' }}></div>
               </div>
+
+              {promo === 'firstTime' && settings?.popupBanners?.firstTime?.title && (
+                <div style={{
+                  backgroundColor: 'rgba(182, 162, 94, 0.1)',
+                  border: '1px solid var(--primary-color)',
+                  borderRadius: '15px',
+                  padding: '25px 30px',
+                  marginBottom: '3rem',
+                  textAlign: 'left',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}>
+                  <div style={{ color: 'var(--primary-color)', fontWeight: 'bold', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    🎁 First-Time Customer Offer Activated
+                  </div>
+                  <h4 style={{ margin: 0, color: '#fff', fontSize: '1.4rem' }}>
+                    {settings.popupBanners.firstTime.title}
+                  </h4>
+                  <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.5 }}>
+                    {settings.popupBanners.firstTime.description}
+                  </p>
+                  <div style={{ marginTop: '10px', fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', fontStyle: 'italic' }}>
+                    Note: Please show this active offer page to your server or mention it when calling to claim!
+                  </div>
+                </div>
+              )}
 
               {offers.filter(o => o.active !== false).length > 0 ? (
                 <motion.div 

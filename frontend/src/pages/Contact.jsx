@@ -20,8 +20,12 @@ const Contact = () => {
     phoneNumber: '+01425 476563',
     address: '14 Market Pl, Ringwood BH24 1AW',
     openingHours: 'Monday – Sunday: 5 PM – 11 PM',
-    googleMapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus'
+    googleMapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus',
+    popupBanners: null
   });
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const promo = queryParams.get('promo');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +41,8 @@ const Contact = () => {
             phoneNumber: data.phoneNumber || '+01425 476563',
             address: data.address || '14 Market Pl, Ringwood BH24 1AW',
             openingHours: data.openingHours || 'Monday – Sunday: 5 PM – 11 PM',
-            googleMapsUrl: data.googleMapsUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus'
+            googleMapsUrl: data.googleMapsUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus',
+            popupBanners: data.popupBanners
           });
         }
       } catch (err) {
@@ -46,6 +51,20 @@ const Contact = () => {
     };
     fetchSettings();
   }, []);
+
+  useEffect(() => {
+    if (promo === 'catering' && !formData.message) {
+      setFormData(prev => ({
+        ...prev,
+        message: "Hi! I would like to inquire about booking a private party/catering package for an upcoming event."
+      }));
+    } else if (promo === 'firstTime' && !formData.message) {
+      setFormData(prev => ({
+        ...prev,
+        message: "Hi! I'm a first-time customer and would like to claim the promotional offer from your website pop-up banner."
+      }));
+    }
+  }, [promo, formData.message]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,6 +92,30 @@ const Contact = () => {
           <div style={{ width: '80px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '1rem auto' }}></div>
           <p style={{ color: 'var(--text-muted)' }}>WE WOULD LOVE TO HEAR FROM YOU</p>
         </div>
+
+        {promo === 'catering' && settings.popupBanners?.catering?.title && (
+          <div style={{
+            backgroundColor: 'rgba(182, 162, 94, 0.1)',
+            border: '1px solid var(--primary-color)',
+            borderRadius: '15px',
+            padding: '20px 25px',
+            marginBottom: '3rem',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px'
+          }}>
+            <div style={{ color: 'var(--primary-color)', fontWeight: 'bold', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              💼 Parties & Catering Booking Inquiry Active
+            </div>
+            <h4 style={{ margin: 0, color: '#fff', fontSize: '1.3rem' }}>
+              {settings.popupBanners.catering.title}
+            </h4>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.4 }}>
+              {settings.popupBanners.catering.description}
+            </p>
+          </div>
+        )}
 
         <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px' }}>
           {/* Contact Info */}

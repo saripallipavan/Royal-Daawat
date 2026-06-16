@@ -34,6 +34,13 @@ const OfferPopup = ({ settings }) => {
 
   const isExternalLink = banner.link && (banner.link.startsWith('http://') || banner.link.startsWith('https://'));
 
+  const getPromoLink = (link) => {
+    if (!link) return '';
+    if (link.startsWith('http://') || link.startsWith('https://')) return link;
+    const separator = link.includes('?') ? '&' : '?';
+    return `${link}${separator}promo=${activeOccasion}`;
+  };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -118,7 +125,7 @@ const OfferPopup = ({ settings }) => {
                     </a>
                   ) : (
                     <Link 
-                      to={banner.link} 
+                      to={getPromoLink(banner.link)} 
                       onClick={handleClose} 
                       className="btn btn-primary" 
                       style={{ width: '100%', display: 'block', textAlign: 'center' }}
@@ -165,7 +172,7 @@ const OfferPopup = ({ settings }) => {
                   </a>
                 ) : (
                   <Link 
-                    to={banner.link} 
+                    to={getPromoLink(banner.link)} 
                     onClick={handleClose} 
                     className="btn btn-primary" 
                     style={{ width: '100%', display: 'block', textAlign: 'center' }}

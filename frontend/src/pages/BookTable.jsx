@@ -24,8 +24,12 @@ const BookTable = () => {
   const [showWhatsAppFallback, setShowWhatsAppFallback] = useState(false);
   const [settings, setSettings] = useState({
     phoneNumber: '+01425 476563',
-    openingHours: 'Monday – Sunday: 5 PM – 11 PM'
+    openingHours: 'Monday – Sunday: 5 PM – 11 PM',
+    popupBanners: null
   });
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const promo = queryParams.get('promo');
 
   // Get today's date in YYYY-MM-DD format for min attribute
   const today = new Date().toISOString().split('T')[0];
@@ -38,7 +42,8 @@ const BookTable = () => {
           setSettings(prev => ({
             ...prev,
             phoneNumber: data.phoneNumber || prev.phoneNumber,
-            openingHours: data.openingHours || prev.openingHours
+            openingHours: data.openingHours || prev.openingHours,
+            popupBanners: data.popupBanners
           }));
         }
       } catch (err) {
@@ -47,6 +52,15 @@ const BookTable = () => {
     };
     fetchSettings();
   }, []);
+
+  useEffect(() => {
+    if (promo === 'festive' && settings.popupBanners?.festive?.title && !formData.specialRequest) {
+      setFormData(prev => ({
+        ...prev,
+        specialRequest: `Reservation for: ${settings.popupBanners.festive.title}`
+      }));
+    }
+  }, [promo, settings.popupBanners, formData.specialRequest]);
 
   const handleWhatsAppFallback = () => {
     const message = encodeURIComponent(
@@ -187,6 +201,30 @@ const BookTable = () => {
                 </div>
               )}
               {success && <div style={{ backgroundColor: 'rgba(46, 204, 113, 0.1)', borderLeft: '4px solid #2ecc71', color: '#2ecc71', padding: '15px', borderRadius: '4px', marginBottom: '25px', fontSize: '0.95rem' }}>Your reservation has been created successfully! We will contact you shortly to confirm.</div>}
+
+              {promo === 'festive' && settings.popupBanners?.festive?.title && (
+                <div style={{
+                  backgroundColor: 'rgba(182, 162, 94, 0.1)',
+                  border: '1px solid var(--primary-color)',
+                  borderRadius: '10px',
+                  padding: '15px 20px',
+                  marginBottom: '25px',
+                  textAlign: 'left',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '5px'
+                }}>
+                  <div style={{ color: 'var(--primary-color)', fontWeight: 'bold', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    ✨ Special Event Offer Applied
+                  </div>
+                  <h4 style={{ margin: 0, color: '#fff', fontSize: '1.2rem' }}>
+                    {settings.popupBanners.festive.title}
+                  </h4>
+                  <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.4 }}>
+                    {settings.popupBanners.festive.description}
+                  </p>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="reservation-row" style={rowStyle}>

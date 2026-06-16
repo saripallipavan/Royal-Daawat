@@ -85,8 +85,12 @@ const Menu = () => {
   const [customerAddress, setCustomerAddress] = useState('');
   const [settings, setSettings] = useState({
     phoneNumber: '+01425 476563',
-    openingHours: 'Monday – Sunday: 5 PM – 11 PM'
+    openingHours: 'Monday – Sunday: 5 PM – 11 PM',
+    popupBanners: null
   });
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const promoParam = queryParams.get('promo');
 
   const fetchMenu = async () => {
     try {
@@ -131,17 +135,18 @@ const Menu = () => {
         setMenuItems(flattenedMenu);
         setCategories(sortedCats);
       }
-    } catch (apiErr) {
-      console.warn("Failed to fetch menu from backend API in background, keeping local data:", apiErr);
-      setError("Failed to load backend menu items. Displaying offline fallback menu.");
+    } catch (err) {
+      console.error("Failed to fetch menu:", err);
+      setError("Failed to load menu. Please try refreshing.");
     }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchMenu();
     
     const handleScroll = () => {
-      if (window.scrollY > 400) {
+      if (window.scrollY > 300) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
@@ -156,8 +161,7 @@ const Menu = () => {
         if (data) {
           setSettings(prev => ({
             ...prev,
-            phoneNumber: data.phoneNumber || prev.phoneNumber,
-            openingHours: data.openingHours || prev.openingHours
+            ...data
           }));
         }
       } catch (err) {
@@ -165,19 +169,22 @@ const Menu = () => {
       }
     };
 
-    fetchMenu();
     fetchSettings();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Cart Helper Logics
   const addToCart = (item) => {
+    const isCurryPromo = promoParam === 'slowDay' && item.category === 'Curries';
+    const finalPrice = isCurryPromo ? parseFloat((item.price * 0.85).toFixed(2)) : item.price;
+    const finalName = isCurryPromo ? `${item.name} (15% Off Promo)` : item.name;
+
     setCart(prevCart => {
       const existing = prevCart.find(i => i.id === item.id);
       if (existing) {
         return prevCart.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
       }
-      return [...prevCart, { id: item.id, name: item.name, price: item.price, quantity: 1 }];
+      return [...prevCart, { id: item.id, name: finalName, price: finalPrice, quantity: 1 }];
     });
   };
 
@@ -321,6 +328,30 @@ const Menu = () => {
             <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--primary-color)', margin: '0.8rem auto' }}></div>
           </motion.div>
 
+          {promoParam === 'slowDay' && settings.popupBanners?.slowDay?.title && (
+            <div style={{
+              backgroundColor: 'rgba(182, 162, 94, 0.1)',
+              border: '1px solid var(--primary-color)',
+              borderRadius: '10px',
+              padding: '15px 20px',
+              marginBottom: '2.5rem',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '5px'
+            }}>
+              <div style={{ color: 'var(--primary-color)', fontWeight: 'bold', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                🍛 Midweek Promotion Applied
+              </div>
+              <h4 style={{ margin: 0, color: '#fff', fontSize: '1.2rem' }}>
+                {settings.popupBanners.slowDay.title}
+              </h4>
+              <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.4 }}>
+                {settings.popupBanners.slowDay.description}
+              </p>
+            </div>
+          )}
+
           {/* Search Bar Container */}
           <div style={{ 
             display: 'flex', 
@@ -447,7 +478,22 @@ const Menu = () => {
                               transition: 'color 0.2s ease'
                             }}
                           >
-                            {item.name} £{item.price.toFixed(2)}
+                            {item.name}{' '}
+                            {promoParam === 'slowDay' && item.category === 'Curries' ? (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                <span style={{ textDecoration: 'line-through', color: 'rgba(255,255,255,0.4)', fontSize: '0.95em' }}>
+                                  £{item.price.toFixed(2)}
+                                </span>
+                                <span style={{ color: 'var(--primary-color)' }}>
+                                  £{(item.price * 0.85).toFixed(2)}
+                                </span>
+                                <span style={{ backgroundColor: 'rgba(76, 175, 80, 0.15)', color: '#4CAF50', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', border: '1px solid rgba(76, 175, 80, 0.3)', textTransform: 'none', letterSpacing: '0' }}>
+                                  15% OFF
+                                </span>
+                              </span>
+                            ) : (
+                              `£${item.price.toFixed(2)}`
+                            )}
                           </h4>
                           {item.dietary_preference === "Veg" && (
                             <span style={{ display: 'inline-block', width: '8px', height: '8px', backgroundColor: '#4caf50', borderRadius: '50%', border: '1px solid #fff' }} title="Vegetarian"></span>
@@ -542,7 +588,22 @@ const Menu = () => {
                                           transition: 'color 0.2s ease'
                                         }}
                                       >
-                                        {item.name} £{item.price.toFixed(2)}
+                                        {item.name}{' '}
+                                        {promoParam === 'slowDay' && item.category === 'Curries' ? (
+                                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                            <span style={{ textDecoration: 'line-through', color: 'rgba(255,255,255,0.4)', fontSize: '0.95em' }}>
+                                              £{item.price.toFixed(2)}
+                                            </span>
+                                            <span style={{ color: 'var(--primary-color)' }}>
+                                              £{(item.price * 0.85).toFixed(2)}
+                                            </span>
+                                            <span style={{ backgroundColor: 'rgba(76, 175, 80, 0.15)', color: '#4CAF50', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', border: '1px solid rgba(76, 175, 80, 0.3)', textTransform: 'none', letterSpacing: '0' }}>
+                                              15% OFF
+                                            </span>
+                                          </span>
+                                        ) : (
+                                          `£${item.price.toFixed(2)}`
+                                        )}
                                       </h4>
                                       {item.dietary_preference === "Veg" && (
                                         <span style={{ display: 'inline-block', width: '8px', height: '8px', backgroundColor: '#4caf50', borderRadius: '50%', border: '1px solid #fff' }} title="Vegetarian"></span>
@@ -916,7 +977,21 @@ const Menu = () => {
 
               {/* Price */}
               <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--primary-color)', marginBottom: '1.5rem' }}>
-                £{selectedFood.price.toFixed(2)}
+                {promoParam === 'slowDay' && selectedFood.category === 'Curries' ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ textDecoration: 'line-through', color: 'rgba(255,255,255,0.4)', fontSize: '1.4rem' }}>
+                      £{selectedFood.price.toFixed(2)}
+                    </span>
+                    <span>
+                      £{(selectedFood.price * 0.85).toFixed(2)}
+                    </span>
+                    <span style={{ backgroundColor: 'rgba(76, 175, 80, 0.15)', color: '#4CAF50', padding: '4px 12px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold', border: '1px solid rgba(76, 175, 80, 0.3)', letterSpacing: '0' }}>
+                      15% OFF PROMO
+                    </span>
+                  </div>
+                ) : (
+                  `£${selectedFood.price.toFixed(2)}`
+                )}
               </div>
 
               {/* Divider */}

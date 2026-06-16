@@ -1424,9 +1424,43 @@ const AdminDashboard = () => {
                         <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
                         {(() => {
                           const currentLinkValue = settingsForm.popupBanners?.[editingOccasion]?.link || '';
-                          const standardPages = ['/offers-gallery', '/menu', '/book-table', '/gift-card', '/contact'];
-                          const isStandardPage = standardPages.includes(currentLinkValue);
-                          const dropdownVal = currentLinkValue === '' ? '' : (isStandardPage ? currentLinkValue : 'custom');
+                          
+                          // Determine options based on current occasion
+                          let options = [];
+                          if (editingOccasion === 'festive') {
+                            options = [
+                              { value: '', label: 'None (No Action Button)' },
+                              { value: '/book-table', label: 'Book a Table Page (internal)' }
+                            ];
+                          } else if (editingOccasion === 'slowDay') {
+                            options = [
+                              { value: '', label: 'None (No Action Button)' },
+                              { value: '/menu', label: 'Dine-In Menu Page (internal)' }
+                            ];
+                          } else if (editingOccasion === 'firstTime') {
+                            options = [
+                              { value: '', label: 'None (No Action Button)' },
+                              { value: '/offers-gallery', label: 'Offers & Gallery Page (internal)' },
+                              { value: '/login', label: 'Sign In / Account Page (internal)' },
+                              { value: '/contact', label: 'Contact Us Page (internal)' }
+                            ];
+                          } else if (editingOccasion === 'catering') {
+                            options = [
+                              { value: '', label: 'None (No Action Button)' },
+                              { value: '/contact', label: 'Contact Us Page (internal)' }
+                            ];
+                          } else { // operational
+                            options = [
+                              { value: '', label: 'None (No Action Button)' },
+                              { value: 'custom', label: 'Custom URL / External Link' }
+                            ];
+                          }
+
+                          // Check if current value is standard
+                          const isKnownOption = options.some(opt => opt.value === currentLinkValue);
+                          const dropdownVal = isKnownOption ? currentLinkValue : (currentLinkValue === '' ? '' : 'custom');
+                          
+                          const showCustomInput = (editingOccasion === 'operational' && dropdownVal === 'custom');
 
                           return (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1442,16 +1476,12 @@ const AdminDashboard = () => {
                                 }}
                                 style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                               >
-                                <option value="">None (No Action Button)</option>
-                                <option value="/offers-gallery">Offers & Gallery Page (internal)</option>
-                                <option value="/menu">Dine-In Menu Page (internal)</option>
-                                <option value="/book-table">Book a Table Page (internal)</option>
-                                <option value="/gift-card">Gift Card Page (internal)</option>
-                                <option value="/contact">Contact Us Page (internal)</option>
-                                <option value="custom">Custom URL / External Link</option>
+                                {options.map(opt => (
+                                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                ))}
                               </select>
 
-                              {dropdownVal === 'custom' && (
+                              {showCustomInput && (
                                 <input 
                                   type="text" 
                                   placeholder="Enter custom URL (e.g. https://instagram.com/p/...)"
