@@ -11,7 +11,7 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone, Gift, Heart, Sparkles, Percent
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -343,6 +343,8 @@ const AdminDashboard = () => {
           }
         }
       }));
+      const fileInput = document.getElementById('popupImageInput');
+      if (fileInput) fileInput.value = '';
     }
   };
 
@@ -1262,175 +1264,229 @@ const AdminDashboard = () => {
           {activeTab === 'popupBanner' && (
             <div>
               <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Manage Pop-up Banners</h3>
-              <form onSubmit={handleSettingsSubmit} style={{ display: 'grid', gap: '20px', backgroundColor: 'rgba(255, 255, 255, 0.01)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div style={{ display: 'grid', gap: '20px', backgroundColor: 'rgba(255, 255, 255, 0.01)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
-                  Configure promotional popup banners for different occasions and choose which one is currently active on the website. Dismissal session tracking is handled independently per occasion.
+                  Customize promotional pop-up banners for different occasions. Select an occasion below to customize its template, and toggle the status to make it live on the website.
                 </p>
 
-                <div className="admin-grid-2col" style={{ gap: '15px', borderBottom: '1px solid rgba(182, 162, 94, 0.15)', paddingBottom: '20px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.95rem', color: 'var(--primary-color)', fontWeight: 'bold' }}>Currently Active Website Banner</label>
-                    <select
-                      value={settingsForm.activePopupOccasion || 'none'}
-                      onChange={e => setSettingsForm({ ...settingsForm, activePopupOccasion: e.target.value })}
-                      style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid var(--primary-color)' }}
-                    >
-                      <option value="none">Disabled (None)</option>
-                      <option value="general">General Promotion</option>
-                      <option value="weekend">Weekend Special</option>
-                      <option value="birthday">Birthday Parties</option>
-                      <option value="anniversary">Anniversaries</option>
-                      <option value="festival">Festival Special</option>
-                      <option value="combo">Combo Offers</option>
-                    </select>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 'bold' }}>Select Occasion to Customize</label>
-                    <select
-                      value={editingOccasion}
-                      onChange={e => setEditingOccasion(e.target.value)}
-                      style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #444' }}
-                    >
-                      <option value="general">General Promotion</option>
-                      <option value="weekend">Weekend Special</option>
-                      <option value="birthday">Birthday Parties</option>
-                      <option value="anniversary">Anniversaries</option>
-                      <option value="festival">Festival Special</option>
-                      <option value="combo">Combo Offers</option>
-                    </select>
-                  </div>
+                {/* Occasions Tab Bar */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', padding: '10px 0', borderBottom: '1px solid rgba(182, 162, 94, 0.15)' }}>
+                  {[
+                    { id: 'general', label: 'General Promo', icon: <Tags size={16} /> },
+                    { id: 'weekend', label: 'Weekend Special', icon: <CalendarDays size={16} /> },
+                    { id: 'birthday', label: 'Birthday Parties', icon: <Gift size={16} /> },
+                    { id: 'anniversary', label: 'Anniversaries', icon: <Heart size={16} /> },
+                    { id: 'festival', label: 'Festival Special', icon: <Sparkles size={16} /> },
+                    { id: 'combo', label: 'Combo Offers', icon: <Percent size={16} /> }
+                  ].map(occ => {
+                    const isEditing = editingOccasion === occ.id;
+                    const isLive = settingsForm.activePopupOccasion === occ.id;
+                    return (
+                      <button
+                        key={occ.id}
+                        type="button"
+                        onClick={() => setEditingOccasion(occ.id)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '10px 18px',
+                          borderRadius: '30px',
+                          border: isEditing ? '1px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                          backgroundColor: isEditing ? 'rgba(182, 162, 94, 0.15)' : 'rgba(0,0,0,0.2)',
+                          color: isEditing ? 'var(--primary-color)' : 'var(--text-muted)',
+                          cursor: 'pointer',
+                          fontWeight: isEditing ? 'bold' : 'normal',
+                          transition: 'all 0.3s ease',
+                          position: 'relative'
+                        }}
+                      >
+                        {occ.icon}
+                        <span>{occ.label}</span>
+                        {isLive && (
+                          <span style={{
+                            position: 'absolute',
+                            top: '-5px',
+                            right: '-5px',
+                            backgroundColor: '#4CAF50',
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            boxShadow: '0 0 8px #4CAF50'
+                          }} title="Live Banner" />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
 
-                <div style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.1)', borderRadius: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <h4 className="text-gold" style={{ margin: 0, fontSize: '1.2rem', textTransform: 'capitalize' }}>
-                      {editingOccasion.replace(/([A-Z])/g, ' $1')} Banner Settings
-                    </h4>
-                    <button
-                      type="button"
-                      onClick={handleClearOccasionBanner}
-                      style={{
-                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
-                        color: '#ff4436',
-                        border: '1px solid rgba(244, 67, 54, 0.3)',
-                        padding: '6px 12px',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '0.8rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}
-                      title="Erase all content for this occasion banner"
-                    >
-                      <Trash2 size={14} /> Clear Banner Content
-                    </button>
-                  </div>
-
-                  <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., Special Festive Offer!"
-                        value={settingsForm.popupBanners?.[editingOccasion]?.title || ''} 
-                        onChange={e => handleUpdateEditingBanner('title', e.target.value)}
-                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                      />
-                    </div>
+                {/* Occasion Editor Card */}
+                <form onSubmit={handleSettingsSubmit} style={{ display: 'grid', gap: '20px' }}>
+                  <div style={{ padding: '2rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.1)', borderRadius: '12px' }}>
                     
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <input 
-                          type="file" 
-                          onChange={e => handleSettingsImageUpload(e, 'popup', editingOccasion)}
-                          style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
-                        />
-                        {settingsForm.popupBanners?.[editingOccasion]?.img && (
-                          <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
-                            <ImageWithFallback src={getImageUrl(settingsForm.popupBanners[editingOccasion].img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          </div>
-                        )}
+                    {/* Header with Title, Live Toggle and Delete button */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '15px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1.2rem', marginBottom: '1.5rem' }}>
+                      <div>
+                        <h4 className="text-gold" style={{ margin: '0 0 4px 0', fontSize: '1.4rem', textTransform: 'capitalize' }}>
+                          {editingOccasion.replace(/([A-Z])/g, ' $1')} Settings
+                        </h4>
+                        <span style={{ 
+                          fontSize: '0.8rem', 
+                          fontWeight: 'bold',
+                          color: settingsForm.activePopupOccasion === editingOccasion ? '#4CAF50' : 'var(--text-muted)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}>
+                          {settingsForm.activePopupOccasion === editingOccasion ? '🟢 Live on Website' : '⚪ Inactive (Draft)'}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        {/* Live Toggle switch */}
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none', backgroundColor: 'rgba(255,255,255,0.03)', padding: '6px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                          <input 
+                            type="checkbox"
+                            checked={settingsForm.activePopupOccasion === editingOccasion}
+                            onChange={e => setSettingsForm({
+                              ...settingsForm,
+                              activePopupOccasion: e.target.checked ? editingOccasion : 'none'
+                            })}
+                            style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                          />
+                          <span style={{ fontSize: '0.9rem', color: '#fff', fontWeight: 'bold' }}>Make Live on Website</span>
+                        </label>
+
+                        <button
+                          type="button"
+                          onClick={handleClearOccasionBanner}
+                          style={{
+                            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                            color: '#ff4436',
+                            border: '1px solid rgba(244, 67, 54, 0.3)',
+                            padding: '6px 12px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.85rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            transition: 'all 0.3s'
+                          }}
+                          title="Erase all content for this occasion banner"
+                        >
+                          <Trash2 size={14} /> Clear Content
+                        </button>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
+                    {/* Banner Form Inputs */}
+                    <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g., Special Festive Offer!"
+                          value={settingsForm.popupBanners?.[editingOccasion]?.title || ''} 
+                          onChange={e => handleUpdateEditingBanner('title', e.target.value)}
+                          style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <input 
+                            type="file" 
+                            id="popupImageInput"
+                            onChange={e => handleSettingsImageUpload(e, 'popup', editingOccasion)}
+                            style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                          />
+                          {settingsForm.popupBanners?.[editingOccasion]?.img && (
+                            <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                              <ImageWithFallback src={getImageUrl(settingsForm.popupBanners[editingOccasion].img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g., Learn More"
+                          value={settingsForm.popupBanners?.[editingOccasion]?.buttonText || ''} 
+                          onChange={e => handleUpdateEditingBanner('buttonText', e.target.value)}
+                          style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
+                        {(() => {
+                          const currentLinkValue = settingsForm.popupBanners?.[editingOccasion]?.link || '';
+                          const standardPages = ['/offers-gallery', '/menu', '/book-table', '/gift-card', '/contact'];
+                          const isStandardPage = standardPages.includes(currentLinkValue);
+                          const dropdownVal = currentLinkValue === '' ? '' : (isStandardPage ? currentLinkValue : 'custom');
+
+                          return (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              <select
+                                value={dropdownVal}
+                                onChange={e => {
+                                  const val = e.target.value;
+                                  if (val === 'custom') {
+                                    handleUpdateEditingBanner('link', 'https://');
+                                  } else {
+                                    handleUpdateEditingBanner('link', val);
+                                  }
+                                }}
+                                style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                              >
+                                <option value="">None (No Action Button)</option>
+                                <option value="/offers-gallery">Offers & Gallery Page (internal)</option>
+                                <option value="/menu">Dine-In Menu Page (internal)</option>
+                                <option value="/book-table">Book a Table Page (internal)</option>
+                                <option value="/gift-card">Gift Card Page (internal)</option>
+                                <option value="/contact">Contact Us Page (internal)</option>
+                                <option value="custom">Custom URL / External Link</option>
+                              </select>
+
+                              {dropdownVal === 'custom' && (
+                                <input 
+                                  type="text" 
+                                  placeholder="Enter custom URL (e.g. https://instagram.com/p/...)"
+                                  value={currentLinkValue} 
+                                  onChange={e => handleUpdateEditingBanner('link', e.target.value)}
+                                  style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', marginTop: '5px' }}
+                                />
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., Learn More"
-                        value={settingsForm.popupBanners?.[editingOccasion]?.buttonText || ''} 
-                        onChange={e => handleUpdateEditingBanner('buttonText', e.target.value)}
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
+                      <textarea 
+                        placeholder="Brief details of your popup banner message..."
+                        value={settingsForm.popupBanners?.[editingOccasion]?.description || ''} 
+                        onChange={e => handleUpdateEditingBanner('description', e.target.value)}
+                        rows="3"
                         style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                       />
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
-                      {(() => {
-                        const currentLinkValue = settingsForm.popupBanners?.[editingOccasion]?.link || '';
-                        const standardPages = ['/offers-gallery', '/menu', '/book-table', '/gift-card', '/contact'];
-                        const isStandardPage = standardPages.includes(currentLinkValue);
-                        const dropdownVal = currentLinkValue === '' ? '' : (isStandardPage ? currentLinkValue : 'custom');
-
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <select
-                              value={dropdownVal}
-                              onChange={e => {
-                                const val = e.target.value;
-                                if (val === 'custom') {
-                                  handleUpdateEditingBanner('link', 'https://');
-                                } else {
-                                  handleUpdateEditingBanner('link', val);
-                                }
-                              }}
-                              style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                            >
-                              <option value="">None (No Action Button)</option>
-                              <option value="/offers-gallery">Offers & Gallery Page (internal)</option>
-                              <option value="/menu">Dine-In Menu Page (internal)</option>
-                              <option value="/book-table">Book a Table Page (internal)</option>
-                              <option value="/gift-card">Gift Card Page (internal)</option>
-                              <option value="/contact">Contact Us Page (internal)</option>
-                              <option value="custom">Custom URL / External Link</option>
-                            </select>
-
-                            {dropdownVal === 'custom' && (
-                              <input 
-                                type="text" 
-                                placeholder="Enter custom URL (e.g. https://instagram.com/p/...)"
-                                value={currentLinkValue} 
-                                onChange={e => handleUpdateEditingBanner('link', e.target.value)}
-                                style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', marginTop: '5px' }}
-                              />
-                            )}
-                          </div>
-                        );
-                      })()}
-                    </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
-                    <textarea 
-                      placeholder="Brief details of your popup banner message..."
-                      value={settingsForm.popupBanners?.[editingOccasion]?.description || ''} 
-                      onChange={e => handleUpdateEditingBanner('description', e.target.value)}
-                      rows="3"
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                    />
-                  </div>
-                </div>
-
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>
-                  Save All Banner Settings
-                </button>
-              </form>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '12px' }}>
+                    Save All Banner Settings
+                  </button>
+                </form>
+              </div>
             </div>
           )}
 

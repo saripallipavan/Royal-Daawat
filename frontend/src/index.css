@@ -976,3 +976,26 @@ ul {
   }
 }
 
+/* Premium Popup Banner Redesign Styles */
+.premium-popup-wrapper {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .premium-popup-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .premium-popup-text {
+    order: 2;
+  }
+  .premium-popup-image {
+    order: 1 !important;
+    height: 200px !important;
+    min-height: 200px !important;
+    border-left: none !important;
+    border-bottom: 1px solid rgba(182, 162, 94, 0.15) !important;
+  }
+}
+
