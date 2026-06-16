@@ -322,6 +322,12 @@ const AdminDashboard = () => {
 
   const handleClearOccasionBanner = () => {
     if (window.confirm(`Are you sure you want to clear/delete all content for the "${editingOccasion.replace(/([A-Z])/g, ' $1')}" banner?`)) {
+      let defaultLink = '';
+      if (editingOccasion === 'festive') defaultLink = '/book-table';
+      else if (editingOccasion === 'slowDay') defaultLink = '/menu';
+      else if (editingOccasion === 'firstTime') defaultLink = '/offers-gallery';
+      else if (editingOccasion === 'catering') defaultLink = '/contact';
+
       setSettingsForm(prev => ({
         ...prev,
         popupBanners: {
@@ -330,7 +336,7 @@ const AdminDashboard = () => {
             title: '',
             description: '',
             img: '',
-            link: '',
+            link: defaultLink,
             buttonText: 'Learn More'
           }
         }
