@@ -41,14 +41,51 @@ const settingsSchema = mongoose.Schema({
       img: { type: String, default: '' }
     }
   ],
-  popupBanner: {
-    enabled: { type: Boolean, default: false },
-    title: { type: String, default: '' },
-    description: { type: String, default: '' },
-    img: { type: String, default: '' },
-    link: { type: String, default: '' },
-    buttonText: { type: String, default: 'Learn More' }
-  }
+  popupBanners: {
+    general: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    },
+    weekend: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    },
+    birthday: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    },
+    anniversary: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    },
+    festival: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    },
+    combo: {
+      title: { type: String, default: '' },
+      description: { type: String, default: '' },
+      img: { type: String, default: '' },
+      link: { type: String, default: '' },
+      buttonText: { type: String, default: 'Learn More' }
+    }
+  },
+  activePopupOccasion: { type: String, default: 'none' }
 }, { timestamps: true });
 
 const Settings = mongoose.model('Settings', settingsSchema);

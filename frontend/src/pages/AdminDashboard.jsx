@@ -49,8 +49,18 @@ const AdminDashboard = () => {
     signatureDishes: Array(3).fill(null).map(() => ({ name: '', price: '', desc: '', img: '' })),
     chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
     galleryPreviewSlides: Array(3).fill(null).map(() => ({ title: '', subtitle: '', desc: '', img: '' })),
-    popupBanner: { enabled: false, title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+    popupBanners: {
+      general: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      weekend: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      birthday: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      anniversary: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      festival: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      combo: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+    },
+    activePopupOccasion: 'none'
   });
+
+  const [editingOccasion, setEditingOccasion] = useState('general');
 
   const [imageFile, setImageFile] = useState(null);
   const [galleryFile, setGalleryFile] = useState(null);
@@ -108,14 +118,51 @@ const AdminDashboard = () => {
             desc: setts.data.galleryPreviewSlides?.[i]?.desc || '',
             img: setts.data.galleryPreviewSlides?.[i]?.img || ''
           })),
-          popupBanner: {
-            enabled: setts.data.popupBanner?.enabled || false,
-            title: setts.data.popupBanner?.title || '',
-            description: setts.data.popupBanner?.description || '',
-            img: setts.data.popupBanner?.img || '',
-            link: setts.data.popupBanner?.link || '',
-            buttonText: setts.data.popupBanner?.buttonText || 'Learn More'
-          }
+          popupBanners: {
+            general: {
+              title: setts.data.popupBanners?.general?.title || '',
+              description: setts.data.popupBanners?.general?.description || '',
+              img: setts.data.popupBanners?.general?.img || '',
+              link: setts.data.popupBanners?.general?.link || '',
+              buttonText: setts.data.popupBanners?.general?.buttonText || 'Learn More'
+            },
+            weekend: {
+              title: setts.data.popupBanners?.weekend?.title || '',
+              description: setts.data.popupBanners?.weekend?.description || '',
+              img: setts.data.popupBanners?.weekend?.img || '',
+              link: setts.data.popupBanners?.weekend?.link || '',
+              buttonText: setts.data.popupBanners?.weekend?.buttonText || 'Learn More'
+            },
+            birthday: {
+              title: setts.data.popupBanners?.birthday?.title || '',
+              description: setts.data.popupBanners?.birthday?.description || '',
+              img: setts.data.popupBanners?.birthday?.img || '',
+              link: setts.data.popupBanners?.birthday?.link || '',
+              buttonText: setts.data.popupBanners?.birthday?.buttonText || 'Learn More'
+            },
+            anniversary: {
+              title: setts.data.popupBanners?.anniversary?.title || '',
+              description: setts.data.popupBanners?.anniversary?.description || '',
+              img: setts.data.popupBanners?.anniversary?.img || '',
+              link: setts.data.popupBanners?.anniversary?.link || '',
+              buttonText: setts.data.popupBanners?.anniversary?.buttonText || 'Learn More'
+            },
+            festival: {
+              title: setts.data.popupBanners?.festival?.title || '',
+              description: setts.data.popupBanners?.festival?.description || '',
+              img: setts.data.popupBanners?.festival?.img || '',
+              link: setts.data.popupBanners?.festival?.link || '',
+              buttonText: setts.data.popupBanners?.festival?.buttonText || 'Learn More'
+            },
+            combo: {
+              title: setts.data.popupBanners?.combo?.title || '',
+              description: setts.data.popupBanners?.combo?.description || '',
+              img: setts.data.popupBanners?.combo?.img || '',
+              link: setts.data.popupBanners?.combo?.link || '',
+              buttonText: setts.data.popupBanners?.combo?.buttonText || 'Learn More'
+            }
+          },
+          activePopupOccasion: setts.data.activePopupOccasion || 'none'
         });
       }
     } catch (err) {
@@ -250,9 +297,12 @@ const AdminDashboard = () => {
           } else if (type === 'popup') {
             return {
               ...prev,
-              popupBanner: {
-                ...prev.popupBanner,
-                img: filePath
+              popupBanners: {
+                ...prev.popupBanners,
+                [index]: {
+                  ...prev.popupBanners[index],
+                  img: filePath
+                }
               }
             };
           }
@@ -263,6 +313,19 @@ const AdminDashboard = () => {
       console.error('Failed to upload image:', err);
       alert('Failed to upload image');
     }
+  };
+
+  const handleUpdateEditingBanner = (field, value) => {
+    setSettingsForm(prev => ({
+      ...prev,
+      popupBanners: {
+        ...prev.popupBanners,
+        [editingOccasion]: {
+          ...(prev.popupBanners?.[editingOccasion] || {}),
+          [field]: value
+        }
+      }
+    }));
   };
 
   const handleSettingsSubmit = async (e) => {
@@ -1180,121 +1243,119 @@ const AdminDashboard = () => {
 
           {activeTab === 'popupBanner' && (
             <div>
-              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Manage Pop-up Banner</h3>
+              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Manage Pop-up Banners</h3>
               <form onSubmit={handleSettingsSubmit} style={{ display: 'grid', gap: '20px', backgroundColor: 'rgba(255, 255, 255, 0.01)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
-                  Configure a promotional popup banner that will appear on the website when guests first load the page. The popup banner closes and won't show again during the user's browser session once dismissed.
+                  Configure promotional popup banners for different occasions and choose which one is currently active on the website. Dismissal session tracking is handled independently per occasion.
                 </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <input 
-                    type="checkbox" 
-                    id="enablePopupBannerTab"
-                    checked={settingsForm.popupBanner?.enabled || false} 
-                    onChange={e => setSettingsForm({
-                      ...settingsForm,
-                      popupBanner: {
-                        ...settingsForm.popupBanner,
-                        enabled: e.target.checked
-                      }
-                    })}
-                    style={{ cursor: 'pointer', width: '18px', height: '18px' }}
-                  />
-                  <label htmlFor="enablePopupBannerTab" style={{ fontSize: '1rem', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
-                    Enable Pop-up Banner
-                  </label>
+                <div className="admin-grid-2col" style={{ gap: '15px', borderBottom: '1px solid rgba(182, 162, 94, 0.15)', paddingBottom: '20px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.95rem', color: 'var(--primary-color)', fontWeight: 'bold' }}>Currently Active Website Banner</label>
+                    <select
+                      value={settingsForm.activePopupOccasion || 'none'}
+                      onChange={e => setSettingsForm({ ...settingsForm, activePopupOccasion: e.target.value })}
+                      style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid var(--primary-color)' }}
+                    >
+                      <option value="none">Disabled (None)</option>
+                      <option value="general">General Promotion</option>
+                      <option value="weekend">Weekend Special</option>
+                      <option value="birthday">Birthday Parties</option>
+                      <option value="anniversary">Anniversaries</option>
+                      <option value="festival">Festival Special</option>
+                      <option value="combo">Combo Offers</option>
+                    </select>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 'bold' }}>Select Occasion to Customize</label>
+                    <select
+                      value={editingOccasion}
+                      onChange={e => setEditingOccasion(e.target.value)}
+                      style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #444' }}
+                    >
+                      <option value="general">General Promotion</option>
+                      <option value="weekend">Weekend Special</option>
+                      <option value="birthday">Birthday Parties</option>
+                      <option value="anniversary">Anniversaries</option>
+                      <option value="festival">Festival Special</option>
+                      <option value="combo">Combo Offers</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="admin-grid-2col" style={{ gap: '15px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., Weekend Special Feast!"
-                      value={settingsForm.popupBanner?.title || ''} 
-                      onChange={e => setSettingsForm({
-                        ...settingsForm,
-                        popupBanner: {
-                          ...settingsForm.popupBanner,
-                          title: e.target.value
-                        }
-                      })}
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                    />
-                  </div>
-                  
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.1)', borderRadius: '8px' }}>
+                  <h4 className="text-gold" style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem', textTransform: 'capitalize' }}>
+                    {editingOccasion.replace(/([A-Z])/g, ' $1')} Banner Settings
+                  </h4>
+
+                  <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
                       <input 
-                        type="file" 
-                        onChange={e => handleSettingsImageUpload(e, 'popup')}
-                        style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                        type="text" 
+                        placeholder="e.g., Special Festive Offer!"
+                        value={settingsForm.popupBanners?.[editingOccasion]?.title || ''} 
+                        onChange={e => handleUpdateEditingBanner('title', e.target.value)}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                       />
-                      {settingsForm.popupBanner?.img && (
-                        <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
-                          <ImageWithFallback src={getImageUrl(settingsForm.popupBanner.img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        </div>
-                      )}
+                    </div>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <input 
+                          type="file" 
+                          onChange={e => handleSettingsImageUpload(e, 'popup', editingOccasion)}
+                          style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                        />
+                        {settingsForm.popupBanners?.[editingOccasion]?.img && (
+                          <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                            <ImageWithFallback src={getImageUrl(settingsForm.popupBanners[editingOccasion].img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="admin-grid-2col" style={{ gap: '15px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., Order Now"
-                      value={settingsForm.popupBanner?.buttonText || ''} 
-                      onChange={e => setSettingsForm({
-                        ...settingsForm,
-                        popupBanner: {
-                          ...settingsForm.popupBanner,
-                          buttonText: e.target.value
-                        }
-                      })}
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                    />
+                  <div className="admin-grid-2col" style={{ gap: '15px', marginBottom: '15px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g., Learn More"
+                        value={settingsForm.popupBanners?.[editingOccasion]?.buttonText || ''} 
+                        onChange={e => handleUpdateEditingBanner('buttonText', e.target.value)}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g., /menu, /book-table, or https://..."
+                        value={settingsForm.popupBanners?.[editingOccasion]?.link || ''} 
+                        onChange={e => handleUpdateEditingBanner('link', e.target.value)}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                      />
+                    </div>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., /menu, /book-table, or https://..."
-                      value={settingsForm.popupBanner?.link || ''} 
-                      onChange={e => setSettingsForm({
-                        ...settingsForm,
-                        popupBanner: {
-                          ...settingsForm.popupBanner,
-                          link: e.target.value
-                        }
-                      })}
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
+                    <textarea 
+                      placeholder="Brief details of your popup banner message..."
+                      value={settingsForm.popupBanners?.[editingOccasion]?.description || ''} 
+                      onChange={e => handleUpdateEditingBanner('description', e.target.value)}
+                      rows="3"
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                     />
                   </div>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
-                  <textarea 
-                    placeholder="Brief details of your popup banner message..."
-                    value={settingsForm.popupBanner?.description || ''} 
-                    onChange={e => setSettingsForm({
-                      ...settingsForm,
-                      popupBanner: {
-                        ...settingsForm.popupBanner,
-                        description: e.target.value
-                      }
-                    })}
-                    rows="3"
-                    style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                  />
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>
-                  Save Banner Settings
+                  Save All Banner Settings
                 </button>
               </form>
             </div>

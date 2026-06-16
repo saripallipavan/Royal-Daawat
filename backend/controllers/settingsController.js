@@ -42,7 +42,8 @@ export const updateSettings = async (req, res) => {
       signatureDishes,
       chefRecommendations,
       galleryPreviewSlides,
-      popupBanner
+      popupBanners,
+      activePopupOccasion
     } = req.body;
 
     settings.restaurantName = restaurantName !== undefined ? restaurantName : settings.restaurantName;
@@ -60,7 +61,8 @@ export const updateSettings = async (req, res) => {
     settings.signatureDishes = signatureDishes !== undefined ? signatureDishes : settings.signatureDishes;
     settings.chefRecommendations = chefRecommendations !== undefined ? chefRecommendations : settings.chefRecommendations;
     settings.galleryPreviewSlides = galleryPreviewSlides !== undefined ? galleryPreviewSlides : settings.galleryPreviewSlides;
-    settings.popupBanner = popupBanner !== undefined ? popupBanner : settings.popupBanner;
+    settings.popupBanners = popupBanners !== undefined ? popupBanners : settings.popupBanners;
+    settings.activePopupOccasion = activePopupOccasion !== undefined ? activePopupOccasion : settings.activePopupOccasion;
 
     const updatedSettings = await settings.save();
     res.json(updatedSettings);

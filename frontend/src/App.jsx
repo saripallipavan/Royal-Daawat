@@ -883,7 +883,15 @@ function AppContent() {
     signatureDishes: [],
     chefRecommendations: [],
     galleryPreviewSlides: [],
-    popupBanner: { enabled: false, title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+    popupBanners: {
+      general: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      weekend: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      birthday: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      anniversary: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      festival: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      combo: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+    },
+    activePopupOccasion: 'none'
   });
 
   useEffect(() => {
@@ -908,7 +916,8 @@ function AppContent() {
             signatureDishes: data.signatureDishes || [],
             chefRecommendations: data.chefRecommendations || [],
             galleryPreviewSlides: data.galleryPreviewSlides || [],
-            popupBanner: data.popupBanner || prev.popupBanner
+            popupBanners: data.popupBanners || prev.popupBanners,
+            activePopupOccasion: data.activePopupOccasion || prev.activePopupOccasion
           }));
         }
       } catch (err) {

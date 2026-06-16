@@ -6,26 +6,31 @@ import { Link } from 'react-router-dom';
 
 const OfferPopup = ({ settings }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const banner = settings?.popupBanner;
+  const activeOccasion = settings?.activePopupOccasion || 'none';
+  const banner = (activeOccasion !== 'none' && settings?.popupBanners) ? settings.popupBanners[activeOccasion] : null;
 
   useEffect(() => {
-    if (banner && banner.enabled && banner.title) {
+    if (banner && banner.title && activeOccasion !== 'none') {
       // Check if already seen recently (e.g. in this session)
-      const dismissed = sessionStorage.getItem('popupBannerDismissed');
+      const dismissed = sessionStorage.getItem(`popupBannerDismissed_${activeOccasion}`);
       if (!dismissed) {
         // Slight delay before showing
         const timer = setTimeout(() => setIsVisible(true), 1500);
         return () => clearTimeout(timer);
       }
+    } else {
+      setIsVisible(false);
     }
-  }, [banner]);
+  }, [banner, activeOccasion]);
 
   const handleClose = () => {
     setIsVisible(false);
-    sessionStorage.setItem('popupBannerDismissed', 'true');
+    if (activeOccasion !== 'none') {
+      sessionStorage.setItem(`popupBannerDismissed_${activeOccasion}`, 'true');
+    }
   };
 
-  if (!isVisible || !banner || !banner.enabled) return null;
+  if (!isVisible || !banner || activeOccasion === 'none') return null;
 
   const isExternalLink = banner.link && (banner.link.startsWith('http://') || banner.link.startsWith('https://'));
 
