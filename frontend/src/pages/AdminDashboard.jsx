@@ -350,11 +350,19 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       await updateSettings(settingsForm);
-      alert('Settings updated successfully!');
+      
+      // Clear sessionStorage for banner dismissals so they can test/see them live immediately on the website!
+      sessionStorage.removeItem('popupBannerDismissed_festive');
+      sessionStorage.removeItem('popupBannerDismissed_slowDay');
+      sessionStorage.removeItem('popupBannerDismissed_firstTime');
+      sessionStorage.removeItem('popupBannerDismissed_catering');
+      sessionStorage.removeItem('popupBannerDismissed_operational');
+      
+      alert('Settings and banner changes published to the live website successfully!');
       fetchData();
     } catch (err) {
       console.error(err);
-      alert('Failed to update settings');
+      alert('Failed to publish settings changes');
     }
   };
 
@@ -1509,8 +1517,10 @@ const AdminDashboard = () => {
 
                   </div>
 
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '12px' }}>
-                    Save All Banner Settings
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '15px', fontWeight: 'bold', fontSize: '1.05rem', letterSpacing: '1px' }}>
+                    {settingsForm.activePopupOccasion === editingOccasion
+                      ? 'PUBLISH & MAKE BANNER LIVE ON WEBSITE'
+                      : 'PUBLISH CHANGES (Save All Banner Settings)'}
                   </button>
                 </form>
               </div>
