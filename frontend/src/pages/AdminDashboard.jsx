@@ -11,7 +11,7 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -330,6 +330,7 @@ const AdminDashboard = () => {
     { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={20} /> },
     { id: 'offers', label: 'Offers', icon: <Tags size={20} /> },
     { id: 'reviews', label: 'Reviews / Messages', icon: <Star size={20} /> },
+    { id: 'popupBanner', label: 'Pop-up Banners', icon: <Megaphone size={20} /> },
     { id: 'settings', label: 'Settings', icon: <SettingsIcon size={20} /> },
     { id: 'notifications', label: 'Notifications', icon: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -1170,120 +1171,130 @@ const AdminDashboard = () => {
                   ))}
                 </div>
 
-                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Promotional Pop-up Banner</h4>
-                <div style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '20px' }}>
-                  
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <input 
-                      type="checkbox" 
-                      id="enablePopupBanner"
-                      checked={settingsForm.popupBanner?.enabled || false} 
-                      onChange={e => setSettingsForm({
-                        ...settingsForm,
-                        popupBanner: {
-                          ...settingsForm.popupBanner,
-                          enabled: e.target.checked
-                        }
-                      })}
-                      style={{ cursor: 'pointer', width: '18px', height: '18px' }}
-                    />
-                    <label htmlFor="enablePopupBanner" style={{ fontSize: '1rem', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
-                      Enable Pop-up Banner
-                    </label>
-                  </div>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>
+                  Save Configuration
+                </button>
+              </form>
+            </div>
+          )}
 
-                  <div className="admin-grid-2col" style={{ gap: '15px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., Weekend Special Feast!"
-                        value={settingsForm.popupBanner?.title || ''} 
-                        onChange={e => setSettingsForm({
-                          ...settingsForm,
-                          popupBanner: {
-                            ...settingsForm.popupBanner,
-                            title: e.target.value
-                          }
-                        })}
-                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                      />
-                    </div>
-                    
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <input 
-                          type="file" 
-                          onChange={e => handleSettingsImageUpload(e, 'popup')}
-                          style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
-                        />
-                        {settingsForm.popupBanner?.img && (
-                          <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
-                            <ImageWithFallback src={getImageUrl(settingsForm.popupBanner.img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+          {activeTab === 'popupBanner' && (
+            <div>
+              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Manage Pop-up Banner</h3>
+              <form onSubmit={handleSettingsSubmit} style={{ display: 'grid', gap: '20px', backgroundColor: 'rgba(255, 255, 255, 0.01)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
+                  Configure a promotional popup banner that will appear on the website when guests first load the page. The popup banner closes and won't show again during the user's browser session once dismissed.
+                </p>
 
-                  <div className="admin-grid-2col" style={{ gap: '15px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., Order Now"
-                        value={settingsForm.popupBanner?.buttonText || ''} 
-                        onChange={e => setSettingsForm({
-                          ...settingsForm,
-                          popupBanner: {
-                            ...settingsForm.popupBanner,
-                            buttonText: e.target.value
-                          }
-                        })}
-                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                      />
-                    </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <input 
+                    type="checkbox" 
+                    id="enablePopupBannerTab"
+                    checked={settingsForm.popupBanner?.enabled || false} 
+                    onChange={e => setSettingsForm({
+                      ...settingsForm,
+                      popupBanner: {
+                        ...settingsForm.popupBanner,
+                        enabled: e.target.checked
+                      }
+                    })}
+                    style={{ cursor: 'pointer', width: '18px', height: '18px' }}
+                  />
+                  <label htmlFor="enablePopupBannerTab" style={{ fontSize: '1rem', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
+                    Enable Pop-up Banner
+                  </label>
+                </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g., /menu, /book-table, or https://..."
-                        value={settingsForm.popupBanner?.link || ''} 
-                        onChange={e => setSettingsForm({
-                          ...settingsForm,
-                          popupBanner: {
-                            ...settingsForm.popupBanner,
-                            link: e.target.value
-                          }
-                        })}
-                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
-                      />
-                    </div>
-                  </div>
-
+                <div className="admin-grid-2col" style={{ gap: '15px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
-                    <textarea 
-                      placeholder="Brief details of your popup banner message..."
-                      value={settingsForm.popupBanner?.description || ''} 
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Weekend Special Feast!"
+                      value={settingsForm.popupBanner?.title || ''} 
                       onChange={e => setSettingsForm({
                         ...settingsForm,
                         popupBanner: {
                           ...settingsForm.popupBanner,
-                          description: e.target.value
+                          title: e.target.value
                         }
                       })}
-                      rows="3"
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                    />
+                  </div>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <input 
+                        type="file" 
+                        onChange={e => handleSettingsImageUpload(e, 'popup')}
+                        style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                      />
+                      {settingsForm.popupBanner?.img && (
+                        <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                          <ImageWithFallback src={getImageUrl(settingsForm.popupBanner.img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="admin-grid-2col" style={{ gap: '15px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Order Now"
+                      value={settingsForm.popupBanner?.buttonText || ''} 
+                      onChange={e => setSettingsForm({
+                        ...settingsForm,
+                        popupBanner: {
+                          ...settingsForm.popupBanner,
+                          buttonText: e.target.value
+                        }
+                      })}
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                     />
                   </div>
 
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., /menu, /book-table, or https://..."
+                      value={settingsForm.popupBanner?.link || ''} 
+                      onChange={e => setSettingsForm({
+                        ...settingsForm,
+                        popupBanner: {
+                          ...settingsForm.popupBanner,
+                          link: e.target.value
+                        }
+                      })}
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
+                  <textarea 
+                    placeholder="Brief details of your popup banner message..."
+                    value={settingsForm.popupBanner?.description || ''} 
+                    onChange={e => setSettingsForm({
+                      ...settingsForm,
+                      popupBanner: {
+                        ...settingsForm.popupBanner,
+                        description: e.target.value
+                      }
+                    })}
+                    rows="3"
+                    style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                  />
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>
-                  Save Configuration
+                  Save Banner Settings
                 </button>
               </form>
             </div>
