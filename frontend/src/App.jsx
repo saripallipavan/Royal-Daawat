@@ -103,7 +103,7 @@ const Navigation = ({ settings }) => {
             { name: 'DINE-IN MENU', path: '/menu' },
             ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
             ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
-            { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
+            { name: 'BOOK A TABLE', path: '/book-table' },
             { name: 'GIFT CARD', path: '/gift-card' },
             { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
             { name: 'MEDIA', path: '/media' },
@@ -173,7 +173,7 @@ const Navigation = ({ settings }) => {
               { name: 'DINE-IN MENU', path: '/menu' },
               ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
               ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
-              { name: 'BOOK A TABLE', path: settings?.tableReservationsUrl ? settings.tableReservationsUrl : '/book-table', isExternal: !!settings?.tableReservationsUrl },
+              { name: 'BOOK A TABLE', path: '/book-table' },
               { name: 'GIFT CARD', path: '/gift-card' },
               { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
               { name: 'MEDIA', path: '/media' },
@@ -225,11 +225,7 @@ const Footer = ({ settings }) => {
         <div className="footer-column dark-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings?.openingHours}</p>
-          {settings?.tableReservationsUrl ? (
-            <a href={settings.tableReservationsUrl} target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Book Now</a>
-          ) : (
-            <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
-          )}
+          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
         </div>
 
         {/* Column 2: Contact Us */}
@@ -597,11 +593,7 @@ const HomePage = ({ settings }) => {
           </motion.div>
 
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {settings?.tableReservationsUrl ? (
-              <a href={settings.tableReservationsUrl} target="_blank" rel="noopener noreferrer" className="btn hero-btn-book" style={{ textDecoration: 'none' }}>BOOK NOW</a>
-            ) : (
-              <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
-            )}
+            <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
             {settings?.orderOnlineUrl ? (
               <a href={settings.orderOnlineUrl} target="_blank" rel="noopener noreferrer" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
             ) : (
