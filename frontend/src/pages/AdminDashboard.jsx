@@ -1535,6 +1535,124 @@ const AdminDashboard = () => {
                       : 'PUBLISH CHANGES (Save All Banner Settings)'}
                   </button>
                 </form>
+
+                {/* All Pop-up Banners Summary & Delete Controls */}
+                <div style={{ marginTop: '30px', padding: '2rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '12px' }}>
+                  <h4 className="text-gold" style={{ margin: '0 0 15px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>
+                    All Pop-up Banners Summary & Delete Controls
+                  </h4>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '20px', lineHeight: '1.5' }}>
+                    Quickly check which promo banners have content set up, view their status (Live/Inactive), and clear/delete their content directly.
+                    <span style={{ display: 'block', marginTop: '6px', color: 'var(--primary-color)', fontWeight: 'bold' }}>
+                      ⚠️ Note: After deleting or clearing a banner, please click the "PUBLISH CHANGES" button above to save the changes to the live website.
+                    </span>
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {[
+                      { id: 'festive', label: 'Festive & Event Specials' },
+                      { id: 'slowDay', label: 'Slow-Day / Happy Hour' },
+                      { id: 'firstTime', label: 'First-Time Offer' },
+                      { id: 'catering', label: 'Parties & Catering' },
+                      { id: 'operational', label: 'Operational Notices' }
+                    ].map(occ => {
+                      const bannerData = settingsForm.popupBanners?.[occ.id];
+                      const hasContent = !!(bannerData?.title || bannerData?.description || bannerData?.img);
+                      const isLive = settingsForm.activePopupOccasion === occ.id;
+                      
+                      return (
+                        <div key={occ.id} style={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between', 
+                          alignItems: 'center', 
+                          padding: '15px 20px', 
+                          backgroundColor: 'rgba(0,0,0,0.2)', 
+                          borderRadius: '8px', 
+                          border: isLive ? '1px solid #4CAF50' : '1px solid rgba(255,255,255,0.05)',
+                          flexWrap: 'wrap',
+                          gap: '15px'
+                        }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            <strong style={{ color: '#fff', fontSize: '1rem' }}>{occ.label}</strong>
+                            <div style={{ display: 'flex', gap: '15px', fontSize: '0.8rem', flexWrap: 'wrap' }}>
+                              <span style={{ color: isLive ? '#4CAF50' : 'var(--text-muted)', fontWeight: 'bold' }}>
+                                {isLive ? '🟢 Live on Website' : '⚪ Inactive'}
+                              </span>
+                              <span style={{ color: hasContent ? 'var(--primary-color)' : '#888' }}>
+                                {hasContent ? '📝 Has Content Setup' : '⚠️ Empty / No Content'}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <div style={{ display: 'flex', gap: '10px' }}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingOccasion(occ.id);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }}
+                              className="btn"
+                              style={{ padding: '6px 14px', fontSize: '0.8rem', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: '#fff', cursor: 'pointer' }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (window.confirm(`Are you sure you want to clear/delete all content for the "${occ.label}" banner?`)) {
+                                  let defaultLink = '';
+                                  if (occ.id === 'festive') defaultLink = '/book-table';
+                                  else if (occ.id === 'slowDay') defaultLink = '/menu';
+                                  else if (occ.id === 'firstTime') defaultLink = '/offers-gallery';
+                                  else if (occ.id === 'catering') defaultLink = '/contact';
+                                  
+                                  setSettingsForm(prev => {
+                                    const updatedBanners = {
+                                      ...prev.popupBanners,
+                                      [occ.id]: {
+                                        title: '',
+                                        description: '',
+                                        img: '',
+                                        link: defaultLink,
+                                        buttonText: 'Learn More'
+                                      }
+                                    };
+                                    
+                                    const newActive = prev.activePopupOccasion === occ.id ? 'none' : prev.activePopupOccasion;
+                                    
+                                    return {
+                                      ...prev,
+                                      popupBanners: updatedBanners,
+                                      activePopupOccasion: newActive
+                                    };
+                                  });
+                                  
+                                  // Reset file input if clearing the currently edited banner
+                                  if (editingOccasion === occ.id) {
+                                    const fileInput = document.getElementById('popupImageInput');
+                                    if (fileInput) fileInput.value = '';
+                                  }
+                                }
+                              }}
+                              className="btn"
+                              style={{ 
+                                padding: '6px 14px', 
+                                fontSize: '0.8rem', 
+                                borderRadius: '4px',
+                                backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                                color: '#ff4436',
+                                border: '1px solid rgba(244, 67, 54, 0.3)',
+                                cursor: 'pointer'
+                              }}
+                              disabled={!hasContent && !isLive}
+                            >
+                              Delete / Clear
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           )}
