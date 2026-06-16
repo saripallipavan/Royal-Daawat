@@ -38,7 +38,10 @@ export const updateSettings = async (req, res) => {
       orderOnlineUrl,
       tableReservationsUrl,
       bookOnlineUrl,
-      customLinks
+      customLinks,
+      signatureDishes,
+      chefRecommendations,
+      galleryPreviewSlides
     } = req.body;
 
     settings.restaurantName = restaurantName !== undefined ? restaurantName : settings.restaurantName;
@@ -53,6 +56,9 @@ export const updateSettings = async (req, res) => {
     settings.tableReservationsUrl = tableReservationsUrl !== undefined ? tableReservationsUrl : settings.tableReservationsUrl;
     settings.bookOnlineUrl = bookOnlineUrl !== undefined ? bookOnlineUrl : settings.bookOnlineUrl;
     settings.customLinks = customLinks !== undefined ? customLinks : settings.customLinks;
+    settings.signatureDishes = signatureDishes !== undefined ? signatureDishes : settings.signatureDishes;
+    settings.chefRecommendations = chefRecommendations !== undefined ? chefRecommendations : settings.chefRecommendations;
+    settings.galleryPreviewSlides = galleryPreviewSlides !== undefined ? galleryPreviewSlides : settings.galleryPreviewSlides;
 
     const updatedSettings = await settings.save();
     res.json(updatedSettings);

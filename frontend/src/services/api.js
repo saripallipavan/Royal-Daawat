@@ -43,6 +43,7 @@ export const loginUser = (data) => API.post('/login', data);
 
 export const getSettings = () => API.get('/settings');
 export const updateSettings = (data) => API.put('/settings', data);
+export const uploadSettingsImage = (formData) => API.post('/settings/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
 export const getNotifications = () => API.get('/notifications');
 export const markNotificationRead = (id) => API.put(`/notifications/${id}/read`);

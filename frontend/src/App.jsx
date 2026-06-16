@@ -639,9 +639,9 @@ const HomePage = ({ settings }) => {
       <AboutUsSection />
 
       {/* NEW SECTIONS */}
-      <SignatureDishes />
-      <ChefRecommendations />
-      <GalleryPreview images={[dish1, dish2, dish3]} />
+      <SignatureDishes settings={settings} />
+      <ChefRecommendations settings={settings} />
+      <GalleryPreview images={[dish1, dish2, dish3]} settings={settings} />
       <Testimonials />
       <Experience />
       <ContactPreview />
@@ -887,7 +887,10 @@ function AppContent() {
     orderOnlineUrl: '',
     tableReservationsUrl: '',
     bookOnlineUrl: '',
-    customLinks: []
+    customLinks: [],
+    signatureDishes: [],
+    chefRecommendations: [],
+    galleryPreviewSlides: []
   });
 
   useEffect(() => {
@@ -908,7 +911,10 @@ function AppContent() {
             orderOnlineUrl: data.orderOnlineUrl || '',
             tableReservationsUrl: data.tableReservationsUrl || '',
             bookOnlineUrl: data.bookOnlineUrl || '',
-            customLinks: data.customLinks || []
+            customLinks: data.customLinks || [],
+            signatureDishes: data.signatureDishes || [],
+            chefRecommendations: data.chefRecommendations || [],
+            galleryPreviewSlides: data.galleryPreviewSlides || []
           }));
         }
       } catch (err) {

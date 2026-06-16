@@ -17,6 +17,29 @@ const settingsSchema = mongoose.Schema({
       label: { type: String, default: '' },
       url: { type: String, default: '' }
     }
+  ],
+  signatureDishes: [
+    {
+      name: { type: String, default: '' },
+      price: { type: String, default: '' },
+      desc: { type: String, default: '' },
+      img: { type: String, default: '' }
+    }
+  ],
+  chefRecommendations: [
+    {
+      name: { type: String, default: '' },
+      desc: { type: String, default: '' },
+      img: { type: String, default: '' }
+    }
+  ],
+  galleryPreviewSlides: [
+    {
+      title: { type: String, default: '' },
+      subtitle: { type: String, default: '' },
+      desc: { type: String, default: '' },
+      img: { type: String, default: '' }
+    }
   ]
 }, { timestamps: true });
 

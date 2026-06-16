@@ -863,6 +863,29 @@ ul {
   gap: 15px;
 }
 
+.custom-link-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 15px;
+  align-items: end;
+  background-color: rgba(255, 255, 255, 0.01);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 768px) {
+  .custom-link-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .custom-link-delete-btn {
+    width: 100% !important;
+    height: 42px !important;
+    margin-top: 5px;
+  }
+}
+
 @media (max-width: 1180px) {
   .admin-overview-grid {
     grid-template-columns: 1fr !important;

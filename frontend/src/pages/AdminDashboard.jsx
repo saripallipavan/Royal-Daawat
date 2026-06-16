@@ -4,7 +4,7 @@ import {
   getContact, getMenu, postMenu, deleteMenu, 
   getOffers, postOffer, deleteOffer, 
   getBookings, updateBookingStatus,
-  getSettings, updateSettings,
+  getSettings, updateSettings, uploadSettingsImage,
   getNotifications, markNotificationRead, markAllNotificationsRead, deleteNotification,
   getGallery, postGallery, putGallery, deleteGallery, getImageUrl
 } from '../services/api';
@@ -45,7 +45,10 @@ const AdminDashboard = () => {
     orderOnlineUrl: '',
     tableReservationsUrl: '',
     bookOnlineUrl: '',
-    customLinks: []
+    customLinks: [],
+    signatureDishes: Array(3).fill(null).map(() => ({ name: '', price: '', desc: '', img: '' })),
+    chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
+    galleryPreviewSlides: Array(3).fill(null).map(() => ({ title: '', subtitle: '', desc: '', img: '' }))
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -86,7 +89,24 @@ const AdminDashboard = () => {
           orderOnlineUrl: setts.data.orderOnlineUrl || '',
           tableReservationsUrl: setts.data.tableReservationsUrl || '',
           bookOnlineUrl: setts.data.bookOnlineUrl || '',
-          customLinks: setts.data.customLinks || []
+          customLinks: setts.data.customLinks || [],
+          signatureDishes: Array(3).fill(null).map((_, i) => ({
+            name: setts.data.signatureDishes?.[i]?.name || '',
+            price: setts.data.signatureDishes?.[i]?.price || '',
+            desc: setts.data.signatureDishes?.[i]?.desc || '',
+            img: setts.data.signatureDishes?.[i]?.img || ''
+          })),
+          chefRecommendations: Array(2).fill(null).map((_, i) => ({
+            name: setts.data.chefRecommendations?.[i]?.name || '',
+            desc: setts.data.chefRecommendations?.[i]?.desc || '',
+            img: setts.data.chefRecommendations?.[i]?.img || ''
+          })),
+          galleryPreviewSlides: Array(3).fill(null).map((_, i) => ({
+            title: setts.data.galleryPreviewSlides?.[i]?.title || '',
+            subtitle: setts.data.galleryPreviewSlides?.[i]?.subtitle || '',
+            desc: setts.data.galleryPreviewSlides?.[i]?.desc || '',
+            img: setts.data.galleryPreviewSlides?.[i]?.img || ''
+          }))
         });
       }
     } catch (err) {
@@ -194,6 +214,38 @@ const AdminDashboard = () => {
       ...prev,
       customLinks: (prev.customLinks || []).filter((_, idx) => idx !== index)
     }));
+  };
+
+  const handleSettingsImageUpload = async (e, type, index) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const fd = new FormData();
+      fd.append('image', file);
+      const res = await uploadSettingsImage(fd);
+      if (res.data && res.data.filePath) {
+        const filePath = res.data.filePath;
+        setSettingsForm(prev => {
+          if (type === 'dishes') {
+            const updated = [...prev.signatureDishes];
+            updated[index] = { ...updated[index], img: filePath };
+            return { ...prev, signatureDishes: updated };
+          } else if (type === 'recs') {
+            const updated = [...prev.chefRecommendations];
+            updated[index] = { ...updated[index], img: filePath };
+            return { ...prev, chefRecommendations: updated };
+          } else if (type === 'slides') {
+            const updated = [...prev.galleryPreviewSlides];
+            updated[index] = { ...updated[index], img: filePath };
+            return { ...prev, galleryPreviewSlides: updated };
+          }
+          return prev;
+        });
+      }
+    } catch (err) {
+      console.error('Failed to upload image:', err);
+      alert('Failed to upload image');
+    }
   };
 
   const handleSettingsSubmit = async (e) => {
@@ -833,8 +885,8 @@ const AdminDashboard = () => {
                     <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: '5px 0' }}>No custom links added yet.</p>
                   )}
                   {settingsForm.customLinks && settingsForm.customLinks.map((link, idx) => (
-                    <div key={idx} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div key={idx} className="custom-link-row">
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Link Label</label>
                         <input 
                           type="text" 
@@ -844,7 +896,7 @@ const AdminDashboard = () => {
                           style={{ width: '100%', padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
                         />
                       </div>
-                      <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Link Target URL</label>
                         <input 
                           type="text" 
@@ -857,9 +909,9 @@ const AdminDashboard = () => {
                       <button 
                         type="button"
                         onClick={() => handleRemoveCustomLink(idx)}
+                        className="custom-link-delete-btn"
                         style={{ 
                           padding: '10px', 
-                          marginTop: '20px',
                           borderRadius: '6px', 
                           backgroundColor: 'rgba(239, 68, 68, 0.1)', 
                           color: '#ef4444', 
@@ -909,6 +961,196 @@ const AdminDashboard = () => {
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Signature Dishes (3 Items)</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {settingsForm.signatureDishes.map((dish, idx) => (
+                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                      <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Signature Dish #{idx + 1}</strong>
+                      <div className="admin-grid-3col" style={{ gap: '15px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Name</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., Butter Chicken"
+                            value={dish.name} 
+                            onChange={e => {
+                              const updated = [...settingsForm.signatureDishes];
+                              updated[idx] = { ...updated[idx], name: e.target.value };
+                              setSettingsForm({ ...settingsForm, signatureDishes: updated });
+                            }}
+                            style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Price</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., £14.95"
+                            value={dish.price} 
+                            onChange={e => {
+                              const updated = [...settingsForm.signatureDishes];
+                              updated[idx] = { ...updated[idx], price: e.target.value };
+                              setSettingsForm({ ...settingsForm, signatureDishes: updated });
+                            }}
+                            style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Image File</label>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <input 
+                              type="file" 
+                              onChange={e => handleSettingsImageUpload(e, 'dishes', idx)}
+                              style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                            />
+                            {dish.img && (
+                              <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                                <ImageWithFallback src={getImageUrl(dish.img)} alt={dish.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '15px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Description</label>
+                        <textarea 
+                          placeholder="Brief description of the dish..."
+                          value={dish.desc} 
+                          onChange={e => {
+                            const updated = [...settingsForm.signatureDishes];
+                            updated[idx] = { ...updated[idx], desc: e.target.value };
+                            setSettingsForm({ ...settingsForm, signatureDishes: updated });
+                          }}
+                          rows="2"
+                          style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Chef's Recommendations (2 Items)</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {settingsForm.chefRecommendations.map((rec, idx) => (
+                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                      <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Recommendation #{idx + 1}</strong>
+                      <div className="admin-grid-2col" style={{ gap: '15px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Name</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., Seafood Moilee"
+                            value={rec.name} 
+                            onChange={e => {
+                              const updated = [...settingsForm.chefRecommendations];
+                              updated[idx] = { ...updated[idx], name: e.target.value };
+                              setSettingsForm({ ...settingsForm, chefRecommendations: updated });
+                            }}
+                            style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Image File</label>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <input 
+                              type="file" 
+                              onChange={e => handleSettingsImageUpload(e, 'recs', idx)}
+                              style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                            />
+                            {rec.img && (
+                              <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                                <ImageWithFallback src={getImageUrl(rec.img)} alt={rec.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '15px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Description</label>
+                        <textarea 
+                          placeholder="Brief description of the recommendation..."
+                          value={rec.desc} 
+                          onChange={e => {
+                            const updated = [...settingsForm.chefRecommendations];
+                            updated[idx] = { ...updated[idx], desc: e.target.value };
+                            setSettingsForm({ ...settingsForm, chefRecommendations: updated });
+                          }}
+                          rows="2"
+                          style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Visual Journey Slides (3 Items)</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {settingsForm.galleryPreviewSlides.map((slide, idx) => (
+                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                      <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Slide #{idx + 1}</strong>
+                      <div className="admin-grid-3col" style={{ gap: '15px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Title</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., Aromatic Dum Biryani"
+                            value={slide.title} 
+                            onChange={e => {
+                              const updated = [...settingsForm.galleryPreviewSlides];
+                              updated[idx] = { ...updated[idx], title: e.target.value };
+                              setSettingsForm({ ...settingsForm, galleryPreviewSlides: updated });
+                            }}
+                            style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Subtitle</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g., SIGNATURE FEAST"
+                            value={slide.subtitle} 
+                            onChange={e => {
+                              const updated = [...settingsForm.galleryPreviewSlides];
+                              updated[idx] = { ...updated[idx], subtitle: e.target.value };
+                              setSettingsForm({ ...settingsForm, galleryPreviewSlides: updated });
+                            }}
+                            style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Image File</label>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <input 
+                              type="file" 
+                              onChange={e => handleSettingsImageUpload(e, 'slides', idx)}
+                              style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                            />
+                            {slide.img && (
+                              <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                                <ImageWithFallback src={getImageUrl(slide.img)} alt={slide.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '15px' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Description</label>
+                        <textarea 
+                          placeholder="Brief description of the slide topic..."
+                          value={slide.desc} 
+                          onChange={e => {
+                            const updated = [...settingsForm.galleryPreviewSlides];
+                            updated[idx] = { ...updated[idx], desc: e.target.value };
+                            setSettingsForm({ ...settingsForm, galleryPreviewSlides: updated });
+                          }}
+                          rows="2"
+                          style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>

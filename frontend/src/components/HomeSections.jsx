@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, Zap, Heart, Clock, Phone, Mail, MapPin } from 'lucide-react';
 import ImageWithFallback from './ImageWithFallback';
+import { getImageUrl } from '../services/api';
 
 // Animation variants
 const fadeInUp = {
@@ -11,12 +12,21 @@ const fadeInUp = {
 };
 
 // 1) SIGNATURE DISHES SECTION
-export const SignatureDishes = () => {
-  const dishes = [
+export const SignatureDishes = ({ settings }) => {
+  const defaultDishes = [
     { name: "Butter Chicken", price: "£14.95", desc: "Tender chicken in a rich, creamy tomato gravy.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800" },
     { name: "Hyderabadi Biryani", price: "£16.95", desc: "Fragrant basmati rice layered with spiced meat.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=800" },
     { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800" }
   ];
+
+  const dishes = (settings?.signatureDishes && settings.signatureDishes.length === 3 && settings.signatureDishes.every(d => d.name))
+    ? settings.signatureDishes.map((d, idx) => ({
+        name: d.name,
+        price: d.price,
+        desc: d.desc,
+        img: getImageUrl(d.img) || defaultDishes[idx].img
+      }))
+    : defaultDishes;
 
   return (
     <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
@@ -75,33 +85,44 @@ export const SignatureDishes = () => {
 };
 
 // 2) GALLERY PREVIEW SECTION
-export const GalleryPreview = ({ images }) => {
-  const galleryImages = images.slice(0, 3);
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const timerRef = React.useRef(null);
-
-  const slideData = [
+export const GalleryPreview = ({ images, settings }) => {
+  const defaultSlides = [
     {
       title: "Aromatic Dum Biryani",
       subtitle: "SIGNATURE FEAST",
-      desc: "Fragrant, long-grain basmati rice layered with tender meat, infused with saffron and cooked to perfection under a traditional dum cover."
+      desc: "Fragrant, long-grain basmati rice layered with tender meat, infused with saffron and cooked to perfection under a traditional dum cover.",
+      img: images[0]
     },
     {
       title: "Sizzling Kebab Platter",
       subtitle: "GOURMET GRILL",
-      desc: "Perfectly seasoned, succulent skewers grilled over open embers, locking in rich, smoky flavors and tender juices."
+      desc: "Perfectly seasoned, succulent skewers grilled over open embers, locking in rich, smoky flavors and tender juices.",
+      img: images[1]
     },
     {
       title: "Royal Refreshments",
       subtitle: "SIGNATURE SIPS",
-      desc: "Exquisite mocktails and handcrafted drinks, carefully blended with fresh botanicals, citrus, and aromatic spices to complement your meal."
+      desc: "Exquisite mocktails and handcrafted drinks, carefully blended with fresh botanicals, citrus, and aromatic spices to complement your meal.",
+      img: images[2]
     }
   ];
+
+  const slides = (settings?.galleryPreviewSlides && settings.galleryPreviewSlides.length === 3 && settings.galleryPreviewSlides.every(s => s.title))
+    ? settings.galleryPreviewSlides.map((s, i) => ({
+        title: s.title,
+        subtitle: s.subtitle,
+        desc: s.desc,
+        img: getImageUrl(s.img) || defaultSlides[i].img
+      }))
+    : defaultSlides;
+
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const timerRef = React.useRef(null);
 
   const resetTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+      setActiveIndex((prev) => (prev + 1) % slides.length);
     }, 6000);
   };
 
@@ -111,15 +132,15 @@ export const GalleryPreview = ({ images }) => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [galleryImages.length]);
+  }, [slides.length]);
 
   const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    setActiveIndex((prev) => (prev + 1) % slides.length);
     resetTimer();
   };
 
   const prevSlide = () => {
-    setActiveIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
     resetTimer();
   };
 
@@ -159,8 +180,8 @@ export const GalleryPreview = ({ images }) => {
                 style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
               >
                 <ImageWithFallback
-                  src={galleryImages[activeIndex]}
-                  alt={slideData[activeIndex].title}
+                  src={slides[activeIndex].img}
+                  alt={slides[activeIndex].title}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
                 {/* Image Overlay */}
@@ -226,14 +247,14 @@ export const GalleryPreview = ({ images }) => {
                   color: 'var(--primary-color)', fontSize: '0.9rem', letterSpacing: '4px',
                   fontWeight: 600, marginBottom: '1rem', display: 'block'
                 }}>
-                  {slideData[activeIndex].subtitle}
+                  {slides[activeIndex].subtitle}
                 </span>
                 
                 <h3 className="cinzel-font" style={{
                   color: '#ffffff', fontSize: '2.5rem', fontWeight: 700,
                   marginBottom: '1.5rem', lineHeight: '1.2'
                 }}>
-                  {slideData[activeIndex].title}
+                  {slides[activeIndex].title}
                 </h3>
                 
                 <div style={{ width: '50px', height: '2px', backgroundColor: 'var(--primary-color)', marginBottom: '2rem' }}></div>
@@ -242,12 +263,12 @@ export const GalleryPreview = ({ images }) => {
                   color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.8',
                   marginBottom: '2.5rem'
                 }}>
-                  {slideData[activeIndex].desc}
+                  {slides[activeIndex].desc}
                 </p>
 
                 {/* Pagination indicator */}
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                  {galleryImages.map((_, i) => (
+                  {slides.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setActiveIndex(i)}
@@ -276,8 +297,7 @@ export const GalleryPreview = ({ images }) => {
 
 
 // 4) SPECIAL OFFERS SECTION
-import { useState, useEffect } from 'react';
-import { getOffers, getImageUrl } from '../services/api';
+import { getOffers } from '../services/api';
 
 export const SpecialOffers = () => {
   const defaultOffers = [
@@ -338,11 +358,19 @@ export const SpecialOffers = () => {
 };
 
 // 5) CHEF RECOMMENDATION SECTION
-export const ChefRecommendations = () => {
-  const recommendations = [
+export const ChefRecommendations = ({ settings }) => {
+  const defaultRecs = [
     { name: "Lamb Shank Rogan Josh", desc: "Slow-cooked lamb shank in a spicy, aromatic gravy.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" },
     { name: "Seafood Moilee", desc: "A mild Keralan fish curry with coconut milk and ginger.", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800" }
   ];
+
+  const recommendations = (settings?.chefRecommendations && settings.chefRecommendations.length === 2 && settings.chefRecommendations.every(r => r.name))
+    ? settings.chefRecommendations.map((r, idx) => ({
+        name: r.name,
+        desc: r.desc,
+        img: getImageUrl(r.img) || defaultRecs[idx].img
+      }))
+    : defaultRecs;
 
   return (
     <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
