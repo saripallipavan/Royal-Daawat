@@ -884,12 +884,11 @@ function AppContent() {
     chefRecommendations: [],
     galleryPreviewSlides: [],
     popupBanners: {
-      general: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      weekend: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      birthday: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      anniversary: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      festival: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      combo: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+      festive: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      slowDay: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      firstTime: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      catering: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
     activePopupOccasion: 'none'
   });

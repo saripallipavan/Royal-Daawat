@@ -11,7 +11,7 @@ import {
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone, Gift, Heart, Sparkles, Percent
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone, Gift, Sparkles, Percent
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
 
@@ -50,17 +50,16 @@ const AdminDashboard = () => {
     chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
     galleryPreviewSlides: Array(3).fill(null).map(() => ({ title: '', subtitle: '', desc: '', img: '' })),
     popupBanners: {
-      general: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      weekend: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      birthday: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      anniversary: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      festival: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
-      combo: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
+      festive: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      slowDay: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      firstTime: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      catering: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
+      operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
     activePopupOccasion: 'none'
   });
 
-  const [editingOccasion, setEditingOccasion] = useState('general');
+  const [editingOccasion, setEditingOccasion] = useState('festive');
 
   const [imageFile, setImageFile] = useState(null);
   const [galleryFile, setGalleryFile] = useState(null);
@@ -119,47 +118,40 @@ const AdminDashboard = () => {
             img: setts.data.galleryPreviewSlides?.[i]?.img || ''
           })),
           popupBanners: {
-            general: {
-              title: setts.data.popupBanners?.general?.title || '',
-              description: setts.data.popupBanners?.general?.description || '',
-              img: setts.data.popupBanners?.general?.img || '',
-              link: setts.data.popupBanners?.general?.link || '',
-              buttonText: setts.data.popupBanners?.general?.buttonText || 'Learn More'
+            festive: {
+              title: setts.data.popupBanners?.festive?.title || '',
+              description: setts.data.popupBanners?.festive?.description || '',
+              img: setts.data.popupBanners?.festive?.img || '',
+              link: setts.data.popupBanners?.festive?.link || '',
+              buttonText: setts.data.popupBanners?.festive?.buttonText || 'Learn More'
             },
-            weekend: {
-              title: setts.data.popupBanners?.weekend?.title || '',
-              description: setts.data.popupBanners?.weekend?.description || '',
-              img: setts.data.popupBanners?.weekend?.img || '',
-              link: setts.data.popupBanners?.weekend?.link || '',
-              buttonText: setts.data.popupBanners?.weekend?.buttonText || 'Learn More'
+            slowDay: {
+              title: setts.data.popupBanners?.slowDay?.title || '',
+              description: setts.data.popupBanners?.slowDay?.description || '',
+              img: setts.data.popupBanners?.slowDay?.img || '',
+              link: setts.data.popupBanners?.slowDay?.link || '',
+              buttonText: setts.data.popupBanners?.slowDay?.buttonText || 'Learn More'
             },
-            birthday: {
-              title: setts.data.popupBanners?.birthday?.title || '',
-              description: setts.data.popupBanners?.birthday?.description || '',
-              img: setts.data.popupBanners?.birthday?.img || '',
-              link: setts.data.popupBanners?.birthday?.link || '',
-              buttonText: setts.data.popupBanners?.birthday?.buttonText || 'Learn More'
+            firstTime: {
+              title: setts.data.popupBanners?.firstTime?.title || '',
+              description: setts.data.popupBanners?.firstTime?.description || '',
+              img: setts.data.popupBanners?.firstTime?.img || '',
+              link: setts.data.popupBanners?.firstTime?.link || '',
+              buttonText: setts.data.popupBanners?.firstTime?.buttonText || 'Learn More'
             },
-            anniversary: {
-              title: setts.data.popupBanners?.anniversary?.title || '',
-              description: setts.data.popupBanners?.anniversary?.description || '',
-              img: setts.data.popupBanners?.anniversary?.img || '',
-              link: setts.data.popupBanners?.anniversary?.link || '',
-              buttonText: setts.data.popupBanners?.anniversary?.buttonText || 'Learn More'
+            catering: {
+              title: setts.data.popupBanners?.catering?.title || '',
+              description: setts.data.popupBanners?.catering?.description || '',
+              img: setts.data.popupBanners?.catering?.img || '',
+              link: setts.data.popupBanners?.catering?.link || '',
+              buttonText: setts.data.popupBanners?.catering?.buttonText || 'Learn More'
             },
-            festival: {
-              title: setts.data.popupBanners?.festival?.title || '',
-              description: setts.data.popupBanners?.festival?.description || '',
-              img: setts.data.popupBanners?.festival?.img || '',
-              link: setts.data.popupBanners?.festival?.link || '',
-              buttonText: setts.data.popupBanners?.festival?.buttonText || 'Learn More'
-            },
-            combo: {
-              title: setts.data.popupBanners?.combo?.title || '',
-              description: setts.data.popupBanners?.combo?.description || '',
-              img: setts.data.popupBanners?.combo?.img || '',
-              link: setts.data.popupBanners?.combo?.link || '',
-              buttonText: setts.data.popupBanners?.combo?.buttonText || 'Learn More'
+            operational: {
+              title: setts.data.popupBanners?.operational?.title || '',
+              description: setts.data.popupBanners?.operational?.description || '',
+              img: setts.data.popupBanners?.operational?.img || '',
+              link: setts.data.popupBanners?.operational?.link || '',
+              buttonText: setts.data.popupBanners?.operational?.buttonText || 'Learn More'
             }
           },
           activePopupOccasion: setts.data.activePopupOccasion || 'none'
@@ -1272,12 +1264,11 @@ const AdminDashboard = () => {
                 {/* Occasions Tab Bar */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', padding: '10px 0', borderBottom: '1px solid rgba(182, 162, 94, 0.15)' }}>
                   {[
-                    { id: 'general', label: 'General Promo', icon: <Tags size={16} /> },
-                    { id: 'weekend', label: 'Weekend Special', icon: <CalendarDays size={16} /> },
-                    { id: 'birthday', label: 'Birthday Parties', icon: <Gift size={16} /> },
-                    { id: 'anniversary', label: 'Anniversaries', icon: <Heart size={16} /> },
-                    { id: 'festival', label: 'Festival Special', icon: <Sparkles size={16} /> },
-                    { id: 'combo', label: 'Combo Offers', icon: <Percent size={16} /> }
+                    { id: 'festive', label: 'Festive & Event Specials', icon: <Sparkles size={16} /> },
+                    { id: 'slowDay', label: 'Slow-Day / Happy Hour', icon: <Percent size={16} /> },
+                    { id: 'firstTime', label: 'First-Time Offer', icon: <Gift size={16} /> },
+                    { id: 'catering', label: 'Parties & Catering', icon: <Utensils size={16} /> },
+                    { id: 'operational', label: 'Operational Notices', icon: <Megaphone size={16} /> }
                   ].map(occ => {
                     const isEditing = editingOccasion === occ.id;
                     const isLive = settingsForm.activePopupOccasion === occ.id;

@@ -42,42 +42,35 @@ const settingsSchema = mongoose.Schema({
     }
   ],
   popupBanners: {
-    general: {
+    festive: {
       title: { type: String, default: '' },
       description: { type: String, default: '' },
       img: { type: String, default: '' },
       link: { type: String, default: '' },
       buttonText: { type: String, default: 'Learn More' }
     },
-    weekend: {
+    slowDay: {
       title: { type: String, default: '' },
       description: { type: String, default: '' },
       img: { type: String, default: '' },
       link: { type: String, default: '' },
       buttonText: { type: String, default: 'Learn More' }
     },
-    birthday: {
+    firstTime: {
       title: { type: String, default: '' },
       description: { type: String, default: '' },
       img: { type: String, default: '' },
       link: { type: String, default: '' },
       buttonText: { type: String, default: 'Learn More' }
     },
-    anniversary: {
+    catering: {
       title: { type: String, default: '' },
       description: { type: String, default: '' },
       img: { type: String, default: '' },
       link: { type: String, default: '' },
       buttonText: { type: String, default: 'Learn More' }
     },
-    festival: {
-      title: { type: String, default: '' },
-      description: { type: String, default: '' },
-      img: { type: String, default: '' },
-      link: { type: String, default: '' },
-      buttonText: { type: String, default: 'Learn More' }
-    },
-    combo: {
+    operational: {
       title: { type: String, default: '' },
       description: { type: String, default: '' },
       img: { type: String, default: '' },
