@@ -999,3 +999,58 @@ ul {
   }
 }
 
+/* ==========================================
+   ADMIN DASHBOARD MOBILE RESPONSIVENESS FIXES
+   ========================================== */
+
+/* Force all text/date/number/file inputs, selects and textareas in Admin Dashboard to respect container width */
+.admin-main input:not([type="checkbox"]):not([type="radio"]),
+.admin-main select,
+.admin-main textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Responsive padding overrides for admin content cards and settings subcards */
+@media (max-width: 768px) {
+  .admin-content-card {
+    padding: 1.25rem !important;
+    border-radius: 10px !important;
+  }
+  .admin-settings-subcard {
+    padding: 1rem !important;
+  }
+}
+
+/* Notifications layout responsive adjustments */
+@media (max-width: 768px) {
+  .admin-notif-header-container {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .admin-notif-header-container button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .admin-notif-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    padding: 15px !important;
+  }
+  .admin-notif-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  .admin-notif-header span {
+    margin-left: 0 !important;
+  }
+  .admin-notif-actions {
+    width: 100% !important;
+    justify-content: flex-end !important;
+  }
+}
+
+

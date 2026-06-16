@@ -500,7 +500,7 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main className="admin-main">
-        <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '15px', border: '1px solid rgba(182, 162, 94, 0.1)', minHeight: '80vh' }}>
+        <div className="admin-content-card" style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '15px', border: '1px solid rgba(182, 162, 94, 0.1)', minHeight: '80vh' }}>
           
           {activeTab === 'dashboard' && (
             <div>
@@ -1085,7 +1085,7 @@ const AdminDashboard = () => {
                 <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Signature Dishes (3 Items)</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {settingsForm.signatureDishes.map((dish, idx) => (
-                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                    <div key={idx} className="admin-settings-subcard" style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
                       <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Signature Dish #{idx + 1}</strong>
                       <div className="admin-grid-3col" style={{ gap: '15px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -1153,7 +1153,7 @@ const AdminDashboard = () => {
                 <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Chef's Recommendations (2 Items)</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {settingsForm.chefRecommendations.map((rec, idx) => (
-                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                    <div key={idx} className="admin-settings-subcard" style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
                       <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Recommendation #{idx + 1}</strong>
                       <div className="admin-grid-2col" style={{ gap: '15px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -1207,7 +1207,7 @@ const AdminDashboard = () => {
                 <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Homepage Visual Journey Slides (3 Items)</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {settingsForm.galleryPreviewSlides.map((slide, idx) => (
-                    <div key={idx} style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
+                    <div key={idx} className="admin-settings-subcard" style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px' }}>
                       <strong className="text-gold" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '1rem' }}>Slide #{idx + 1}</strong>
                       <div className="admin-grid-3col" style={{ gap: '15px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -1659,7 +1659,7 @@ const AdminDashboard = () => {
 
           {activeTab === 'notifications' && (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div className="admin-notif-header-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '15px' }}>
                 <h3 className="text-gold" style={{ margin: 0, fontSize: '1.8rem' }}>Activity Logs & Notifications</h3>
                 {unreadCount > 0 && (
                   <button 
@@ -1677,7 +1677,7 @@ const AdminDashboard = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {data.notifications.map(n => (
-                  <div key={n._id} style={{ 
+                  <div key={n._id} className="admin-notif-card" style={{ 
                     backgroundColor: n.isRead ? 'rgba(255,255,255,0.01)' : 'rgba(182, 162, 94, 0.03)', 
                     padding: '20px', 
                     borderRadius: '8px', 
@@ -1690,8 +1690,8 @@ const AdminDashboard = () => {
                     alignItems: 'center',
                     gap: '20px'
                   }}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
+                    <div style={{ flex: 1, width: '100%' }}>
+                      <div className="admin-notif-header" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px', flexWrap: 'wrap' }}>
                         <span style={{ fontSize: '1.2rem' }}>🔔</span>
                         <strong style={{ fontSize: '1.05rem', color: n.isRead ? '#ccc' : '#fff' }}>{n.title}</strong>
                         {!n.isRead && (
@@ -1706,10 +1706,10 @@ const AdminDashboard = () => {
                           {new Date(n.createdAt).toLocaleString()}
                         </span>
                       </div>
-                      <p style={{ margin: 0, fontSize: '0.95rem', color: n.isRead ? '#888' : '#bbb' }}>{n.message}</p>
+                      <p style={{ margin: 0, fontSize: '0.95rem', color: n.isRead ? '#888' : '#bbb', wordBreak: 'break-word' }}>{n.message}</p>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div className="admin-notif-actions" style={{ display: 'flex', gap: '10px' }}>
                       {!n.isRead && (
                         <button 
                           onClick={() => handleMarkNotifRead(n._id)} 
