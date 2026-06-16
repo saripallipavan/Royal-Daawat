@@ -882,7 +882,8 @@ function AppContent() {
     customLinks: [],
     signatureDishes: [],
     chefRecommendations: [],
-    galleryPreviewSlides: []
+    galleryPreviewSlides: [],
+    popupBanner: { enabled: false, title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
   });
 
   useEffect(() => {
@@ -906,7 +907,8 @@ function AppContent() {
             customLinks: data.customLinks || [],
             signatureDishes: data.signatureDishes || [],
             chefRecommendations: data.chefRecommendations || [],
-            galleryPreviewSlides: data.galleryPreviewSlides || []
+            galleryPreviewSlides: data.galleryPreviewSlides || [],
+            popupBanner: data.popupBanner || prev.popupBanner
           }));
         }
       } catch (err) {
@@ -950,7 +952,7 @@ function AppContent() {
       </main>
 
       {!isAdminRoute && <Footer settings={settings} />}
-      {!isAdminRoute && <OfferPopup />}
+      {!isAdminRoute && <OfferPopup settings={settings} />}
     </div>
   );
 }

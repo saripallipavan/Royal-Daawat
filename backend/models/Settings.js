@@ -40,7 +40,15 @@ const settingsSchema = mongoose.Schema({
       desc: { type: String, default: '' },
       img: { type: String, default: '' }
     }
-  ]
+  ],
+  popupBanner: {
+    enabled: { type: Boolean, default: false },
+    title: { type: String, default: '' },
+    description: { type: String, default: '' },
+    img: { type: String, default: '' },
+    link: { type: String, default: '' },
+    buttonText: { type: String, default: 'Learn More' }
+  }
 }, { timestamps: true });
 
 const Settings = mongoose.model('Settings', settingsSchema);

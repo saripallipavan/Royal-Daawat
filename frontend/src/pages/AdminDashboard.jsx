@@ -48,7 +48,8 @@ const AdminDashboard = () => {
     customLinks: [],
     signatureDishes: Array(3).fill(null).map(() => ({ name: '', price: '', desc: '', img: '' })),
     chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
-    galleryPreviewSlides: Array(3).fill(null).map(() => ({ title: '', subtitle: '', desc: '', img: '' }))
+    galleryPreviewSlides: Array(3).fill(null).map(() => ({ title: '', subtitle: '', desc: '', img: '' })),
+    popupBanner: { enabled: false, title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -106,7 +107,15 @@ const AdminDashboard = () => {
             subtitle: setts.data.galleryPreviewSlides?.[i]?.subtitle || '',
             desc: setts.data.galleryPreviewSlides?.[i]?.desc || '',
             img: setts.data.galleryPreviewSlides?.[i]?.img || ''
-          }))
+          })),
+          popupBanner: {
+            enabled: setts.data.popupBanner?.enabled || false,
+            title: setts.data.popupBanner?.title || '',
+            description: setts.data.popupBanner?.description || '',
+            img: setts.data.popupBanner?.img || '',
+            link: setts.data.popupBanner?.link || '',
+            buttonText: setts.data.popupBanner?.buttonText || 'Learn More'
+          }
         });
       }
     } catch (err) {
@@ -238,6 +247,14 @@ const AdminDashboard = () => {
             const updated = [...prev.galleryPreviewSlides];
             updated[index] = { ...updated[index], img: filePath };
             return { ...prev, galleryPreviewSlides: updated };
+          } else if (type === 'popup') {
+            return {
+              ...prev,
+              popupBanner: {
+                ...prev.popupBanner,
+                img: filePath
+              }
+            };
           }
           return prev;
         });
@@ -1151,6 +1168,118 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px' }}>Promotional Pop-up Banner</h4>
+                <div style={{ padding: '1.5rem', backgroundColor: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(182, 162, 94, 0.15)', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '20px' }}>
+                  
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <input 
+                      type="checkbox" 
+                      id="enablePopupBanner"
+                      checked={settingsForm.popupBanner?.enabled || false} 
+                      onChange={e => setSettingsForm({
+                        ...settingsForm,
+                        popupBanner: {
+                          ...settingsForm.popupBanner,
+                          enabled: e.target.checked
+                        }
+                      })}
+                      style={{ cursor: 'pointer', width: '18px', height: '18px' }}
+                    />
+                    <label htmlFor="enablePopupBanner" style={{ fontSize: '1rem', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
+                      Enable Pop-up Banner
+                    </label>
+                  </div>
+
+                  <div className="admin-grid-2col" style={{ gap: '15px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Title</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g., Weekend Special Feast!"
+                        value={settingsForm.popupBanner?.title || ''} 
+                        onChange={e => setSettingsForm({
+                          ...settingsForm,
+                          popupBanner: {
+                            ...settingsForm.popupBanner,
+                            title: e.target.value
+                          }
+                        })}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                      />
+                    </div>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Image</label>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <input 
+                          type="file" 
+                          onChange={e => handleSettingsImageUpload(e, 'popup')}
+                          style={{ color: '#fff', fontSize: '0.85rem', flex: 1 }}
+                        />
+                        {settingsForm.popupBanner?.img && (
+                          <div style={{ width: '45px', height: '45px', borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(182, 162, 94, 0.3)' }}>
+                            <ImageWithFallback src={getImageUrl(settingsForm.popupBanner.img)} alt="banner preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="admin-grid-2col" style={{ gap: '15px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Action Button Label</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g., Order Now"
+                        value={settingsForm.popupBanner?.buttonText || ''} 
+                        onChange={e => setSettingsForm({
+                          ...settingsForm,
+                          popupBanner: {
+                            ...settingsForm.popupBanner,
+                            buttonText: e.target.value
+                          }
+                        })}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Redirection Link Target</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g., /menu, /book-table, or https://..."
+                        value={settingsForm.popupBanner?.link || ''} 
+                        onChange={e => setSettingsForm({
+                          ...settingsForm,
+                          popupBanner: {
+                            ...settingsForm.popupBanner,
+                            link: e.target.value
+                          }
+                        })}
+                        style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Banner Description</label>
+                    <textarea 
+                      placeholder="Brief details of your popup banner message..."
+                      value={settingsForm.popupBanner?.description || ''} 
+                      onChange={e => setSettingsForm({
+                        ...settingsForm,
+                        popupBanner: {
+                          ...settingsForm.popupBanner,
+                          description: e.target.value
+                        }
+                      })}
+                      rows="3"
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                    />
+                  </div>
+
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>
