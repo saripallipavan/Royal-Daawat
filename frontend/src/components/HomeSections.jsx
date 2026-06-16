@@ -549,7 +549,7 @@ export const Experience = () => {
 };
 
 // 8) CONTACT PREVIEW SECTION
-export const ContactPreview = () => {
+export const ContactPreview = ({ settings }) => {
   return (
     <section style={{ backgroundColor: 'var(--light-linen-bg)', padding: '100px 0' }}>
       <div className="container">
@@ -559,8 +559,12 @@ export const ContactPreview = () => {
             <Clock color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
             <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Opening Hours</h3>
             <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
-              Monday – Sunday<br />
-              05:00 PM – 11:00 PM
+              {settings?.openingHours || (
+                <>
+                  Monday – Sunday<br />
+                  05:00 PM – 11:00 PM
+                </>
+              )}
             </p>
           </div>
 
@@ -568,7 +572,7 @@ export const ContactPreview = () => {
             <Phone color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
             <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Phone</h3>
             <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
-              +01425 476563
+              {settings?.phoneNumber || "+01425 476563"}
             </p>
           </div>
 
@@ -584,15 +588,31 @@ export const ContactPreview = () => {
             <MapPin color="var(--primary-color)" size={40} style={{ marginBottom: '1.5rem' }} />
             <h3 className="cinzel-font" style={{ fontSize: '1.5rem', marginBottom: '1.2rem', color: 'var(--dark-charcoal-text)' }}>Address</h3>
             <p style={{ color: 'var(--muted-charcoal-text)', lineHeight: '1.8' }}>
-              14 Market Pl,<br />
-              Ringwood BH24 1AW
+              {settings?.address || (
+                <>
+                  14 Market Pl,<br />
+                  Ringwood BH24 1AW
+                </>
+              )}
             </p>
           </div>
 
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-          <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
+          {settings?.tableReservationsUrl ? (
+            <a 
+              href={settings.tableReservationsUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-primary" 
+              style={{ padding: '15px 60px', textDecoration: 'none', display: 'inline-block' }}
+            >
+              BOOK A TABLE NOW
+            </a>
+          ) : (
+            <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
+          )}
         </div>
       </div>
     </section>

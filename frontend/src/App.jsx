@@ -644,7 +644,7 @@ const HomePage = ({ settings }) => {
       <GalleryPreview images={[dish1, dish2, dish3]} settings={settings} />
       <Testimonials />
       <Experience />
-      <ContactPreview />
+      <ContactPreview settings={settings} />
     </motion.div>
   );
 };
