@@ -13,6 +13,11 @@ const settingsSchema = mongoose.Schema({
   tableReservationsUrl: { type: String, default: '' },
   bookOnlineUrl: { type: String, default: '' },
   giftCardPurchaseUrl: { type: String, default: '' },
+  giftCardPurchaseLabel: { type: String, default: '' },
+  giftCardPurchaseUrl2: { type: String, default: '' },
+  giftCardPurchaseLabel2: { type: String, default: '' },
+  giftCardPurchaseUrl3: { type: String, default: '' },
+  giftCardPurchaseLabel3: { type: String, default: '' },
   customLinks: [
     {
       label: { type: String, default: '' },

@@ -46,6 +46,11 @@ const AdminDashboard = () => {
     tableReservationsUrl: '',
     bookOnlineUrl: '',
     giftCardPurchaseUrl: '',
+    giftCardPurchaseLabel: '',
+    giftCardPurchaseUrl2: '',
+    giftCardPurchaseLabel2: '',
+    giftCardPurchaseUrl3: '',
+    giftCardPurchaseLabel3: '',
     customLinks: [],
     signatureDishes: Array(3).fill(null).map(() => ({ name: '', price: '', desc: '', img: '' })),
     chefRecommendations: Array(2).fill(null).map(() => ({ name: '', desc: '', img: '' })),
@@ -90,11 +95,11 @@ const AdminDashboard = () => {
 
       if (setts.data) {
         setSettingsForm({
-          restaurantName: setts.data.restaurantName || '',
-          phoneNumber: setts.data.phoneNumber || '',
-          address: setts.data.address || '',
-          openingHours: setts.data.openingHours || '',
-          googleMapsUrl: setts.data.googleMapsUrl || '',
+          restaurantName: setts.data.restaurantName || 'Royal Daawat',
+          phoneNumber: setts.data.phoneNumber || '+01425 476563',
+          address: setts.data.address || '14 Market Pl, Ringwood BH24 1AW',
+          openingHours: setts.data.openingHours || 'Monday – Sunday : 05 PM – 11 PM',
+          googleMapsUrl: setts.data.googleMapsUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2516.3268800985556!2d-1.7946950232497645!3d50.84351336154673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4873998f804597b9%3A0xe53bcbeab7d73010!2s14%20Market%20Pl%2C%20Ringwood%20BH24%201AW%2C%20UK!5e0!3m2!1sen!2sus!4v1715844857416!5m2!1sen!2sus',
           facebookUrl: setts.data.facebookUrl || '',
           instagramUrl: setts.data.instagramUrl || '',
           tiktokUrl: setts.data.tiktokUrl || '',
@@ -102,6 +107,11 @@ const AdminDashboard = () => {
           tableReservationsUrl: setts.data.tableReservationsUrl || '',
           bookOnlineUrl: setts.data.bookOnlineUrl || '',
           giftCardPurchaseUrl: setts.data.giftCardPurchaseUrl || '',
+          giftCardPurchaseLabel: setts.data.giftCardPurchaseLabel || '',
+          giftCardPurchaseUrl2: setts.data.giftCardPurchaseUrl2 || '',
+          giftCardPurchaseLabel2: setts.data.giftCardPurchaseLabel2 || '',
+          giftCardPurchaseUrl3: setts.data.giftCardPurchaseUrl3 || '',
+          giftCardPurchaseLabel3: setts.data.giftCardPurchaseLabel3 || '',
           customLinks: setts.data.customLinks || [],
           signatureDishes: Array(3).fill(null).map((_, i) => ({
             name: setts.data.signatureDishes?.[i]?.name || '',
@@ -988,13 +998,70 @@ const AdminDashboard = () => {
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
+                </div>
+
+                <h5 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.1rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Gift Card Purchase Options (WhatsApp fallback will be used if links are empty)</h5>
+                
+                <div className="admin-grid-2col" style={{ marginBottom: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL (Custom)</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 1 (Custom)</label>
                     <input 
                       type="text" 
                       placeholder="e.g., https://vouchercart.com/... (leave empty for WhatsApp purchase)"
                       value={settingsForm.giftCardPurchaseUrl} 
                       onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 1 Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Vouchercart"
+                      value={settingsForm.giftCardPurchaseLabel} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 2 (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://giftup.app/..."
+                      value={settingsForm.giftCardPurchaseUrl2} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl2: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 2 Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Gift Up"
+                      value={settingsForm.giftCardPurchaseLabel2} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel2: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 3 (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://anotherplatform.com/..."
+                      value={settingsForm.giftCardPurchaseUrl3} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl3: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 3 Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Other Platform"
+                      value={settingsForm.giftCardPurchaseLabel3} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel3: e.target.value})} 
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>

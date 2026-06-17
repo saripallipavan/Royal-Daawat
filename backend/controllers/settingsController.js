@@ -39,6 +39,11 @@ export const updateSettings = async (req, res) => {
       tableReservationsUrl,
       bookOnlineUrl,
       giftCardPurchaseUrl,
+      giftCardPurchaseLabel,
+      giftCardPurchaseUrl2,
+      giftCardPurchaseLabel2,
+      giftCardPurchaseUrl3,
+      giftCardPurchaseLabel3,
       customLinks,
       signatureDishes,
       chefRecommendations,
@@ -60,6 +65,11 @@ export const updateSettings = async (req, res) => {
     settings.tableReservationsUrl = tableReservationsUrl !== undefined ? tableReservationsUrl : settings.tableReservationsUrl;
     settings.bookOnlineUrl = bookOnlineUrl !== undefined ? bookOnlineUrl : settings.bookOnlineUrl;
     settings.giftCardPurchaseUrl = giftCardPurchaseUrl !== undefined ? giftCardPurchaseUrl : settings.giftCardPurchaseUrl;
+    settings.giftCardPurchaseLabel = giftCardPurchaseLabel !== undefined ? giftCardPurchaseLabel : settings.giftCardPurchaseLabel;
+    settings.giftCardPurchaseUrl2 = giftCardPurchaseUrl2 !== undefined ? giftCardPurchaseUrl2 : settings.giftCardPurchaseUrl2;
+    settings.giftCardPurchaseLabel2 = giftCardPurchaseLabel2 !== undefined ? giftCardPurchaseLabel2 : settings.giftCardPurchaseLabel2;
+    settings.giftCardPurchaseUrl3 = giftCardPurchaseUrl3 !== undefined ? giftCardPurchaseUrl3 : settings.giftCardPurchaseUrl3;
+    settings.giftCardPurchaseLabel3 = giftCardPurchaseLabel3 !== undefined ? giftCardPurchaseLabel3 : settings.giftCardPurchaseLabel3;
     settings.customLinks = customLinks !== undefined ? customLinks : settings.customLinks;
     settings.signatureDishes = signatureDishes !== undefined ? signatureDishes : settings.signatureDishes;
     settings.chefRecommendations = chefRecommendations !== undefined ? chefRecommendations : settings.chefRecommendations;

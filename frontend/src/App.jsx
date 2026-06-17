@@ -43,6 +43,64 @@ const Navigation = ({ settings }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isLinkExternal = (url) => {
+    if (!url) return false;
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
+
+  const getMenuLinks = () => {
+    const links = [
+      { name: 'HOME', path: '/' },
+      { name: 'ABOUT US', path: '/about' },
+      { name: 'DINE-IN MENU', path: '/menu' }
+    ];
+
+    const orderOnlineUrl = settings?.orderOnlineUrl;
+    links.push({
+      name: 'ORDER ONLINE',
+      path: orderOnlineUrl || '/menu',
+      isExternal: isLinkExternal(orderOnlineUrl)
+    });
+
+    const bookOnlineUrl = settings?.bookOnlineUrl;
+    links.push({
+      name: 'BOOK ONLINE',
+      path: bookOnlineUrl || '/book-table',
+      isExternal: isLinkExternal(bookOnlineUrl)
+    });
+
+    const tableReservationsUrl = settings?.tableReservationsUrl;
+    links.push({
+      name: 'BOOK A TABLE',
+      path: tableReservationsUrl || '/book-table',
+      isExternal: isLinkExternal(tableReservationsUrl)
+    });
+
+    if (settings?.customLinks) {
+      settings.customLinks
+        .filter(l => l.label && l.url)
+        .forEach(l => {
+          links.push({
+            name: l.label.toUpperCase(),
+            path: l.url,
+            isExternal: isLinkExternal(l.url)
+          });
+        });
+    }
+
+    links.push(
+      { name: 'GIFT CARD', path: '/gift-card' },
+      { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
+      { name: 'MEDIA', path: '/media' },
+      { name: 'TERMS', path: '/terms' },
+      { name: 'CONTACT US', path: '/contact' }
+    );
+
+    return links;
+  };
+
+  const menuLinks = getMenuLinks();
+
   return (
     <nav style={{
       position: 'fixed', width: '100%', top: 0, zIndex: 50,
@@ -97,25 +155,11 @@ const Navigation = ({ settings }) => {
         </Link>
 
         <div className="desktop-menu">
-          {[
-            { name: 'HOME', path: '/' },
-            { name: 'ABOUT US', path: '/about' },
-            { name: 'DINE-IN MENU', path: '/menu' },
-            ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
-            ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
-            { name: 'BOOK A TABLE', path: '/book-table' },
-            { name: 'GIFT CARD', path: '/gift-card' },
-            { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
-            { name: 'MEDIA', path: '/media' },
-            { name: 'TERMS', path: '/terms' },
-            { name: 'CONTACT US', path: '/contact' }
-          ].map((item) => (
+          {menuLinks.map((item) => (
             item.isExternal ? (
               <a 
                 key={item.name} 
                 href={item.path}
-                target="_blank" 
-                rel="noopener noreferrer" 
                 className="desktop-menu-link"
                 style={{ 
                   fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', 
@@ -167,19 +211,7 @@ const Navigation = ({ settings }) => {
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="mobile-drawer"
           >
-            {[
-              { name: 'HOME', path: '/' },
-              { name: 'ABOUT US', path: '/about' },
-              { name: 'DINE-IN MENU', path: '/menu' },
-              ...(settings?.bookOnlineUrl ? [{ name: 'BOOK ONLINE', path: settings.bookOnlineUrl, isExternal: true }] : []),
-              ...(settings?.customLinks ? settings.customLinks.filter(l => l.label && l.url).map(l => ({ name: l.label.toUpperCase(), path: l.url, isExternal: true })) : []),
-              { name: 'BOOK A TABLE', path: '/book-table' },
-              { name: 'GIFT CARD', path: '/gift-card' },
-              { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
-              { name: 'MEDIA', path: '/media' },
-              { name: 'TERMS', path: '/terms' },
-              { name: 'CONTACT US', path: '/contact' }
-            ].map((item, idx) => (
+            {menuLinks.map((item, idx) => (
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -189,8 +221,6 @@ const Navigation = ({ settings }) => {
                 {item.isExternal ? (
                   <a
                     href={item.path}
-                    target="_blank" 
-                    rel="noopener noreferrer" 
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="mobile-drawer-link"
                     style={{ textDecoration: 'none' }}
@@ -235,9 +265,13 @@ const Footer = ({ settings }) => {
           <a href="mailto:info@royaldaawat.co.uk" style={{ fontSize: '1.1rem', display: 'block', marginBottom: '3rem', textDecoration: 'underline', color: 'inherit' }}>info@royaldaawat.co.uk</a>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', lineHeight: 1.6 }}>{settings?.address}</p>
           {settings?.orderOnlineUrl ? (
-            <a href={settings.orderOnlineUrl} target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Order Online</a>
+            settings.orderOnlineUrl.startsWith('http://') || settings.orderOnlineUrl.startsWith('https://') ? (
+              <a href={settings.orderOnlineUrl} className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Order Online</a>
+            ) : (
+              <Link to={settings.orderOnlineUrl} className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Order Online</Link>
+            )
           ) : (
-            <Link to="/menu" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Dine-in Menu</Link>
+            <Link to="/menu" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Order Online</Link>
           )}
         </div>
 
@@ -385,16 +419,26 @@ const Footer = ({ settings }) => {
           <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Terms & Conditions</Link>
           <span>|</span>
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Privacy Policy</Link>
-          {settings?.bookOnlineUrl && (
-            <React.Fragment>
-              <span>|</span>
-              <a href={settings.bookOnlineUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</a>
-            </React.Fragment>
-          )}
+          <React.Fragment>
+            <span>|</span>
+            {settings?.bookOnlineUrl ? (
+              settings.bookOnlineUrl.startsWith('http://') || settings.bookOnlineUrl.startsWith('https://') ? (
+                <a href={settings.bookOnlineUrl} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</a>
+              ) : (
+                <Link to={settings.bookOnlineUrl} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</Link>
+              )
+            ) : (
+              <Link to="/book-table" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</Link>
+            )}
+          </React.Fragment>
           {settings?.customLinks && settings.customLinks.filter(l => l.label && l.url).map((l, idx) => (
             <React.Fragment key={idx}>
               <span>|</span>
-              <a href={l.url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>{l.label}</a>
+              {l.url.startsWith('http://') || l.url.startsWith('https://') ? (
+                <a href={l.url} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>{l.label}</a>
+              ) : (
+                <Link to={l.url} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>{l.label}</Link>
+              )}
             </React.Fragment>
           ))}
         </div>
@@ -605,9 +649,13 @@ const HomePage = ({ settings }) => {
           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
             {settings?.orderOnlineUrl ? (
-              <a href={settings.orderOnlineUrl} target="_blank" rel="noopener noreferrer" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
+              settings.orderOnlineUrl.startsWith('http://') || settings.orderOnlineUrl.startsWith('https://') ? (
+                <a href={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
+              ) : (
+                <Link to={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
+              )
             ) : (
-              <Link to="/menu" className="btn hero-btn-order">ORDER ONLINE</Link>
+              <Link to="/menu" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
             )}
           </motion.div>
         </motion.div>
@@ -889,6 +937,12 @@ function AppContent() {
     orderOnlineUrl: '',
     tableReservationsUrl: '',
     bookOnlineUrl: '',
+    giftCardPurchaseUrl: '',
+    giftCardPurchaseLabel: '',
+    giftCardPurchaseUrl2: '',
+    giftCardPurchaseLabel2: '',
+    giftCardPurchaseUrl3: '',
+    giftCardPurchaseLabel3: '',
     customLinks: [],
     signatureDishes: [],
     chefRecommendations: [],
@@ -922,6 +976,12 @@ function AppContent() {
             orderOnlineUrl: data.orderOnlineUrl || '',
             tableReservationsUrl: data.tableReservationsUrl || '',
             bookOnlineUrl: data.bookOnlineUrl || '',
+            giftCardPurchaseUrl: data.giftCardPurchaseUrl || '',
+            giftCardPurchaseLabel: data.giftCardPurchaseLabel || '',
+            giftCardPurchaseUrl2: data.giftCardPurchaseUrl2 || '',
+            giftCardPurchaseLabel2: data.giftCardPurchaseLabel2 || '',
+            giftCardPurchaseUrl3: data.giftCardPurchaseUrl3 || '',
+            giftCardPurchaseLabel3: data.giftCardPurchaseLabel3 || '',
             customLinks: data.customLinks || [],
             signatureDishes: data.signatureDishes || [],
             chefRecommendations: data.chefRecommendations || [],
