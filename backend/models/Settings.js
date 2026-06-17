@@ -79,6 +79,15 @@ const settingsSchema = mongoose.Schema({
       buttonText: { type: String, default: 'Learn More' }
     }
   },
+  heroImages: {
+    type: [String],
+    default: [
+      "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
   activePopupOccasion: { type: String, default: 'none' }
 }, { timestamps: true });
 

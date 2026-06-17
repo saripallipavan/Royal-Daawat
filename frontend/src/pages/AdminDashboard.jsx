@@ -57,6 +57,7 @@ const AdminDashboard = () => {
       catering: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
       operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
+    heroImages: [],
     activePopupOccasion: 'none'
   });
 
@@ -156,6 +157,7 @@ const AdminDashboard = () => {
               buttonText: setts.data.popupBanners?.operational?.buttonText || 'Learn More'
             }
           },
+          heroImages: setts.data.heroImages || [],
           activePopupOccasion: setts.data.activePopupOccasion || 'none'
         });
       }
@@ -306,6 +308,27 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error('Failed to upload image:', err);
       alert('Failed to upload image');
+    }
+  };
+
+  const handleAddHeroImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const fd = new FormData();
+      fd.append('image', file);
+      const res = await uploadSettingsImage(fd);
+      if (res.data && res.data.filePath) {
+        const filePath = res.data.filePath;
+        setSettingsForm(prev => ({
+          ...prev,
+          heroImages: [...(prev.heroImages || []), filePath]
+        }));
+      }
+      e.target.value = '';
+    } catch (err) {
+      console.error('Failed to upload hero image:', err);
+      alert('Failed to upload hero image');
     }
   };
 
@@ -1270,6 +1293,106 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>Homepage Background Slider Images</span>
+                  <button 
+                    type="button" 
+                    onClick={() => document.getElementById('newHeroImageInput').click()}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '5px', 
+                      backgroundColor: 'transparent', 
+                      color: 'var(--gold)', 
+                      border: '1px dashed var(--gold)', 
+                      padding: '4px 12px', 
+                      borderRadius: '30px', 
+                      cursor: 'pointer',
+                      fontSize: '0.85rem',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(182, 162, 94, 0.1)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                  >
+                    <Plus size={14} /> Add Image
+                  </button>
+                </h4>
+                <input 
+                  type="file" 
+                  id="newHeroImageInput" 
+                  style={{ display: 'none' }} 
+                  onChange={handleAddHeroImage} 
+                  accept="image/*"
+                />
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+                  {(!settingsForm.heroImages || settingsForm.heroImages.length === 0) ? (
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: '10px 0', gridColumn: '1 / -1' }}>
+                      Using default system background images. Upload some custom ones above to override.
+                    </p>
+                  ) : (
+                    settingsForm.heroImages.map((imgUrl, idx) => (
+                      <div key={idx} style={{ 
+                        position: 'relative', 
+                        border: '1px solid rgba(182, 162, 94, 0.2)', 
+                        borderRadius: '10px', 
+                        overflow: 'hidden', 
+                        height: '140px',
+                        backgroundColor: 'rgba(0,0,0,0.3)',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.02)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                      >
+                        <ImageWithFallback 
+                          src={getImageUrl(imgUrl)} 
+                          alt={`Background Slider ${idx + 1}`} 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        />
+                        <div style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          backgroundColor: 'rgba(11, 46, 31, 0.85)',
+                          backdropFilter: 'blur(5px)',
+                          borderTop: '1px solid rgba(182, 162, 94, 0.2)',
+                          padding: '8px 10px',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--primary-color)', fontWeight: '600' }}>Slide #{idx + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (settingsForm.heroImages || []).filter((_, i) => i !== idx);
+                              setSettingsForm({ ...settingsForm, heroImages: updated });
+                            }}
+                            style={{
+                              backgroundColor: 'transparent',
+                              border: 'none',
+                              color: '#ef4444',
+                              cursor: 'pointer',
+                              padding: '2px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              transition: 'color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = '#ff6b6b'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = '#ef4444'}
+                            title="Delete slide"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '12px' }}>

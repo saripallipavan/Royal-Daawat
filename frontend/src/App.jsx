@@ -8,7 +8,7 @@ import logoImg from './assets/logo.jpg';
 import dish1 from './assets/dish1.jpg';
 import dish2 from './assets/dish2.jpg';
 import dish3 from './assets/dish3.jpg';
-import { getSettings } from './services/api';
+import { getSettings, getImageUrl } from './services/api';
 import MapWrapper from './components/MapWrapper';
 
 // Shared Animations
@@ -449,12 +449,22 @@ const HomePage = ({ settings }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const timerRef = React.useRef(null);
 
+  const activeHeroImages = settings?.heroImages && settings.heroImages.length > 0 
+    ? settings.heroImages.map(img => getImageUrl(img))
+    : HERO_IMAGES;
+
+  useEffect(() => {
+    if (currentImageIndex >= activeHeroImages.length) {
+      setCurrentImageIndex(0);
+    }
+  }, [activeHeroImages.length, currentImageIndex]);
+
   const resetTimer = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
     timerRef.current = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+      setCurrentImageIndex((prev) => (prev + 1) % activeHeroImages.length);
     }, 6000);
   };
 
@@ -463,15 +473,15 @@ const HomePage = ({ settings }) => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [activeHeroImages.length]);
 
   const nextSlide = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    setCurrentImageIndex((prev) => (prev + 1) % activeHeroImages.length);
     resetTimer();
   };
 
   const prevSlide = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length);
+    setCurrentImageIndex((prev) => (prev - 1 + activeHeroImages.length) % activeHeroImages.length);
     resetTimer();
   };
 
@@ -508,7 +518,7 @@ const HomePage = ({ settings }) => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  backgroundImage: `linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(20, 20, 20, 0.5) 50%, rgba(10, 10, 10, 0.7) 100%), url(${HERO_IMAGES[currentImageIndex]})`,
+                  backgroundImage: `linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(20, 20, 20, 0.5) 50%, rgba(10, 10, 10, 0.7) 100%), url(${activeHeroImages[currentImageIndex]})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   zIndex: -1
@@ -890,6 +900,7 @@ function AppContent() {
       catering: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' },
       operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
+    heroImages: [],
     activePopupOccasion: 'none'
   });
 
@@ -916,6 +927,7 @@ function AppContent() {
             chefRecommendations: data.chefRecommendations || [],
             galleryPreviewSlides: data.galleryPreviewSlides || [],
             popupBanners: data.popupBanners || prev.popupBanners,
+            heroImages: data.heroImages || [],
             activePopupOccasion: data.activePopupOccasion || prev.activePopupOccasion
           }));
         }
