@@ -11,7 +11,7 @@ export const getMedia = async (req, res) => {
 
 export const postMedia = async (req, res) => {
   const { title, link, category } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.file ? `uploads/${req.file.filename}` : null;
 
   try {
     const newMedia = await Media.create({ title, link, category, image });

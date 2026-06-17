@@ -11,7 +11,7 @@ export const getOffers = async (req, res) => {
 
 export const postOffer = async (req, res) => {
   const { title, description, discount_percentage, expiry_date, startDate, endDate, active } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.file ? `uploads/${req.file.filename}` : null;
 
   try {
     const newOffer = await Offer.create({ 
@@ -29,7 +29,7 @@ export const putOffer = async (req, res) => {
   const updateData = { title, description, discount_percentage, expiry_date, startDate, endDate, active };
   
   if (req.file) {
-    updateData.image = req.file.path;
+    updateData.image = `uploads/${req.file.filename}`;
   }
 
   try {

@@ -13,7 +13,7 @@ export const getGallery = async (req, res) => {
 
 export const postGallery = async (req, res) => {
   const { title, subtitle, sortOrder } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.file ? `uploads/${req.file.filename}` : null;
 
   if (!image) {
     return res.status(400).json({ error: 'Image is required' });
@@ -57,7 +57,7 @@ export const deleteGallery = async (req, res) => {
 export const putGallery = async (req, res) => {
   const { id } = req.params;
   const { title, subtitle, sortOrder } = req.body;
-  const image = req.file ? req.file.path : undefined;
+  const image = req.file ? `uploads/${req.file.filename}` : undefined;
 
   try {
     const updateData = {};

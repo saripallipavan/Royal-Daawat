@@ -11,7 +11,7 @@ router.post('/upload', protect, admin, upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
-  res.json({ filePath: req.file.path });
+  res.json({ filePath: `uploads/${req.file.filename}` });
 });
 
 export default router;

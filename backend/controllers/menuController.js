@@ -11,7 +11,7 @@ export const getMenu = async (req, res) => {
 
 export const postMenu = async (req, res) => {
   const { food_name, price, description, category, rating, availability, dietary_preference } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.file ? `uploads/${req.file.filename}` : null;
 
   try {
     const newMenu = await Menu.create({ 
@@ -26,7 +26,7 @@ export const postMenu = async (req, res) => {
 export const putMenu = async (req, res) => {
   const { id } = req.params;
   const { food_name, price, description, category, rating, availability, dietary_preference } = req.body;
-  const image = req.file ? req.file.path : undefined;
+  const image = req.file ? `uploads/${req.file.filename}` : undefined;
 
   try {
     const updateData = { food_name, price, description, category, rating, availability, dietary_preference };
