@@ -111,7 +111,7 @@ const Navigation = ({ settings }) => {
       padding: (location.pathname !== '/' || isScrolled) ? '1rem 0' : '1.5rem 0'
     }}>
       <div className="nav-container">
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '15px', flexShrink: 0 }}>
           <img 
             src={logoImg} 
             alt="Royal Daawat Logo" 
