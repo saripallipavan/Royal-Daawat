@@ -1220,6 +1220,43 @@ const AdminDashboard = () => {
                               </div>
                             )}
                           </div>
+                          <div style={{ marginTop: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '5px' }}>Or choose from dish presets:</span>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                              {['uploads/preset_dish_1.png', 'uploads/preset_dish_2.png', 'uploads/preset_dish_3.png'].map((presetPath, pIdx) => {
+                                const isSelected = dish.img === presetPath;
+                                return (
+                                  <button
+                                    key={presetPath}
+                                    type="button"
+                                    onClick={() => {
+                                      const updated = [...settingsForm.signatureDishes];
+                                      updated[idx] = { ...updated[idx], img: presetPath };
+                                      setSettingsForm({ ...settingsForm, signatureDishes: updated });
+                                    }}
+                                    style={{
+                                      width: '60px',
+                                      height: '45px',
+                                      borderRadius: '4px',
+                                      overflow: 'hidden',
+                                      border: isSelected ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                                      padding: 0,
+                                      cursor: 'pointer',
+                                      backgroundColor: 'transparent',
+                                      transition: 'all 0.2s'
+                                    }}
+                                    title={`Preset Dish ${pIdx + 1}`}
+                                  >
+                                    <ImageWithFallback
+                                      src={getImageUrl(presetPath)}
+                                      alt={`Preset Dish ${pIdx + 1}`}
+                                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '15px' }}>
@@ -1273,6 +1310,43 @@ const AdminDashboard = () => {
                                 <ImageWithFallback src={getImageUrl(rec.img)} alt={rec.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                               </div>
                             )}
+                          </div>
+                          <div style={{ marginTop: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '5px' }}>Or choose from chef presets:</span>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                              {['uploads/preset_rec_1.png', 'uploads/preset_rec_2.png'].map((presetPath, pIdx) => {
+                                const isSelected = rec.img === presetPath;
+                                return (
+                                  <button
+                                    key={presetPath}
+                                    type="button"
+                                    onClick={() => {
+                                      const updated = [...settingsForm.chefRecommendations];
+                                      updated[idx] = { ...updated[idx], img: presetPath };
+                                      setSettingsForm({ ...settingsForm, chefRecommendations: updated });
+                                    }}
+                                    style={{
+                                      width: '60px',
+                                      height: '45px',
+                                      borderRadius: '4px',
+                                      overflow: 'hidden',
+                                      border: isSelected ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                                      padding: 0,
+                                      cursor: 'pointer',
+                                      backgroundColor: 'transparent',
+                                      transition: 'all 0.2s'
+                                    }}
+                                    title={`Preset Chef Recommendation ${pIdx + 1}`}
+                                  >
+                                    <ImageWithFallback
+                                      src={getImageUrl(presetPath)}
+                                      alt={`Preset Chef Recommendation ${pIdx + 1}`}
+                                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                  </button>
+                                );
+                              })}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1342,6 +1416,43 @@ const AdminDashboard = () => {
                               </div>
                             )}
                           </div>
+                          <div style={{ marginTop: '8px' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '5px' }}>Or choose from visual journey presets:</span>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                              {['uploads/preset_gallery_1.png', 'uploads/preset_gallery_2.png', 'uploads/preset_gallery_3.png'].map((presetPath, pIdx) => {
+                                const isSelected = slide.img === presetPath;
+                                return (
+                                  <button
+                                    key={presetPath}
+                                    type="button"
+                                    onClick={() => {
+                                      const updated = [...settingsForm.galleryPreviewSlides];
+                                      updated[idx] = { ...updated[idx], img: presetPath };
+                                      setSettingsForm({ ...settingsForm, galleryPreviewSlides: updated });
+                                    }}
+                                    style={{
+                                      width: '60px',
+                                      height: '45px',
+                                      borderRadius: '4px',
+                                      overflow: 'hidden',
+                                      border: isSelected ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                                      padding: 0,
+                                      cursor: 'pointer',
+                                      backgroundColor: 'transparent',
+                                      transition: 'all 0.2s'
+                                    }}
+                                    title={`Preset Slide ${pIdx + 1}`}
+                                  >
+                                    <ImageWithFallback
+                                      src={getImageUrl(presetPath)}
+                                      alt={`Preset Slide ${pIdx + 1}`}
+                                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '15px' }}>
@@ -1393,6 +1504,69 @@ const AdminDashboard = () => {
                   onChange={handleAddHeroImage} 
                   accept="image/*"
                 />
+
+                <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.15)', marginBottom: '20px' }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Preloaded Premium Background Presets (Click to add/remove from your slider):</span>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    {['uploads/preset_hero_1.png', 'uploads/preset_hero_2.png', 'uploads/preset_hero_3.png'].map((presetPath, pIdx) => {
+                      const isSelected = (settingsForm.heroImages || []).includes(presetPath);
+                      return (
+                        <button
+                          key={presetPath}
+                          type="button"
+                          onClick={() => {
+                            setSettingsForm(prev => {
+                              const heroImages = prev.heroImages || [];
+                              if (heroImages.includes(presetPath)) {
+                                return { ...prev, heroImages: heroImages.filter(img => img !== presetPath) };
+                              } else {
+                                return { ...prev, heroImages: [...heroImages, presetPath] };
+                              }
+                            });
+                          }}
+                          style={{
+                            width: '100px',
+                            height: '65px',
+                            borderRadius: '6px',
+                            overflow: 'hidden',
+                            border: isSelected ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                            padding: 0,
+                            cursor: 'pointer',
+                            backgroundColor: 'transparent',
+                            transition: 'all 0.2s',
+                            position: 'relative'
+                          }}
+                          title={`Preset Hero ${pIdx + 1}`}
+                        >
+                          <ImageWithFallback
+                            src={getImageUrl(presetPath)}
+                            alt={`Preset Hero ${pIdx + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                          {isSelected && (
+                            <div style={{
+                              position: 'absolute',
+                              top: '2px',
+                              right: '2px',
+                              backgroundColor: 'var(--primary-color)',
+                              color: '#000',
+                              borderRadius: '50%',
+                              width: '16px',
+                              height: '16px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '10px',
+                              fontWeight: 'bold'
+                            }}>
+                              ✓
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '20px', marginBottom: '20px' }}>
                   {(!settingsForm.heroImages || settingsForm.heroImages.length === 0) ? (

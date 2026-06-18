@@ -81,6 +81,13 @@ app.get("/", (req, res) => {
     message: "Royal Daawat Backend Running Successfully 🚀"
   });
 });
+app.use((err, req, res, next) => {
+  console.error('Unhandled Error:', err);
+  res.status(err.status || 400).json({
+    message: typeof err === 'string' ? err : err.message || 'An unexpected error occurred'
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

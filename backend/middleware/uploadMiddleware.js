@@ -18,14 +18,14 @@ const storage = multer.diskStorage({
 });
 
 function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png/;
+  const filetypes = /jpg|jpeg|png|webp|gif|svg|jfif/i;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
   if (extname && mimetype) {
     return cb(null, true);
   } else {
-    cb('Images only!');
+    cb('Images only! Allowed formats: JPG, JPEG, PNG, WEBP, GIF, SVG, JFIF.');
   }
 }
 
