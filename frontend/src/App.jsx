@@ -255,7 +255,37 @@ const Footer = ({ settings }) => {
         <div className="footer-column dark-bg">
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings?.openingHours}</p>
-          <Link to="/book-table" className="btn" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', border: '1px solid var(--primary-color)', borderRadius: '30px', fontWeight: 'bold' }}>Book Now</Link>
+          {(() => {
+            const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+            if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
+              return (
+                <a 
+                  href={bookUrl} 
+                  className="btn" 
+                  style={{ 
+                    backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', 
+                    border: '1px solid var(--primary-color)', borderRadius: '30px', 
+                    fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' 
+                  }}
+                >
+                  Book Now
+                </a>
+              );
+            }
+            return (
+              <Link 
+                to={bookUrl || "/book-table"} 
+                className="btn" 
+                style={{ 
+                  backgroundColor: 'var(--primary-color)', color: 'var(--dark-bg)', 
+                  border: '1px solid var(--primary-color)', borderRadius: '30px', 
+                  fontWeight: 'bold', textDecoration: 'none', display: 'inline-block', textAlign: 'center' 
+                }}
+              >
+                Book Now
+              </Link>
+            );
+          })()}
         </div>
 
         {/* Column 2: Contact Us */}
@@ -614,50 +644,56 @@ const HomePage = ({ settings }) => {
           >
             <div style={{ height: '2px', width: 'clamp(20px, 8vw, 80px)', background: 'linear-gradient(90deg, transparent, var(--primary-color))' }}></div>
             <span 
-              className="shining-gold-text"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: 'clamp(1.1rem, 3.2vw, 2.2rem)',
                 fontWeight: 700,
                 letterSpacing: '4px',
                 textTransform: 'uppercase',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                color: '#ffffff'
               }}
             >
               Flavours of India
             </span>
             <div style={{ height: '2px', width: 'clamp(20px, 8vw, 80px)', background: 'linear-gradient(90deg, var(--primary-color), transparent)' }}></div>
           </motion.div>
-
-          {/* RESTAURANT | TAKEAWAY | DELIVERY Subtitle */}
-          <motion.div 
-            variants={fadeInUp}
-            style={{ 
-              fontFamily: "'Cinzel', serif", 
-              fontSize: 'clamp(0.85rem, 1.8vw, 1.25rem)', 
-              letterSpacing: '4px', 
-              color: 'var(--secondary-color)', 
-              textTransform: 'uppercase',
-              marginBottom: '2.5rem',
-              fontWeight: 500,
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-            }}
-          >
-            RESTAURANT <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> TAKEAWAY <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> DELIVERY
-          </motion.div>
-
-          <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/book-table" className="btn hero-btn-book">BOOK NOW</Link>
-            {settings?.orderOnlineUrl ? (
-              settings.orderOnlineUrl.startsWith('http://') || settings.orderOnlineUrl.startsWith('https://') ? (
-                <a href={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
-              ) : (
-                <Link to={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
-              )
-            ) : (
-              <Link to="/menu" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
-            )}
-          </motion.div>
+ 
+           {/* RESTAURANT | TAKEAWAY | DELIVERY Subtitle */}
+           <motion.div 
+             variants={fadeInUp}
+             style={{ 
+               fontFamily: "'Cinzel', serif", 
+               fontSize: 'clamp(0.85rem, 1.8vw, 1.25rem)', 
+               letterSpacing: '4px', 
+               color: 'var(--secondary-color)', 
+               textTransform: 'uppercase',
+               marginBottom: '2.5rem',
+               fontWeight: 500,
+               textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+             }}
+           >
+             RESTAURANT <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> TAKEAWAY <span style={{ color: 'var(--primary-color)', margin: '0 12px' }}>|</span> DELIVERY
+           </motion.div>
+ 
+           <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {(() => {
+              const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+              if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
+                return <a href={bookUrl} className="btn hero-btn-book" style={{ textDecoration: 'none' }}>BOOK NOW</a>;
+              }
+              return <Link to={bookUrl || "/book-table"} className="btn hero-btn-book">BOOK NOW</Link>;
+            })()}
+             {settings?.orderOnlineUrl ? (
+               settings.orderOnlineUrl.startsWith('http://') || settings.orderOnlineUrl.startsWith('https://') ? (
+                 <a href={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</a>
+               ) : (
+                 <Link to={settings.orderOnlineUrl} className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
+               )
+             ) : (
+               <Link to="/menu" className="btn hero-btn-order" style={{ textDecoration: 'none' }}>ORDER ONLINE</Link>
+             )}
+           </motion.div>
         </motion.div>
 
         {/* Left Control Arrow */}

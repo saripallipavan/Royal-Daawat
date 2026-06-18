@@ -10,7 +10,8 @@ const offerSchema = new mongoose.Schema({
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date },
   active: { type: Boolean, default: true },
-  image: { type: String }
+  image: { type: String },
+  link: { type: String }
 }, opts);
 
 export default mongoose.model('Offer', offerSchema);

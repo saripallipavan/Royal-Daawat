@@ -19,14 +19,18 @@ export const SignatureDishes = ({ settings }) => {
     { name: "Paneer Tikka", price: "£12.95", desc: "Grilled cottage cheese marinated in Indian spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800" }
   ];
 
-  const dishes = (settings?.signatureDishes && settings.signatureDishes.length === 3 && settings.signatureDishes.every(d => d.name))
-    ? settings.signatureDishes.map((d, idx) => ({
-        name: d.name,
-        price: d.price,
-        desc: d.desc,
-        img: getImageUrl(d.img) || defaultDishes[idx].img
-      }))
-    : defaultDishes;
+  const dishes = Array(3).fill(null).map((_, idx) => {
+    const custom = settings?.signatureDishes?.[idx];
+    if (custom && custom.name) {
+      return {
+        name: custom.name,
+        price: custom.price,
+        desc: custom.desc,
+        img: getImageUrl(custom.img) || defaultDishes[idx].img
+      };
+    }
+    return defaultDishes[idx];
+  });
 
   return (
     <section style={{ backgroundColor: 'var(--dark-bg)', padding: '100px 0' }}>
@@ -107,14 +111,18 @@ export const GalleryPreview = ({ images, settings }) => {
     }
   ];
 
-  const slides = (settings?.galleryPreviewSlides && settings.galleryPreviewSlides.length === 3 && settings.galleryPreviewSlides.every(s => s.title))
-    ? settings.galleryPreviewSlides.map((s, i) => ({
-        title: s.title,
-        subtitle: s.subtitle,
-        desc: s.desc,
-        img: getImageUrl(s.img) || defaultSlides[i].img
-      }))
-    : defaultSlides;
+  const slides = Array(3).fill(null).map((_, idx) => {
+    const custom = settings?.galleryPreviewSlides?.[idx];
+    if (custom && custom.title) {
+      return {
+        title: custom.title,
+        subtitle: custom.subtitle,
+        desc: custom.desc,
+        img: getImageUrl(custom.img) || defaultSlides[idx].img
+      };
+    }
+    return defaultSlides[idx];
+  });
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const timerRef = React.useRef(null);
@@ -318,7 +326,8 @@ export const SpecialOffers = () => {
             title: o.title,
             badge: `${o.discount_percentage}% OFF`,
             desc: o.description,
-            img: getImageUrl(o.image) || defaultOffers[0].img
+            img: getImageUrl(o.image) || defaultOffers[0].img,
+            link: o.link
           }));
           setOffers([...dynamicOffers, ...defaultOffers].slice(0, 3)); // show top 3
         }
@@ -347,7 +356,24 @@ export const SpecialOffers = () => {
               <div style={{ position: 'absolute', bottom: '40px', left: '40px', right: '40px' }}>
                 <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>{offer.title}</h3>
                 <p style={{ color: '#fff', opacity: 0.8, marginBottom: '2rem' }}>{offer.desc}</p>
-                <button className="btn btn-primary" onClick={() => navigate('/menu')} style={{ width: '100%' }}>CLAIM OFFER</button>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => {
+                    const targetLink = offer.link;
+                    if (targetLink) {
+                      if (targetLink.startsWith('http://') || targetLink.startsWith('https://')) {
+                        window.location.href = targetLink;
+                      } else {
+                        navigate(targetLink);
+                      }
+                    } else {
+                      navigate('/menu');
+                    }
+                  }} 
+                  style={{ width: '100%' }}
+                >
+                  CLAIM OFFER
+                </button>
               </div>
             </div>
           ))}
@@ -600,7 +626,29 @@ export const ContactPreview = ({ settings }) => {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-          <Link to="/book-table" className="btn btn-primary" style={{ padding: '15px 60px' }}>BOOK A TABLE NOW</Link>
+          {(() => {
+            const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+            if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
+              return (
+                <a 
+                  href={bookUrl} 
+                  className="btn btn-primary" 
+                  style={{ padding: '15px 60px', textDecoration: 'none', display: 'inline-block' }}
+                >
+                  BOOK A TABLE NOW
+                </a>
+              );
+            }
+            return (
+              <Link 
+                to={bookUrl || "/book-table"} 
+                className="btn btn-primary" 
+                style={{ padding: '15px 60px' }}
+              >
+                BOOK A TABLE NOW
+              </Link>
+            );
+          })()}
         </div>
       </div>
     </section>

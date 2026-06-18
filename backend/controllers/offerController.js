@@ -10,12 +10,12 @@ export const getOffers = async (req, res) => {
 };
 
 export const postOffer = async (req, res) => {
-  const { title, description, discount_percentage, expiry_date, startDate, endDate, active } = req.body;
+  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link } = req.body;
   const image = req.file ? `uploads/${req.file.filename}` : null;
 
   try {
     const newOffer = await Offer.create({ 
-      title, description, discount_percentage, expiry_date, startDate, endDate, active, image 
+      title, description, discount_percentage, expiry_date, startDate, endDate, active, image, link 
     });
     res.status(201).json(newOffer);
   } catch (err) {
@@ -25,8 +25,8 @@ export const postOffer = async (req, res) => {
 
 export const putOffer = async (req, res) => {
   const { id } = req.params;
-  const { title, description, discount_percentage, expiry_date, startDate, endDate, active } = req.body;
-  const updateData = { title, description, discount_percentage, expiry_date, startDate, endDate, active };
+  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link } = req.body;
+  const updateData = { title, description, discount_percentage, expiry_date, startDate, endDate, active, link };
   
   if (req.file) {
     updateData.image = `uploads/${req.file.filename}`;

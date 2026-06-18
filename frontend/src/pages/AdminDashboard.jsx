@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   });
 
   const [menuForm, setMenuForm] = useState({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
-  const [offerForm, setOfferForm] = useState({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true });
+  const [offerForm, setOfferForm] = useState({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true, link: '' });
   const [galleryForm, setGalleryForm] = useState({ title: '', subtitle: '', sortOrder: '0' });
   const [editingGalleryId, setEditingGalleryId] = useState(null);
   const [settingsForm, setSettingsForm] = useState({
@@ -207,7 +207,7 @@ const AdminDashboard = () => {
       fd.append('endDate', offerForm.expiry_date);
     }
     await postOffer(fd);
-    setOfferForm({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true });
+    setOfferForm({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true, link: '' });
     setImageFile(null);
     const fileInput = document.getElementById('offerImageInput');
     if (fileInput) fileInput.value = '';
@@ -677,7 +677,17 @@ const AdminDashboard = () => {
               <form onSubmit={handleMenuSubmit} style={{ display: 'grid', gap: '15px', marginBottom: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '10px' }}>
                 <input type="text" placeholder="Food Name" value={menuForm.food_name} onChange={e => setMenuForm({...menuForm, food_name: e.target.value})} required style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} />
                 <input type="number" placeholder="Price" value={menuForm.price} onChange={e => setMenuForm({...menuForm, price: e.target.value})} required style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} />
-                <input type="text" placeholder="Category" value={menuForm.category} onChange={e => setMenuForm({...menuForm, category: e.target.value})} required style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} />
+                <select 
+                  value={menuForm.category} 
+                  onChange={e => setMenuForm({...menuForm, category: e.target.value})} 
+                  required 
+                  style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                >
+                  <option value="">Select Category...</option>
+                  {["Starters", "House Specials", "Tandoori Specials", "Biryani Dishes", "Curries", "Classic Dishes", "Rice", "Side Dishes", "Breads", "Drinks"].map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
                 <select value={menuForm.dietary_preference} onChange={e => setMenuForm({...menuForm, dietary_preference: e.target.value})} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}>
                   <option value="Non Veg">Non Veg</option>
                   <option value="Veg">Veg</option>
@@ -709,6 +719,7 @@ const AdminDashboard = () => {
                   <input type="date" placeholder="Expiry Date" value={offerForm.expiry_date} onChange={e => setOfferForm({...offerForm, expiry_date: e.target.value})} style={{ flex: 1, padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', colorScheme: 'dark' }} />
                 </div>
                 <textarea placeholder="Description" value={offerForm.description} onChange={e => setOfferForm({...offerForm, description: e.target.value})} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}></textarea>
+                <input type="text" placeholder="Redirect URL (Custom link e.g. /menu or external link)" value={offerForm.link} onChange={e => setOfferForm({...offerForm, link: e.target.value})} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff' }}>
                   <input type="checkbox" id="activeOffer" checked={offerForm.active} onChange={e => setOfferForm({...offerForm, active: e.target.checked})} />
                   <label htmlFor="activeOffer">Active</label>
@@ -1000,11 +1011,11 @@ const AdminDashboard = () => {
                   </div>
                 </div>
 
-                <h5 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.1rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Gift Card Purchase Options (WhatsApp fallback will be used if links are empty)</h5>
+                <h5 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.1rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Gift Card Purchase Option (WhatsApp fallback will be used if link is empty)</h5>
                 
                 <div className="admin-grid-2col" style={{ marginBottom: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 1 (Custom)</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL (Custom)</label>
                     <input 
                       type="text" 
                       placeholder="e.g., https://vouchercart.com/... (leave empty for WhatsApp purchase)"
@@ -1014,54 +1025,12 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 1 Label</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link Label</label>
                     <input 
                       type="text" 
                       placeholder="e.g., Vouchercart"
                       value={settingsForm.giftCardPurchaseLabel} 
                       onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel: e.target.value})} 
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 2 (Custom)</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., https://giftup.app/..."
-                      value={settingsForm.giftCardPurchaseUrl2} 
-                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl2: e.target.value})} 
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
-                    />
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 2 Label</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., Gift Up"
-                      value={settingsForm.giftCardPurchaseLabel2} 
-                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel2: e.target.value})} 
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 3 (Custom)</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., https://anotherplatform.com/..."
-                      value={settingsForm.giftCardPurchaseUrl3} 
-                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl3: e.target.value})} 
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
-                    />
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 3 Label</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., Other Platform"
-                      value={settingsForm.giftCardPurchaseLabel3} 
-                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel3: e.target.value})} 
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
@@ -1654,11 +1623,11 @@ const AdminDashboard = () => {
                 {/* Occasions Tab Bar */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', padding: '10px 0', borderBottom: '1px solid rgba(182, 162, 94, 0.15)' }}>
                   {[
-                    { id: 'festive', label: 'Festive & Event Specials', icon: <Sparkles size={16} /> },
-                    { id: 'slowDay', label: 'Slow-Day / Happy Hour', icon: <Percent size={16} /> },
-                    { id: 'firstTime', label: 'First-Time Offer', icon: <Gift size={16} /> },
-                    { id: 'catering', label: 'Parties & Catering', icon: <Utensils size={16} /> },
-                    { id: 'operational', label: 'Operational Notices', icon: <Megaphone size={16} /> }
+                    { id: 'festive', label: 'Banner 1 (Festive & Event Specials)', icon: <Sparkles size={16} /> },
+                    { id: 'slowDay', label: 'Banner 2 (Slow-Day / Happy Hour)', icon: <Percent size={16} /> },
+                    { id: 'firstTime', label: 'Banner 3 (First-Time Offer)', icon: <Gift size={16} /> },
+                    { id: 'catering', label: 'Banner 4 (Parties & Catering)', icon: <Utensils size={16} /> },
+                    { id: 'operational', label: 'Banner 5 (Operational Notices)', icon: <Megaphone size={16} /> }
                   ].map(occ => {
                     const isEditing = editingOccasion === occ.id;
                     const isLive = settingsForm.activePopupOccasion === occ.id;
@@ -1708,8 +1677,12 @@ const AdminDashboard = () => {
                     {/* Header with Title, Live Toggle and Delete button */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '15px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1.2rem', marginBottom: '1.5rem' }}>
                       <div>
-                        <h4 className="text-gold" style={{ margin: '0 0 4px 0', fontSize: '1.4rem', textTransform: 'capitalize' }}>
-                          {editingOccasion.replace(/([A-Z])/g, ' $1')} Settings
+                        <h4 className="text-gold" style={{ margin: '0 0 4px 0', fontSize: '1.4rem' }}>
+                          {editingOccasion === 'festive' ? 'Banner 1 (Festive & Event Specials)' :
+                           editingOccasion === 'slowDay' ? 'Banner 2 (Slow-Day / Happy Hour)' :
+                           editingOccasion === 'firstTime' ? 'Banner 3 (First-Time Offer)' :
+                           editingOccasion === 'catering' ? 'Banner 4 (Parties & Catering)' :
+                           'Banner 5 (Operational Notices)'} Settings
                         </h4>
                         <span style={{ 
                           fontSize: '0.8rem', 
@@ -1913,11 +1886,11 @@ const AdminDashboard = () => {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {[
-                      { id: 'festive', label: 'Festive & Event Specials' },
-                      { id: 'slowDay', label: 'Slow-Day / Happy Hour' },
-                      { id: 'firstTime', label: 'First-Time Offer' },
-                      { id: 'catering', label: 'Parties & Catering' },
-                      { id: 'operational', label: 'Operational Notices' }
+                      { id: 'festive', label: 'Banner 1 (Festive & Event Specials)' },
+                      { id: 'slowDay', label: 'Banner 2 (Slow-Day / Happy Hour)' },
+                      { id: 'firstTime', label: 'Banner 3 (First-Time Offer)' },
+                      { id: 'catering', label: 'Banner 4 (Parties & Catering)' },
+                      { id: 'operational', label: 'Banner 5 (Operational Notices)' }
                     ].map(occ => {
                       const bannerData = settingsForm.popupBanners?.[occ.id];
                       const hasContent = !!(bannerData?.title || bannerData?.description || bannerData?.img);
