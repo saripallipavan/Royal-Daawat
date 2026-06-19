@@ -62,12 +62,7 @@ const Navigation = ({ settings }) => {
       isExternal: isLinkExternal(orderOnlineUrl)
     });
 
-    const bookOnlineUrl = settings?.bookOnlineUrl;
-    links.push({
-      name: 'BOOK ONLINE',
-      path: bookOnlineUrl || '/book-table',
-      isExternal: isLinkExternal(bookOnlineUrl)
-    });
+
 
     const tableReservationsUrl = settings?.tableReservationsUrl;
     links.push({
@@ -256,7 +251,7 @@ const Footer = ({ settings }) => {
           <h3 className="cinzel-font" style={{ fontSize: '2.5rem', marginBottom: '2.5rem', color: 'var(--primary-color)' }}>Opening Hours</h3>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', letterSpacing: '1px' }}>{settings?.openingHours}</p>
           {(() => {
-            const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+            const bookUrl = settings?.tableReservationsUrl;
             if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
               return (
                 <a 
@@ -449,18 +444,7 @@ const Footer = ({ settings }) => {
           <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Terms & Conditions</Link>
           <span>|</span>
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Privacy Policy</Link>
-          <React.Fragment>
-            <span>|</span>
-            {settings?.bookOnlineUrl ? (
-              settings.bookOnlineUrl.startsWith('http://') || settings.bookOnlineUrl.startsWith('https://') ? (
-                <a href={settings.bookOnlineUrl} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</a>
-              ) : (
-                <Link to={settings.bookOnlineUrl} style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</Link>
-              )
-            ) : (
-              <Link to="/book-table" style={{ color: 'inherit', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-color)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Book Online</Link>
-            )}
-          </React.Fragment>
+
           {settings?.customLinks && settings.customLinks.filter(l => l.label && l.url).map((l, idx) => (
             <React.Fragment key={idx}>
               <span>|</span>
@@ -678,7 +662,7 @@ const HomePage = ({ settings }) => {
  
            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             {(() => {
-              const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+              const bookUrl = settings?.tableReservationsUrl;
               if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
                 return <a href={bookUrl} className="btn hero-btn-book" style={{ textDecoration: 'none' }}>BOOK NOW</a>;
               }
@@ -736,17 +720,19 @@ const HomePage = ({ settings }) => {
 };
 
 // About Page
-const AboutPage = () => {
+const AboutPage = ({ settings }) => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const [currentSlide, setCurrentSlide] = useState(0);
   const aboutTimerRef = React.useRef(null);
 
-  const slides = [
-    "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
-  ];
+  const slides = settings?.aboutImages && settings.aboutImages.length > 0
+    ? settings.aboutImages.map(img => getImageUrl(img))
+    : [
+        "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
+        "https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200",
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+        "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
+      ];
 
   const resetAboutTimer = () => {
     if (aboutTimerRef.current) {
@@ -1042,7 +1028,7 @@ function AppContent() {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<HomePage settings={settings} />} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/about" element={<AboutPage settings={settings} />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/media" element={<Media />} />
             <Route path="/terms" element={<Terms />} />

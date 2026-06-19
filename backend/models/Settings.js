@@ -93,6 +93,15 @@ const settingsSchema = mongoose.Schema({
       "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600"
     ]
   },
+  aboutImages: {
+    type: [String],
+    default: [
+      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
+    ]
+  },
   activePopupOccasion: { type: String, default: 'none' }
 }, { timestamps: true });
 

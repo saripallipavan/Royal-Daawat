@@ -6,14 +6,16 @@ import {
   getBookings, updateBookingStatus,
   getSettings, updateSettings, uploadSettingsImage,
   getNotifications, markNotificationRead, markAllNotificationsRead, deleteNotification,
-  getGallery, postGallery, putGallery, deleteGallery, getImageUrl
+  getGallery, postGallery, putGallery, deleteGallery, getImageUrl,
+  getMedia, postMedia, putMedia, deleteMedia
 } from '../services/api';
 import { 
   LayoutDashboard, CalendarDays, Utensils, Image as ImageIcon, 
   Tags, Star, Settings as SettingsIcon, Bell, LogOut, 
-  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone, Gift, Sparkles, Percent
+  CheckCircle, XCircle, Clock, Trash2, Mail, ShieldCheck, Plus, Menu as MenuIcon, Megaphone, Gift, Sparkles, Percent, Newspaper
 } from 'lucide-react';
 import ImageWithFallback from '../components/ImageWithFallback';
+import { compressImage } from '../utils/imageCompressor';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -26,12 +28,13 @@ const AdminDashboard = () => {
     offers: [], 
     gallery: [], 
     settings: {}, 
-    notifications: [] 
+    notifications: [], 
+    media: [] 
   });
 
   const [menuForm, setMenuForm] = useState({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
   const [offerForm, setOfferForm] = useState({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true, link: '' });
-  const [galleryForm, setGalleryForm] = useState({ title: '', subtitle: '', sortOrder: '0' });
+  const [galleryForm, setGalleryForm] = useState({ title: '', subtitle: '', sortOrder: '0', image: '' });
   const [editingGalleryId, setEditingGalleryId] = useState(null);
   const [settingsForm, setSettingsForm] = useState({
     restaurantName: '',
@@ -63,6 +66,7 @@ const AdminDashboard = () => {
       operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
     heroImages: [],
+    aboutImages: [],
     activePopupOccasion: 'none'
   });
 
@@ -70,17 +74,21 @@ const AdminDashboard = () => {
 
   const [imageFile, setImageFile] = useState(null);
   const [galleryFile, setGalleryFile] = useState(null);
+  const [editingMediaId, setEditingMediaId] = useState(null);
+  const [mediaForm, setMediaForm] = useState({ title: '', category: 'Awards', link: '', date: '' });
+  const [mediaFile, setMediaFile] = useState(null);
 
   const fetchData = async () => {
     try {
-      const [book, con, men, off, gal, setts, notifs] = await Promise.all([
+      const [book, con, men, off, gal, setts, notifs, med] = await Promise.all([
         getBookings().catch(() => ({ data: [] })),
         getContact().catch(() => ({ data: [] })),
         getMenu().catch(() => ({ data: [] })),
         getOffers().catch(() => ({ data: [] })),
         getGallery().catch(() => ({ data: [] })),
         getSettings().catch(() => ({ data: {} })),
-        getNotifications().catch(() => ({ data: [] }))
+        getNotifications().catch(() => ({ data: [] })),
+        getMedia().catch(() => ({ data: [] }))
       ]);
 
       setData({
@@ -90,7 +98,8 @@ const AdminDashboard = () => {
         offers: off.data || [],
         gallery: gal.data || [],
         settings: setts.data || {},
-        notifications: notifs.data || []
+        notifications: notifs.data || [],
+        media: med.data || []
       });
 
       if (setts.data) {
@@ -168,6 +177,7 @@ const AdminDashboard = () => {
             }
           },
           heroImages: setts.data.heroImages || [],
+          aboutImages: setts.data.aboutImages || [],
           activePopupOccasion: setts.data.activePopupOccasion || 'none'
         });
       }
@@ -187,55 +197,89 @@ const AdminDashboard = () => {
 
   const handleMenuSubmit = async (e) => {
     e.preventDefault();
-    const fd = new FormData();
-    Object.keys(menuForm).forEach(key => fd.append(key, menuForm[key]));
-    if (imageFile) fd.append('image', imageFile);
-    await postMenu(fd);
-    setMenuForm({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
-    setImageFile(null);
-    const fileInput = document.getElementById('menuImageInput');
-    if (fileInput) fileInput.value = '';
-    fetchData();
+    try {
+      let finalImg = '';
+      if (imageFile) {
+        finalImg = await compressImage(imageFile);
+      }
+      
+      const payload = {
+        ...menuForm,
+        image: finalImg
+      };
+
+      await postMenu(payload);
+      setMenuForm({ food_name: '', price: '', description: '', category: '', dietary_preference: 'Non Veg' });
+      setImageFile(null);
+      const fileInput = document.getElementById('menuImageInput');
+      if (fileInput) fileInput.value = '';
+      fetchData();
+    } catch (err) {
+      console.error('Failed to save menu item:', err);
+      alert('Failed to save menu item');
+    }
   };
 
   const handleOfferSubmit = async (e) => {
     e.preventDefault();
-    const fd = new FormData();
-    Object.keys(offerForm).forEach(key => fd.append(key, offerForm[key]));
-    if (imageFile) fd.append('image', imageFile);
-    if (offerForm.expiry_date) {
-      fd.append('endDate', offerForm.expiry_date);
+    try {
+      let finalImg = '';
+      if (imageFile) {
+        finalImg = await compressImage(imageFile);
+      }
+      
+      const payload = {
+        title: offerForm.title,
+        description: offerForm.description,
+        discount_percentage: offerForm.discount_percentage,
+        startDate: offerForm.startDate || new Date().toISOString(),
+        endDate: offerForm.expiry_date,
+        expiry_date: offerForm.expiry_date,
+        active: offerForm.active,
+        link: offerForm.link,
+        image: finalImg
+      };
+
+      await postOffer(payload);
+      setOfferForm({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true, link: '' });
+      setImageFile(null);
+      const fileInput = document.getElementById('offerImageInput');
+      if (fileInput) fileInput.value = '';
+      fetchData();
+    } catch (err) {
+      console.error('Failed to save offer:', err);
+      alert('Failed to save offer');
     }
-    await postOffer(fd);
-    setOfferForm({ title: '', description: '', discount_percentage: '', startDate: '', expiry_date: '', active: true, link: '' });
-    setImageFile(null);
-    const fileInput = document.getElementById('offerImageInput');
-    if (fileInput) fileInput.value = '';
-    fetchData();
   };
 
   const handleGallerySubmit = async (e) => {
     e.preventDefault();
-    const fd = new FormData();
-    fd.append('title', galleryForm.title);
-    fd.append('subtitle', galleryForm.subtitle || '');
-    fd.append('sortOrder', galleryForm.sortOrder);
-    if (galleryFile) fd.append('image', galleryFile);
-    
     try {
+      let finalImg = galleryForm.image || '';
+      if (galleryFile) {
+        finalImg = await compressImage(galleryFile);
+      }
+
+      const payload = {
+        title: galleryForm.title,
+        subtitle: galleryForm.subtitle || '',
+        sortOrder: galleryForm.sortOrder ? Number(galleryForm.sortOrder) : 0,
+        image: finalImg
+      };
+
       if (editingGalleryId) {
-        await putGallery(editingGalleryId, fd);
+        await putGallery(editingGalleryId, payload);
         setEditingGalleryId(null);
         alert('Gallery item updated successfully!');
       } else {
-        if (!galleryFile) {
+        if (!finalImg) {
           alert('Please select an image file to upload.');
           return;
         }
-        await postGallery(fd);
+        await postGallery(payload);
         alert('Gallery item uploaded successfully!');
       }
-      setGalleryForm({ title: '', subtitle: '', sortOrder: '0' });
+      setGalleryForm({ title: '', subtitle: '', sortOrder: '0', image: '' });
       setGalleryFile(null);
       const fileInput = document.getElementById('galleryImageInput');
       if (fileInput) fileInput.value = '';
@@ -251,7 +295,8 @@ const AdminDashboard = () => {
     setGalleryForm({
       title: item.title || '',
       subtitle: item.subtitle || '',
-      sortOrder: String(item.sortOrder || 0)
+      sortOrder: String(item.sortOrder || 0),
+      image: item.image || ''
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -282,42 +327,98 @@ const AdminDashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const fd = new FormData();
-      fd.append('image', file);
-      const res = await uploadSettingsImage(fd);
-      if (res.data && res.data.filePath) {
-        const filePath = res.data.filePath;
-        setSettingsForm(prev => {
-          if (type === 'dishes') {
-            const updated = [...prev.signatureDishes];
-            updated[index] = { ...updated[index], img: filePath };
-            return { ...prev, signatureDishes: updated };
-          } else if (type === 'recs') {
-            const updated = [...prev.chefRecommendations];
-            updated[index] = { ...updated[index], img: filePath };
-            return { ...prev, chefRecommendations: updated };
-          } else if (type === 'slides') {
-            const updated = [...prev.galleryPreviewSlides];
-            updated[index] = { ...updated[index], img: filePath };
-            return { ...prev, galleryPreviewSlides: updated };
-          } else if (type === 'popup') {
-            return {
-              ...prev,
-              popupBanners: {
-                ...prev.popupBanners,
-                [index]: {
-                  ...prev.popupBanners[index],
-                  img: filePath
-                }
+      const compressedBase64 = await compressImage(file);
+      setSettingsForm(prev => {
+        if (type === 'dishes') {
+          const updated = [...prev.signatureDishes];
+          updated[index] = { ...updated[index], img: compressedBase64 };
+          return { ...prev, signatureDishes: updated };
+        } else if (type === 'recs') {
+          const updated = [...prev.chefRecommendations];
+          updated[index] = { ...updated[index], img: compressedBase64 };
+          return { ...prev, chefRecommendations: updated };
+        } else if (type === 'slides') {
+          const updated = [...prev.galleryPreviewSlides];
+          updated[index] = { ...updated[index], img: compressedBase64 };
+          return { ...prev, galleryPreviewSlides: updated };
+        } else if (type === 'popup') {
+          return {
+            ...prev,
+            popupBanners: {
+              ...prev.popupBanners,
+              [index]: {
+                ...prev.popupBanners[index],
+                img: compressedBase64
               }
-            };
-          }
-          return prev;
-        });
-      }
+            }
+          };
+        }
+        return prev;
+      });
     } catch (err) {
-      console.error('Failed to upload image:', err);
-      alert('Failed to upload image');
+      console.error('Failed to process settings image:', err);
+      alert('Failed to process settings image');
+    }
+  };
+
+  const handleMediaSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let finalImg = mediaForm.image || '';
+      if (mediaFile) {
+        finalImg = await compressImage(mediaFile);
+      }
+      
+      const payload = {
+        title: mediaForm.title,
+        category: mediaForm.category,
+        link: mediaForm.link,
+        date: mediaForm.date || new Date().toISOString(),
+        image: finalImg
+      };
+
+      if (editingMediaId) {
+        await putMedia(editingMediaId, payload);
+        setEditingMediaId(null);
+        alert('Media item updated successfully!');
+      } else {
+        await postMedia(payload);
+        alert('Media item added successfully!');
+      }
+
+      setMediaForm({ title: '', category: 'Awards', link: '', date: '' });
+      setMediaFile(null);
+      const fileInput = document.getElementById('mediaFileInput');
+      if (fileInput) fileInput.value = '';
+      fetchData();
+    } catch (err) {
+      console.error('Failed to save media item:', err);
+      alert('Failed to save media item');
+    }
+  };
+
+  const handleEditMedia = (item) => {
+    setEditingMediaId(item._id);
+    setMediaForm({
+      title: item.title || '',
+      category: item.category || 'Awards',
+      link: item.link || '',
+      date: item.date ? new Date(item.date).toISOString().split('T')[0] : '',
+      image: item.image || ''
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDeleteMedia = async (id) => {
+    if (window.confirm('Are you sure you want to delete this media item?')) {
+      try {
+        await deleteMedia(id);
+        alert('Media item deleted successfully!');
+        fetchData();
+      } catch (err) {
+        console.error('Failed to delete media item:', err);
+        alert('Failed to delete media item');
+      }
     }
   };
 
@@ -325,20 +426,31 @@ const AdminDashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const fd = new FormData();
-      fd.append('image', file);
-      const res = await uploadSettingsImage(fd);
-      if (res.data && res.data.filePath) {
-        const filePath = res.data.filePath;
-        setSettingsForm(prev => ({
-          ...prev,
-          heroImages: [...(prev.heroImages || []), filePath]
-        }));
-      }
+      const compressedBase64 = await compressImage(file);
+      setSettingsForm(prev => ({
+        ...prev,
+        heroImages: [...(prev.heroImages || []), compressedBase64]
+      }));
       e.target.value = '';
     } catch (err) {
-      console.error('Failed to upload hero image:', err);
-      alert('Failed to upload hero image');
+      console.error('Failed to process hero image:', err);
+      alert('Failed to process hero image');
+    }
+  };
+
+  const handleAddAboutImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const compressedBase64 = await compressImage(file);
+      setSettingsForm(prev => ({
+        ...prev,
+        aboutImages: [...(prev.aboutImages || []), compressedBase64]
+      }));
+      e.target.value = '';
+    } catch (err) {
+      console.error('Failed to process about image:', err);
+      alert('Failed to process about image');
     }
   };
 
@@ -455,6 +567,7 @@ const AdminDashboard = () => {
     { id: 'offers', label: 'Offers', icon: <Tags size={20} /> },
     { id: 'reviews', label: 'Reviews / Messages', icon: <Star size={20} /> },
     { id: 'popupBanner', label: 'Pop-up Banners', icon: <Megaphone size={20} /> },
+    { id: 'media', label: 'Media Management', icon: <Newspaper size={20} /> },
     { id: 'settings', label: 'Settings', icon: <SettingsIcon size={20} /> },
     { id: 'notifications', label: 'Notifications', icon: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -916,6 +1029,124 @@ const AdminDashboard = () => {
             </div>
           )}
 
+          {activeTab === 'media' && (
+            <div>
+              <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>
+                {editingMediaId ? 'Edit Media/Awards Item' : 'Media & Awards Management'}
+              </h3>
+              <form onSubmit={handleMediaSubmit} style={{ display: 'grid', gap: '15px', marginBottom: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '10px' }}>
+                <div className="admin-grid-2col">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Title *</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Euro Star Awards Winner" 
+                      value={mediaForm.title} 
+                      onChange={e => setMediaForm({...mediaForm, title: e.target.value})} 
+                      required 
+                      style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Category *</label>
+                    <select 
+                      value={mediaForm.category} 
+                      onChange={e => setMediaForm({...mediaForm, category: e.target.value})} 
+                      required 
+                      style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }}
+                    >
+                      <option value="Awards">Awards</option>
+                      <option value="New Launch">New Launch</option>
+                      <option value="Press">Press</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="admin-grid-2col">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Link / Article URL</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://royaldaawat.com/news..." 
+                      value={mediaForm.link} 
+                      onChange={e => setMediaForm({...mediaForm, link: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Publish Date</label>
+                    <input 
+                      type="date" 
+                      value={mediaForm.date} 
+                      onChange={e => setMediaForm({...mediaForm, date: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#111', color: '#fff', border: '1px solid #333', colorScheme: 'dark' }} 
+                    />
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    Select Image File {!editingMediaId && <span style={{ color: 'var(--primary-color)' }}>*</span>}
+                  </label>
+                  <input 
+                    type="file" 
+                    id="mediaFileInput" 
+                    required={!editingMediaId} 
+                    onChange={e => setMediaFile(e.target.files[0])} 
+                    style={{ color: '#fff' }} 
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button type="submit" className="btn btn-primary" style={{ width: 'fit-content' }}>
+                    {editingMediaId ? 'Save Changes' : 'Upload Media Item'}
+                  </button>
+                  {editingMediaId && (
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setEditingMediaId(null);
+                        setMediaForm({ title: '', category: 'Awards', link: '', date: '' });
+                        setMediaFile(null);
+                        const fileInput = document.getElementById('mediaFileInput');
+                        if (fileInput) fileInput.value = '';
+                      }} 
+                      className="btn btn-secondary" 
+                      style={{ width: 'fit-content' }}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </form>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+                {data.media.map(m => (
+                  <div key={m._id} style={{ border: '1px solid rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '8px', position: 'relative', display: 'flex', flexDirection: 'column', gap: '10px', backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                    <div style={{ height: '150px', borderRadius: '6px', overflow: 'hidden' }}>
+                      <ImageWithFallback src={getImageUrl(m.image)} alt={m.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', backgroundColor: 'var(--primary-color)', color: '#000', padding: '2px 8px', borderRadius: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}>
+                        {m.category}
+                      </span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '10px' }}>
+                        {m.date ? new Date(m.date).toLocaleDateString('en-GB') : 'No Date'}
+                      </span>
+                    </div>
+                    <h4 style={{ color: '#fff', fontSize: '1.1rem', margin: 0, fontWeight: 'bold' }}>{m.title}</h4>
+                    {m.link && (
+                      <a href={m.link} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', fontSize: '0.85rem', textDecoration: 'none' }}>
+                        Article Link &rarr;
+                      </a>
+                    )}
+                    <div style={{ display: 'flex', gap: '10px', marginTop: 'auto', paddingTop: '10px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                      <button onClick={() => handleEditMedia(m)} style={{ backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)', border: '1px solid var(--primary-color)', padding: '5px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>Edit</button>
+                      <button onClick={() => handleDeleteMedia(m._id)} style={{ backgroundColor: 'rgba(244, 67, 54, 0.1)', color: '#f44336', border: '1px solid #f44336', padding: '5px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>Delete</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {activeTab === 'settings' && (
             <div>
               <h3 className="text-gold" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>Restaurant Variables & Settings</h3>
@@ -999,23 +1230,14 @@ const AdminDashboard = () => {
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Book Online URL</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g., https://book.royaldaawat.com/..."
-                      value={settingsForm.bookOnlineUrl} 
-                      onChange={e => setSettingsForm({...settingsForm, bookOnlineUrl: e.target.value})} 
-                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
-                    />
-                  </div>
+
                 </div>
 
                 <h5 className="text-gold" style={{ margin: '10px 0 5px 0', fontSize: '1.1rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '8px' }}>Gift Card Purchase Option (WhatsApp fallback will be used if link is empty)</h5>
                 
-                <div className="admin-grid-2col" style={{ marginBottom: '20px' }}>
+                <div className="admin-grid-2col" style={{ marginBottom: '10px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL (Custom)</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 1 (Custom)</label>
                     <input 
                       type="text" 
                       placeholder="e.g., https://vouchercart.com/... (leave empty for WhatsApp purchase)"
@@ -1025,12 +1247,58 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link Label</label>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 1 Label</label>
                     <input 
                       type="text" 
                       placeholder="e.g., Vouchercart"
                       value={settingsForm.giftCardPurchaseLabel} 
                       onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-grid-2col" style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 2 (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://giftup.app/..."
+                      value={settingsForm.giftCardPurchaseUrl2 || ''} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl2: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 2 Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Gift Up"
+                      value={settingsForm.giftCardPurchaseLabel2 || ''} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel2: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-grid-2col" style={{ marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase URL 3 (Custom)</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., https://anotherplatform.com/..."
+                      value={settingsForm.giftCardPurchaseUrl3 || ''} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseUrl3: e.target.value})} 
+                      style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gift Card Purchase Link 3 Label</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g., Other Platform"
+                      value={settingsForm.giftCardPurchaseLabel3 || ''} 
+                      onChange={e => setSettingsForm({...settingsForm, giftCardPurchaseLabel3: e.target.value})} 
                       style={{ padding: '10px', borderRadius: '6px', backgroundColor: '#111', color: '#fff', border: '1px solid #333' }} 
                     />
                   </div>
@@ -1581,6 +1849,174 @@ const AdminDashboard = () => {
                             onClick={() => {
                               const updated = (settingsForm.heroImages || []).filter((_, i) => i !== idx);
                               setSettingsForm({ ...settingsForm, heroImages: updated });
+                            }}
+                            style={{
+                              backgroundColor: 'transparent',
+                              border: 'none',
+                              color: '#ef4444',
+                              cursor: 'pointer',
+                              padding: '2px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              transition: 'color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = '#ff6b6b'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = '#ef4444'}
+                            title="Delete slide"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                <h4 className="text-gold" style={{ margin: '30px 0 10px 0', fontSize: '1.4rem', borderBottom: '1px solid rgba(182, 162, 94, 0.3)', paddingBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>About Us Section Slider Images</span>
+                  <button 
+                    type="button" 
+                    onClick={() => document.getElementById('newAboutImageInput').click()}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '5px', 
+                      backgroundColor: 'transparent', 
+                      color: 'var(--gold)', 
+                      border: '1px dashed var(--gold)', 
+                      padding: '4px 12px', 
+                      borderRadius: '30px', 
+                      cursor: 'pointer',
+                      fontSize: '0.85rem',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(182, 162, 94, 0.1)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                  >
+                    <Plus size={14} /> Add Image
+                  </button>
+                </h4>
+                <input 
+                  type="file" 
+                  id="newAboutImageInput" 
+                  style={{ display: 'none' }} 
+                  onChange={handleAddAboutImage} 
+                  accept="image/*"
+                />
+
+                <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(182, 162, 94, 0.15)', marginBottom: '20px' }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Preloaded Premium About Us Presets (Click to add/remove from slider):</span>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    {[
+                      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1200",
+                      "https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&q=80&w=1200",
+                      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+                      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=1200"
+                    ].map((presetPath, pIdx) => {
+                      const isSelected = (settingsForm.aboutImages || []).includes(presetPath);
+                      return (
+                        <button
+                          key={presetPath}
+                          type="button"
+                          onClick={() => {
+                            setSettingsForm(prev => {
+                              const aboutImages = prev.aboutImages || [];
+                              if (aboutImages.includes(presetPath)) {
+                                return { ...prev, aboutImages: aboutImages.filter(img => img !== presetPath) };
+                              } else {
+                                return { ...prev, aboutImages: [...aboutImages, presetPath] };
+                              }
+                            });
+                          }}
+                          style={{
+                            width: '100px',
+                            height: '65px',
+                            borderRadius: '6px',
+                            overflow: 'hidden',
+                            border: isSelected ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)',
+                            padding: 0,
+                            cursor: 'pointer',
+                            backgroundColor: 'transparent',
+                            transition: 'all 0.2s',
+                            position: 'relative'
+                          }}
+                          title={`Preset About ${pIdx + 1}`}
+                        >
+                          <ImageWithFallback
+                            src={getImageUrl(presetPath)}
+                            alt={`Preset About ${pIdx + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                          {isSelected && (
+                            <div style={{
+                              position: 'absolute',
+                              top: '2px',
+                              right: '2px',
+                              backgroundColor: 'var(--primary-color)',
+                              color: '#000',
+                              borderRadius: '50%',
+                              width: '16px',
+                              height: '16px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '10px',
+                              fontWeight: 'bold'
+                            }}>
+                              ✓
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+                  {(!settingsForm.aboutImages || settingsForm.aboutImages.length === 0) ? (
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: '10px 0', gridColumn: '1 / -1' }}>
+                      Using default system About Us images. Upload some custom ones above to override.
+                    </p>
+                  ) : (
+                    settingsForm.aboutImages.map((imgUrl, idx) => (
+                      <div key={idx} style={{ 
+                        position: 'relative', 
+                        border: '1px solid rgba(182, 162, 94, 0.2)', 
+                        borderRadius: '10px', 
+                        overflow: 'hidden', 
+                        height: '140px',
+                        backgroundColor: 'rgba(0,0,0,0.3)',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.02)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                      >
+                        <ImageWithFallback 
+                          src={getImageUrl(imgUrl)} 
+                          alt={`About Slider ${idx + 1}`} 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        />
+                        <div style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          backgroundColor: 'rgba(11, 46, 31, 0.85)',
+                          backdropFilter: 'blur(5px)',
+                          borderTop: '1px solid rgba(182, 162, 94, 0.2)',
+                          padding: '8px 10px',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: '600' }}>Slide #{idx + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (settingsForm.aboutImages || []).filter((_, i) => i !== idx);
+                              setSettingsForm({ ...settingsForm, aboutImages: updated });
                             }}
                             style={{
                               backgroundColor: 'transparent',

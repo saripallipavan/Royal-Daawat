@@ -20,6 +20,8 @@ export const deleteGallery = (id) => API.delete(`/gallery/${id}`);
 
 export const getMedia = () => API.get('/media');
 export const postMedia = (data) => API.post('/media', data);
+export const putMedia = (id, data) => API.put(`/media/${id}`, data);
+export const deleteMedia = (id) => API.delete(`/media/${id}`);
 
 export const createBooking = (data) => API.post('/bookings', data);
 export const getBookings = () => API.get('/bookings');
@@ -52,7 +54,7 @@ export const deleteNotification = (id) => API.delete(`/notifications/${id}`);
 
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return '';
-  if (imagePath.startsWith('http')) return imagePath;
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) return imagePath;
   const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
   const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;

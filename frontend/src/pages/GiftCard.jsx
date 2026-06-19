@@ -356,19 +356,38 @@ const GiftCard = () => {
                   <h3 className="cinzel-font text-gold" style={{ fontSize: '1.8rem', margin: '0 0 10px 0' }}>Gift Voucher Details</h3>
                   <div style={{ width: '40px', height: '1px', backgroundColor: 'var(--primary-color)', marginBottom: '1.5rem' }}></div>
                   
-                  {/* If online purchase links are configured, show them first as quick checkout options! */}
-                  {settings.giftCardPurchaseUrl && (
+                  {(settings.giftCardPurchaseUrl || settings.giftCardPurchaseUrl2 || settings.giftCardPurchaseUrl3) && (
                     <div style={{ marginBottom: '2rem', padding: '20px', borderRadius: '12px', backgroundColor: 'rgba(182, 162, 94, 0.03)', border: '1px solid rgba(182, 162, 94, 0.15)' }}>
                       <span style={{ color: 'var(--primary-color)', fontSize: '0.85rem', fontWeight: 'bold', display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>Quick Online Purchase</span>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 15px 0' }}>Purchase instantly via our automated voucher partner:</p>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 15px 0' }}>Purchase instantly via our automated voucher partners:</p>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <a 
-                          href={settings.giftCardPurchaseUrl}
-                          className="btn btn-primary"
-                          style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '12px 0', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Cinzel, serif' }}
-                        >
-                          Buy via {settings.giftCardPurchaseLabel || 'Online Store'}
-                        </a>
+                        {settings.giftCardPurchaseUrl && (
+                          <a 
+                            href={settings.giftCardPurchaseUrl}
+                            className="btn btn-primary"
+                            style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '12px 0', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Cinzel, serif' }}
+                          >
+                            Buy via {settings.giftCardPurchaseLabel || 'Online Store 1'}
+                          </a>
+                        )}
+                        {settings.giftCardPurchaseUrl2 && (
+                          <a 
+                            href={settings.giftCardPurchaseUrl2}
+                            className="btn btn-primary"
+                            style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '12px 0', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Cinzel, serif' }}
+                          >
+                            Buy via {settings.giftCardPurchaseLabel2 || 'Online Store 2'}
+                          </a>
+                        )}
+                        {settings.giftCardPurchaseUrl3 && (
+                          <a 
+                            href={settings.giftCardPurchaseUrl3}
+                            className="btn btn-primary"
+                            style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '12px 0', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Cinzel, serif' }}
+                          >
+                            Buy via {settings.giftCardPurchaseLabel3 || 'Online Store 3'}
+                          </a>
+                        )}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', margin: '15px 0' }}>
                         <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255,255,255,0.08)' }}></div>

@@ -12,10 +12,10 @@ export const getGallery = async (req, res) => {
 };
 
 export const postGallery = async (req, res) => {
-  const { title, subtitle, sortOrder } = req.body;
-  const image = req.file ? `uploads/${req.file.filename}` : null;
+  const { title, subtitle, sortOrder, image } = req.body;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
 
-  if (!image) {
+  if (!finalImage) {
     return res.status(400).json({ error: 'Image is required' });
   }
 
@@ -23,7 +23,7 @@ export const postGallery = async (req, res) => {
     const newGallery = await Gallery.create({ 
       title, 
       subtitle: subtitle || '',
-      image,
+      image: finalImage,
       sortOrder: sortOrder ? Number(sortOrder) : 0
     });
     res.status(201).json(newGallery);
@@ -40,7 +40,7 @@ export const deleteGallery = async (req, res) => {
     }
 
     // Try to delete physical file
-    if (galleryItem.image) {
+    if (galleryItem.image && !galleryItem.image.startsWith('data:')) {
       const filePath = path.resolve(galleryItem.image);
       fs.unlink(filePath, (err) => {
         if (err) console.error('Failed to delete physical file:', err);
@@ -56,24 +56,26 @@ export const deleteGallery = async (req, res) => {
 
 export const putGallery = async (req, res) => {
   const { id } = req.params;
-  const { title, subtitle, sortOrder } = req.body;
-  const image = req.file ? `uploads/${req.file.filename}` : undefined;
+  const { title, subtitle, sortOrder, image } = req.body;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
 
   try {
     const updateData = {};
     if (title !== undefined) updateData.title = title;
     if (subtitle !== undefined) updateData.subtitle = subtitle;
     if (sortOrder !== undefined) updateData.sortOrder = sortOrder ? Number(sortOrder) : 0;
-    if (image !== undefined) {
+    if (finalImage !== undefined) {
       // Find the old one first to delete the old physical file if a new image is uploaded
-      const oldItem = await Gallery.findById(id);
-      if (oldItem && oldItem.image) {
-        const filePath = path.resolve(oldItem.image);
-        fs.unlink(filePath, (err) => {
-          if (err) console.error('Failed to delete physical file during update:', err);
-        });
+      if (finalImage && !finalImage.startsWith('data:')) {
+        const oldItem = await Gallery.findById(id);
+        if (oldItem && oldItem.image && !oldItem.image.startsWith('data:')) {
+          const filePath = path.resolve(oldItem.image);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error('Failed to delete physical file during update:', err);
+          });
+        }
       }
-      updateData.image = image;
+      updateData.image = finalImage;
     }
 
     const updatedGallery = await Gallery.findByIdAndUpdate(id, updateData, { new: true });

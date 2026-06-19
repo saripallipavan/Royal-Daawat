@@ -31,9 +31,10 @@ const Media = () => {
         if (response.data && response.data.length > 0) {
           const backendMedia = response.data.map(item => ({
             ...item,
-            image: getImageUrl(item.image)
+            image: getImageUrl(item.image),
+            id: item._id
           }));
-          setMediaItems(prev => [...prev, ...backendMedia]);
+          setMediaItems(backendMedia);
         }
       } catch (err) {
         console.error("Error fetching media:", err);

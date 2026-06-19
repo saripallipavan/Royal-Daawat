@@ -627,7 +627,7 @@ export const ContactPreview = ({ settings }) => {
 
         <div style={{ textAlign: 'center', marginTop: '5rem' }}>
           {(() => {
-            const bookUrl = settings?.tableReservationsUrl || settings?.bookOnlineUrl;
+            const bookUrl = settings?.tableReservationsUrl;
             if (bookUrl && (bookUrl.startsWith('http://') || bookUrl.startsWith('https://'))) {
               return (
                 <a 

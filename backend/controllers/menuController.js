@@ -10,12 +10,12 @@ export const getMenu = async (req, res) => {
 };
 
 export const postMenu = async (req, res) => {
-  const { food_name, price, description, category, rating, availability, dietary_preference } = req.body;
-  const image = req.file ? `uploads/${req.file.filename}` : null;
+  const { food_name, price, description, category, rating, availability, dietary_preference, image } = req.body;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
 
   try {
     const newMenu = await Menu.create({ 
-      food_name, price, description, image, category, rating, availability, dietary_preference 
+      food_name, price, description, image: finalImage, category, rating, availability, dietary_preference 
     });
     res.status(201).json(newMenu);
   } catch (err) {
@@ -25,12 +25,12 @@ export const postMenu = async (req, res) => {
 
 export const putMenu = async (req, res) => {
   const { id } = req.params;
-  const { food_name, price, description, category, rating, availability, dietary_preference } = req.body;
-  const image = req.file ? `uploads/${req.file.filename}` : undefined;
+  const { food_name, price, description, category, rating, availability, dietary_preference, image } = req.body;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
 
   try {
     const updateData = { food_name, price, description, category, rating, availability, dietary_preference };
-    if (image !== undefined) updateData.image = image;
+    if (finalImage !== undefined) updateData.image = finalImage;
 
     const updatedMenu = await Menu.findByIdAndUpdate(id, updateData, { new: true });
     

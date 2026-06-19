@@ -10,12 +10,12 @@ export const getOffers = async (req, res) => {
 };
 
 export const postOffer = async (req, res) => {
-  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link } = req.body;
-  const image = req.file ? `uploads/${req.file.filename}` : null;
+  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link, image } = req.body;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
 
   try {
     const newOffer = await Offer.create({ 
-      title, description, discount_percentage, expiry_date, startDate, endDate, active, image, link 
+      title, description, discount_percentage, expiry_date, startDate, endDate, active, image: finalImage, link 
     });
     res.status(201).json(newOffer);
   } catch (err) {
@@ -25,11 +25,12 @@ export const postOffer = async (req, res) => {
 
 export const putOffer = async (req, res) => {
   const { id } = req.params;
-  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link } = req.body;
+  const { title, description, discount_percentage, expiry_date, startDate, endDate, active, link, image } = req.body;
   const updateData = { title, description, discount_percentage, expiry_date, startDate, endDate, active, link };
   
-  if (req.file) {
-    updateData.image = `uploads/${req.file.filename}`;
+  const finalImage = req.file ? `uploads/${req.file.filename}` : image;
+  if (finalImage !== undefined) {
+    updateData.image = finalImage;
   }
 
   try {

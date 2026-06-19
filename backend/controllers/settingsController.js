@@ -50,6 +50,7 @@ export const updateSettings = async (req, res) => {
       galleryPreviewSlides,
       popupBanners,
       heroImages,
+      aboutImages,
       activePopupOccasion
     } = req.body;
 
@@ -76,6 +77,7 @@ export const updateSettings = async (req, res) => {
     settings.galleryPreviewSlides = galleryPreviewSlides !== undefined ? galleryPreviewSlides : settings.galleryPreviewSlides;
     settings.popupBanners = popupBanners !== undefined ? popupBanners : settings.popupBanners;
     settings.heroImages = heroImages !== undefined ? heroImages : settings.heroImages;
+    settings.aboutImages = aboutImages !== undefined ? aboutImages : settings.aboutImages;
     settings.activePopupOccasion = activePopupOccasion !== undefined ? activePopupOccasion : settings.activePopupOccasion;
 
     const updatedSettings = await settings.save();
