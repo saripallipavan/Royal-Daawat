@@ -55,6 +55,7 @@ export const mongoSanitize = (req, res, next) => {
 // 3. XSS HTML String Escaping
 const sanitizeHtml = (str) => {
   if (typeof str !== 'string') return str;
+  if (str.startsWith('data:image/') || str.startsWith('data:application/')) return str;
   return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 
