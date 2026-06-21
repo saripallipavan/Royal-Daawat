@@ -10,6 +10,9 @@ export const getSettings = async (req, res) => {
       settings = new Settings();
       await settings.save();
     }
+    if (!settings.popupBanners) {
+      settings.popupBanners = {};
+    }
     res.json(settings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -21,9 +24,16 @@ export const getSettings = async (req, res) => {
 // @access  Private/Admin
 export const updateSettings = async (req, res) => {
   try {
+    console.log('Incoming PUT /settings request body:', JSON.stringify(req.body).slice(0, 500));
     let settings = await Settings.findOne({});
     if (!settings) {
+      console.log('Creating new Settings document...');
       settings = new Settings();
+    }
+    console.log('Database Settings document loaded.');
+
+    if (!settings.popupBanners) {
+      settings.popupBanners = {};
     }
 
     const {
@@ -75,7 +85,7 @@ export const updateSettings = async (req, res) => {
     settings.signatureDishes = signatureDishes !== undefined ? signatureDishes : settings.signatureDishes;
     settings.chefRecommendations = chefRecommendations !== undefined ? chefRecommendations : settings.chefRecommendations;
     settings.galleryPreviewSlides = galleryPreviewSlides !== undefined ? galleryPreviewSlides : settings.galleryPreviewSlides;
-    settings.popupBanners = popupBanners !== undefined ? popupBanners : settings.popupBanners;
+    settings.popupBanners = popupBanners !== undefined ? popupBanners : (settings.popupBanners || {});
     settings.heroImages = heroImages !== undefined ? heroImages : settings.heroImages;
     settings.aboutImages = aboutImages !== undefined ? aboutImages : settings.aboutImages;
     settings.activePopupOccasion = activePopupOccasion !== undefined ? activePopupOccasion : settings.activePopupOccasion;
