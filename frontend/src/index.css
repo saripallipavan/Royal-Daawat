@@ -509,6 +509,42 @@ ul {
   display: block;
 }
 
+/* Signature Dishes Layout */
+.signature-dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.signature-dish-img-container {
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.signature-dish-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+@media (hover: hover) {
+  .signature-dish-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6) !important;
+  }
+  .signature-dish-card:hover .signature-dish-image {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bgZoomMobile {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
 /* --- MOBILE ONLY STYLES & RE-ORDERING --- */
 @media (max-width: 768px) {
   .homepage-sections-container {
@@ -600,9 +636,22 @@ ul {
   }
   
   /* Grid layouts for cards on Mobile */
-  .homepage-sections-container div[style*="gridTemplateColumns"]:not(.why-choose-us-grid) {
+  .signature-dishes-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
     gap: 15px !important;
+  }
+
+  @media (max-width: 480px) {
+    .signature-dishes-grid {
+      grid-template-columns: 1fr !important;
+      gap: 15px !important;
+    }
+  }
+
+  /* Cap Background Zoom on Mobile */
+  .hero-luxury-bg {
+    height: 100% !important;
+    animation: bgZoomMobile 30s ease-in-out infinite !important;
   }
 
   /* Special Offers Cards */

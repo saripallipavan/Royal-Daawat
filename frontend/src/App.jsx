@@ -505,7 +505,17 @@ const HomePage = ({ settings }) => {
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 800], [0, 200]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = React.useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const activeHeroImages = settings?.heroImages && settings.heroImages.length > 0 
     ? settings.heroImages.map(img => getImageUrl(img))
@@ -557,8 +567,8 @@ const HomePage = ({ settings }) => {
         {/* Parallax Background Container */}
         <motion.div 
           style={{ 
-            y: yBg,
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '120%', zIndex: -1
+            y: isMobile ? 0 : yBg,
+            position: 'absolute', top: 0, left: 0, width: '100%', height: isMobile ? '100%' : '120%', zIndex: -1
           }}
         >
           {/* Luxury Royal Background */}
@@ -566,7 +576,7 @@ const HomePage = ({ settings }) => {
             <AnimatePresence initial={false}>
               <motion.div
                 key={currentImageIndex}
-                initial={{ opacity: 0, scale: 1.05 }}
+                initial={{ opacity: 0, scale: isMobile ? 1.01 : 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.8, ease: "easeInOut" }}
@@ -977,6 +987,7 @@ function AppContent() {
       operational: { title: '', description: '', img: '', link: '', buttonText: 'Learn More' }
     },
     heroImages: [],
+    aboutImages: [],
     activePopupOccasion: 'none'
   });
 
@@ -1010,6 +1021,7 @@ function AppContent() {
             galleryPreviewSlides: data.galleryPreviewSlides || [],
             popupBanners: data.popupBanners || prev.popupBanners,
             heroImages: data.heroImages || [],
+            aboutImages: data.aboutImages || [],
             activePopupOccasion: data.activePopupOccasion || prev.activePopupOccasion
           }));
         }

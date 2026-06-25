@@ -40,7 +40,7 @@ export const SignatureDishes = ({ settings }) => {
           <motion.p initial="hidden" whileInView="visible" variants={fadeInUp} viewport={{ once: true }} style={{ color: 'var(--text-muted)', letterSpacing: '2px' }}>AUTHENTIC INDIAN FINE DINING</motion.p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+        <div className="signature-dishes-grid">
           {dishes.map((dish, idx) => (
             <motion.div
               key={idx}
@@ -48,29 +48,23 @@ export const SignatureDishes = ({ settings }) => {
               whileInView="visible"
               variants={fadeInUp}
               viewport={{ once: true }}
-              whileHover={{ y: -10 }}
               className="signature-dish-card"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 borderRadius: '15px',
                 overflow: 'hidden',
                 border: '1px solid rgba(182, 162, 94, 0.1)',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease'
               }}
             >
-              <div className="signature-dish-img-container" style={{ height: '250px', overflow: 'hidden' }}>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                  style={{ width: '100%', height: '100%' }}
-                >
-                  <ImageWithFallback 
-                    src={dish.img} 
-                    alt={dish.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    loading="lazy"
-                  />
-                </motion.div>
+              <div className="signature-dish-img-container">
+                <ImageWithFallback 
+                  src={dish.img} 
+                  alt={dish.name} 
+                  className="signature-dish-image"
+                  loading="lazy"
+                />
               </div>
               <div className="signature-dish-content" style={{ padding: '1.5rem', textAlign: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginBottom: '0.5rem', color: 'var(--primary-color)' }}>
