@@ -528,21 +528,21 @@ const HomePage = ({ settings }) => {
     }
   }, [activeHeroImages.length, currentImageIndex]);
 
-  const resetTimer = () => {
+  const resetTimer = React.useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
     timerRef.current = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % activeHeroImages.length);
     }, 6000);
-  };
+  }, [activeHeroImages.length]);
 
   useEffect(() => {
     resetTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [activeHeroImages.length]);
+  }, [resetTimer]);
 
   const nextSlide = () => {
     setCurrentImageIndex((prev) => (prev + 1) % activeHeroImages.length);
