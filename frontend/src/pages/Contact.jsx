@@ -63,6 +63,11 @@ const Contact = () => {
         ...prev,
         message: "Hi! I'm a first-time customer and would like to claim the promotional offer from your website pop-up banner."
       }));
+    } else if (promo === 'loyalty' && !formData.message) {
+      setFormData(prev => ({
+        ...prev,
+        message: "Hi! I would like to join the Royal Circle Loyalty Program to start earning rewards."
+      }));
     }
   }, [promo, formData.message]);
 

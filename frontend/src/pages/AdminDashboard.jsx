@@ -327,37 +327,41 @@ const AdminDashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const compressedBase64 = await compressImage(file);
-      setSettingsForm(prev => {
-        if (type === 'dishes') {
-          const updated = [...prev.signatureDishes];
-          updated[index] = { ...updated[index], img: compressedBase64 };
-          return { ...prev, signatureDishes: updated };
-        } else if (type === 'recs') {
-          const updated = [...prev.chefRecommendations];
-          updated[index] = { ...updated[index], img: compressedBase64 };
-          return { ...prev, chefRecommendations: updated };
-        } else if (type === 'slides') {
-          const updated = [...prev.galleryPreviewSlides];
-          updated[index] = { ...updated[index], img: compressedBase64 };
-          return { ...prev, galleryPreviewSlides: updated };
-        } else if (type === 'popup') {
-          return {
-            ...prev,
-            popupBanners: {
-              ...prev.popupBanners,
-              [index]: {
-                ...prev.popupBanners[index],
-                img: compressedBase64
+      const formData = new FormData();
+      formData.append('image', file);
+      const { data } = await uploadSettingsImage(formData);
+      if (data && data.filePath) {
+        setSettingsForm(prev => {
+          if (type === 'dishes') {
+            const updated = [...prev.signatureDishes];
+            updated[index] = { ...updated[index], img: data.filePath };
+            return { ...prev, signatureDishes: updated };
+          } else if (type === 'recs') {
+            const updated = [...prev.chefRecommendations];
+            updated[index] = { ...updated[index], img: data.filePath };
+            return { ...prev, chefRecommendations: updated };
+          } else if (type === 'slides') {
+            const updated = [...prev.galleryPreviewSlides];
+            updated[index] = { ...updated[index], img: data.filePath };
+            return { ...prev, galleryPreviewSlides: updated };
+          } else if (type === 'popup') {
+            return {
+              ...prev,
+              popupBanners: {
+                ...prev.popupBanners,
+                [index]: {
+                  ...prev.popupBanners[index],
+                  img: data.filePath
+                }
               }
-            }
-          };
-        }
-        return prev;
-      });
+            };
+          }
+          return prev;
+        });
+      }
     } catch (err) {
-      console.error('Failed to process settings image:', err);
-      alert('Failed to process settings image');
+      console.error('Failed to upload settings image:', err);
+      alert('Failed to upload settings image');
     }
   };
 
@@ -426,15 +430,19 @@ const AdminDashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const compressedBase64 = await compressImage(file);
-      setSettingsForm(prev => ({
-        ...prev,
-        heroImages: [...(prev.heroImages || []), compressedBase64]
-      }));
+      const formData = new FormData();
+      formData.append('image', file);
+      const { data } = await uploadSettingsImage(formData);
+      if (data && data.filePath) {
+        setSettingsForm(prev => ({
+          ...prev,
+          heroImages: [...(prev.heroImages || []), data.filePath]
+        }));
+      }
       e.target.value = '';
     } catch (err) {
-      console.error('Failed to process hero image:', err);
-      alert('Failed to process hero image');
+      console.error('Failed to upload hero image:', err);
+      alert('Failed to upload hero image');
     }
   };
 
@@ -442,15 +450,19 @@ const AdminDashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
     try {
-      const compressedBase64 = await compressImage(file);
-      setSettingsForm(prev => ({
-        ...prev,
-        aboutImages: [...(prev.aboutImages || []), compressedBase64]
-      }));
+      const formData = new FormData();
+      formData.append('image', file);
+      const { data } = await uploadSettingsImage(formData);
+      if (data && data.filePath) {
+        setSettingsForm(prev => ({
+          ...prev,
+          aboutImages: [...(prev.aboutImages || []), data.filePath]
+        }));
+      }
       e.target.value = '';
     } catch (err) {
-      console.error('Failed to process about image:', err);
-      alert('Failed to process about image');
+      console.error('Failed to upload about image:', err);
+      alert('Failed to upload about image');
     }
   };
 

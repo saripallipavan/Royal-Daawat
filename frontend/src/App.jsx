@@ -86,6 +86,7 @@ const Navigation = ({ settings }) => {
     links.push(
       { name: 'GIFT CARD', path: '/gift-card' },
       { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
+      { name: 'LOYALTY REWARDS', path: '/loyalty' },
       { name: 'MEDIA', path: '/media' },
       { name: 'TERMS', path: '/terms' },
       { name: 'CONTACT US', path: '/contact' }
@@ -576,7 +577,7 @@ const HomePage = ({ settings }) => {
             <AnimatePresence initial={false}>
               <motion.div
                 key={currentImageIndex}
-                initial={{ opacity: 0, scale: isMobile ? 1.01 : 1.05 }}
+                initial={{ opacity: 0, scale: isMobile ? 1 : 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.8, ease: "easeInOut" }}
@@ -949,6 +950,7 @@ import Login from './pages/Login';
 import BookTable from './pages/BookTable';
 import AdminDashboard from './pages/AdminDashboard';
 import OffersGallery from './pages/OffersGallery';
+import Loyalty from './pages/Loyalty';
 
 import OfferPopup from './components/OfferPopup';
 
@@ -956,6 +958,7 @@ import OfferPopup from './components/OfferPopup';
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login');
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   const [settings, setSettings] = useState({
     restaurantName: 'Royal Daawat',
@@ -1027,10 +1030,37 @@ function AppContent() {
         }
       } catch (err) {
         console.error('Failed to load settings in AppContent:', err);
+      } finally {
+        setSettingsLoaded(true);
       }
     };
     fetchSettings();
   }, []);
+
+  if (!settingsLoaded && !isAdminRoute) {
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0, left: 0, width: '100vw', height: '100vh',
+        backgroundColor: '#04100c',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 99999
+      }}>
+        <div style={{
+          width: '60px',
+          height: '60px',
+          border: '3px solid rgba(182, 162, 94, 0.1)',
+          borderTop: '3px solid var(--primary-color)',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+        <h2 className="cinzel-font text-gold" style={{ marginTop: '20px', fontSize: '1.25rem', letterSpacing: '2px' }}>ROYAL DAAWAT</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -1051,6 +1081,10 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/book-table" element={<BookTable />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/loyalty" element={<Loyalty />} />
+            <Route path="/rewards" element={<Navigate to="/loyalty" replace />} />
+            <Route path="/stamps" element={<Navigate to="/loyalty" replace />} />
+            <Route path="/loyalty-rewards" element={<Navigate to="/loyalty" replace />} />
             <Route path="/gallery" element={<Navigate to="/offers-gallery" replace />} />
             <Route path="/offers" element={<Navigate to="/offers-gallery" replace />} />
             <Route path="/dine-in-menu" element={<Navigate to="/menu" replace />} />

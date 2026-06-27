@@ -541,7 +541,7 @@ ul {
 
 @keyframes bgZoomMobile {
   0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
+  50% { transform: scale(1); }
   100% { transform: scale(1); }
 }
 
@@ -619,7 +619,7 @@ ul {
     border-radius: 12px !important;
   }
   .signature-dish-img-container {
-    height: 170px !important;
+    height: 220px !important;
   }
   .signature-dish-content {
     padding: 1rem !important;

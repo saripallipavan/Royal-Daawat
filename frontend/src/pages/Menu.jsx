@@ -510,6 +510,15 @@ const Menu = () => {
                           </p>
                         )}
                       </div>
+                      <button 
+                        className="btn-add-to-cart"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(item);
+                        }}
+                      >
+                        Add to Cart
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -613,6 +622,15 @@ const Menu = () => {
                                       </p>
                                     )}
                                   </div>
+                                  <button 
+                                    className="btn-add-to-cart"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      addToCart(item);
+                                    }}
+                                  >
+                                    Add to Cart
+                                  </button>
                                 </div>
                               ))}
                             </div>
@@ -1027,7 +1045,24 @@ const Menu = () => {
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', gap: '15px' }}>
+                <button
+                  onClick={() => {
+                    addToCart(selectedFood);
+                    setSelectedFood(null);
+                  }}
+                  className="btn btn-primary"
+                  style={{ 
+                    flex: 1, 
+                    padding: '14px 0', 
+                    fontSize: '0.95rem', 
+                    letterSpacing: '1px', 
+                    textTransform: 'uppercase', 
+                    fontFamily: 'Cinzel, serif'
+                  }}
+                >
+                  Add to Cart
+                </button>
                 <button
                   onClick={() => setSelectedFood(null)}
                   className="btn btn-secondary"

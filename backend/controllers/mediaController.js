@@ -1,6 +1,10 @@
 import Media from '../models/Media.js';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getMedia = async (req, res) => {
   try {
@@ -38,7 +42,7 @@ export const putMedia = async (req, res) => {
       try {
         const oldItem = await Media.findById(id);
         if (oldItem && oldItem.image && !oldItem.image.startsWith('data:')) {
-          const filePath = path.resolve(oldItem.image);
+          const filePath = path.join(__dirname, '..', oldItem.image);
           fs.unlink(filePath, (err) => {
             if (err) console.error('Failed to delete physical media file:', err);
           });
@@ -70,7 +74,7 @@ export const deleteMedia = async (req, res) => {
     }
 
     if (mediaItem.image && !mediaItem.image.startsWith('data:')) {
-      const filePath = path.resolve(mediaItem.image);
+      const filePath = path.join(__dirname, '..', mediaItem.image);
       fs.unlink(filePath, (err) => {
         if (err) console.error('Failed to delete physical media file:', err);
       });

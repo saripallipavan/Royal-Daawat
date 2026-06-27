@@ -1,6 +1,10 @@
 import Gallery from '../models/Gallery.js';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getGallery = async (req, res) => {
   try {
@@ -41,7 +45,7 @@ export const deleteGallery = async (req, res) => {
 
     // Try to delete physical file
     if (galleryItem.image && !galleryItem.image.startsWith('data:')) {
-      const filePath = path.resolve(galleryItem.image);
+      const filePath = path.join(__dirname, '..', galleryItem.image);
       fs.unlink(filePath, (err) => {
         if (err) console.error('Failed to delete physical file:', err);
       });
@@ -69,7 +73,7 @@ export const putGallery = async (req, res) => {
       if (finalImage && !finalImage.startsWith('data:')) {
         const oldItem = await Gallery.findById(id);
         if (oldItem && oldItem.image && !oldItem.image.startsWith('data:')) {
-          const filePath = path.resolve(oldItem.image);
+          const filePath = path.join(__dirname, '..', oldItem.image);
           fs.unlink(filePath, (err) => {
             if (err) console.error('Failed to delete physical file during update:', err);
           });

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Award, Zap, Gift, UserPlus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Loyalty = () => {
+  const navigate = useNavigate();
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const benefits = [
@@ -60,7 +62,11 @@ const Loyalty = () => {
           <p style={{ color: '#fff', fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto 2.5rem', lineHeight: '1.8' }}>
             Sign up today and start earning points on every visit. Redeem your points for free appetizers, desserts, or even full meals!
           </p>
-          <button className="btn btn-primary" style={{ padding: '15px 50px', fontSize: '1rem' }}>
+          <button 
+            className="btn btn-primary" 
+            onClick={() => navigate('/contact?promo=loyalty')}
+            style={{ padding: '15px 50px', fontSize: '1rem' }}
+          >
             <UserPlus size={18} style={{ marginRight: '10px' }} /> JOIN NOW
           </button>
         </div>
