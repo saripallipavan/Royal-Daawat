@@ -18,6 +18,7 @@ import connectDB from './config/db.js';
 import { rateLimiter, mongoSanitize, xssProtection } from './middleware/security.js';
 import User from './models/User.js';
 import bcrypt from 'bcrypt';
+import Settings from './models/Settings.js';
 
 dotenv.config();
 
@@ -47,8 +48,38 @@ const seedAdminUser = async () => {
   }
 };
 
+const cleanDatabaseDefaultImages = async () => {
+  try {
+    const settings = await Settings.findOne({});
+    if (settings) {
+      let modified = false;
+      if (settings.heroImages && settings.heroImages.length > 0) {
+        const filteredHero = settings.heroImages.filter(img => !img.startsWith('https://images.unsplash.com/photo-'));
+        if (filteredHero.length !== settings.heroImages.length) {
+          settings.heroImages = filteredHero;
+          modified = true;
+        }
+      }
+      if (settings.aboutImages && settings.aboutImages.length > 0) {
+        const filteredAbout = settings.aboutImages.filter(img => !img.startsWith('https://images.unsplash.com/photo-'));
+        if (filteredAbout.length !== settings.aboutImages.length) {
+          settings.aboutImages = filteredAbout;
+          modified = true;
+        }
+      }
+      if (modified) {
+        await settings.save();
+        console.log('Cleaned up legacy default Unsplash images from settings database record.');
+      }
+    }
+  } catch (err) {
+    console.error('Failed to clean database default images:', err);
+  }
+};
+
 connectDB().then(() => {
   seedAdminUser();
+  cleanDatabaseDefaultImages();
 });
 
 app.use(cors());

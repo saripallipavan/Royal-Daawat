@@ -14,9 +14,7 @@ const OfferPopup = ({ settings }) => {
       // Check if already seen recently (e.g. in this session)
       const dismissed = sessionStorage.getItem(`popupBannerDismissed_${activeOccasion}`);
       if (!dismissed) {
-        // Slight delay before showing
-        const timer = setTimeout(() => setIsVisible(true), 1500);
-        return () => clearTimeout(timer);
+        setIsVisible(true);
       }
     } else {
       setIsVisible(false);
