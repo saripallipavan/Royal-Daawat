@@ -83,8 +83,9 @@ const Navigation = ({ settings }) => {
         });
     }
 
+    const giftCardUrl = settings?.giftCardPurchaseUrl || 'https://royaldaawat.touchtakeaway.net/menu/vouchers';
     links.push(
-      { name: 'GIFT CARD', path: '/gift-card' },
+      { name: 'GIFT CARD', path: giftCardUrl, isExternal: true },
       { name: 'OFFERS & GALLERY', path: '/offers-gallery' },
       { name: 'LOYALTY REWARDS', path: '/loyalty' },
       { name: 'MEDIA', path: '/media' },
@@ -157,6 +158,8 @@ const Navigation = ({ settings }) => {
                 key={item.name} 
                 href={item.path}
                 className="desktop-menu-link"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ 
                   fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', 
                   color: 'var(--text-main)',
@@ -218,6 +221,8 @@ const Navigation = ({ settings }) => {
                   <a
                     href={item.path}
                     onClick={() => setIsMobileMenuOpen(false)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mobile-drawer-link"
                     style={{ textDecoration: 'none' }}
                   >
@@ -940,19 +945,41 @@ const NotFoundPage = () => {
 };
 
 // --- PAGES ---
-import Menu from './pages/Menu';
-import Media from './pages/Media';
-import Terms from './pages/Terms';
-import Privacy from './pages/Privacy';
-import Contact from './pages/Contact';
-import GiftCard from './pages/GiftCard';
-import Login from './pages/Login';
-import BookTable from './pages/BookTable';
-import AdminDashboard from './pages/AdminDashboard';
-import OffersGallery from './pages/OffersGallery';
-import Loyalty from './pages/Loyalty';
+const Menu = React.lazy(() => import('./pages/Menu'));
+const Media = React.lazy(() => import('./pages/Media'));
+const Terms = React.lazy(() => import('./pages/Terms'));
+const Privacy = React.lazy(() => import('./pages/Privacy'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const GiftCard = React.lazy(() => import('./pages/GiftCard'));
+const Login = React.lazy(() => import('./pages/Login'));
+const BookTable = React.lazy(() => import('./pages/BookTable'));
+const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
+const OffersGallery = React.lazy(() => import('./pages/OffersGallery'));
+const Loyalty = React.lazy(() => import('./pages/Loyalty'));
 
 import OfferPopup from './components/OfferPopup';
+
+const PageLoadingSpinner = () => (
+  <div style={{ 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    minHeight: '60vh', 
+    backgroundColor: 'var(--dark-bg)',
+    color: '#fff'
+  }}>
+    <div style={{
+      width: '50px',
+      height: '50px',
+      border: '3px solid rgba(182, 162, 94, 0.1)',
+      borderTop: '3px solid var(--primary-color)',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }}></div>
+    <h3 className="cinzel-font text-gold" style={{ marginTop: '20px', fontSize: '1rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Loading...</h3>
+  </div>
+);
 
 // Main App Router Content
 function AppContent() {
@@ -1067,36 +1094,38 @@ function AppContent() {
       {!isAdminRoute && <Navigation settings={settings} />}
       
       <main style={{ flex: 1 }}>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<HomePage settings={settings} />} />
-            <Route path="/about" element={<AboutPage settings={settings} />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/media" element={<Media />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/gift-card" element={<GiftCard />} />
-            <Route path="/offers-gallery" element={<OffersGallery />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/book-table" element={<BookTable />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/loyalty" element={<Loyalty />} />
-            <Route path="/rewards" element={<Navigate to="/loyalty" replace />} />
-            <Route path="/stamps" element={<Navigate to="/loyalty" replace />} />
-            <Route path="/loyalty-rewards" element={<Navigate to="/loyalty" replace />} />
-            <Route path="/gallery" element={<Navigate to="/offers-gallery" replace />} />
-            <Route path="/offers" element={<Navigate to="/offers-gallery" replace />} />
-            <Route path="/dine-in-menu" element={<Navigate to="/menu" replace />} />
-            <Route path="/Dine-In Menu" element={<Navigate to="/menu" replace />} />
-            <Route path="/Dine-In%20Menu" element={<Navigate to="/menu" replace />} />
-            <Route path="/book" element={<Navigate to="/book-table" replace />} />
-            <Route path="/booking" element={<Navigate to="/book-table" replace />} />
-            <Route path="/birthday" element={<Navigate to="/" replace />} />
-            <Route path="/birthday-club" element={<Navigate to="/" replace />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </AnimatePresence>
+        <React.Suspense fallback={<PageLoadingSpinner />}>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<HomePage settings={settings} />} />
+              <Route path="/about" element={<AboutPage settings={settings} />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/media" element={<Media />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/gift-card" element={<GiftCard />} />
+              <Route path="/offers-gallery" element={<OffersGallery />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/book-table" element={<BookTable />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/loyalty" element={<Loyalty />} />
+              <Route path="/rewards" element={<Navigate to="/loyalty" replace />} />
+              <Route path="/stamps" element={<Navigate to="/loyalty" replace />} />
+              <Route path="/loyalty-rewards" element={<Navigate to="/loyalty" replace />} />
+              <Route path="/gallery" element={<Navigate to="/offers-gallery" replace />} />
+              <Route path="/offers" element={<Navigate to="/offers-gallery" replace />} />
+              <Route path="/dine-in-menu" element={<Navigate to="/menu" replace />} />
+              <Route path="/Dine-In Menu" element={<Navigate to="/menu" replace />} />
+              <Route path="/Dine-In%20Menu" element={<Navigate to="/menu" replace />} />
+              <Route path="/book" element={<Navigate to="/book-table" replace />} />
+              <Route path="/booking" element={<Navigate to="/book-table" replace />} />
+              <Route path="/birthday" element={<Navigate to="/" replace />} />
+              <Route path="/birthday-club" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </AnimatePresence>
+        </React.Suspense>
       </main>
 
       {!isAdminRoute && <Footer settings={settings} />}

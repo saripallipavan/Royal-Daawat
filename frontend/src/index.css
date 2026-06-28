@@ -1107,4 +1107,32 @@ ul {
   }
 }
 
+/* Offer Popup Mobile Responsiveness and Scrollability */
+.premium-popup-container {
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.premium-popup-text {
+  padding: 2.5rem 2rem;
+}
+
+.premium-popup-text.no-image {
+  padding: 3rem 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .premium-popup-container {
+    max-height: 85vh;
+    border-radius: 16px !important;
+  }
+  .premium-popup-text {
+    padding: 1.5rem 1.25rem !important;
+  }
+  .premium-popup-text.no-image {
+    padding: 2rem 1.5rem !important;
+  }
+}
+
 

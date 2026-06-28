@@ -63,6 +63,7 @@ const OfferPopup = ({ settings }) => {
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.85, y: 30 }}
           onClick={(e) => e.stopPropagation()}
+          className="premium-popup-container"
           style={{
             backgroundColor: '#050a0f',
             border: '2px solid var(--primary-color)',
@@ -98,7 +99,7 @@ const OfferPopup = ({ settings }) => {
           {banner.img ? (
             <div className="premium-popup-wrapper">
               {/* Text content column */}
-              <div className="premium-popup-text" style={{ padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
+              <div className="premium-popup-text" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
                 <div style={{ display: 'inline-block', backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)', padding: '5px 15px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem', width: 'fit-content', textTransform: 'capitalize' }}>
                   📢 {activeOccasion.replace(/([A-Z])/g, ' $1')}
                 </div>
@@ -145,7 +146,7 @@ const OfferPopup = ({ settings }) => {
             </div>
           ) : (
             /* Single Column Layout (No Image) */
-            <div style={{ padding: '3rem 2.5rem', textAlign: 'center' }}>
+            <div className="premium-popup-text no-image" style={{ textAlign: 'center' }}>
               <div style={{ display: 'inline-block', backgroundColor: 'rgba(182, 162, 94, 0.1)', color: 'var(--primary-color)', padding: '5px 15px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem', textTransform: 'capitalize' }}>
                 📢 {activeOccasion.replace(/([A-Z])/g, ' $1')}
               </div>

@@ -490,7 +490,7 @@ export const Experience = () => {
     { 
       icon: <Star size={40} />, 
       title: "Loyalty Rewards", 
-      desc: "Earn stamps on app or website orders. Collect 5 stamps and receive a £5 voucher." 
+      desc: "Earn loyalty points every time you order. Redeem your points at checkout for rewards." 
     },
     { 
       icon: <Zap size={40} />, 
